@@ -510,7 +510,7 @@ export const SignupPage = () => {
                   "flex w-full flex-col pb-6 sm:pb-8",
                   currentStep === 11 
                     ? "w-full" 
-                    : currentStep >= 1 && currentStep <= 2
+                    : currentStep >= 1 && currentStep <= 3
                   ? "max-w-sm sm:max-w-md gap-4 sm:gap-6 md:gap-8"
                     : "max-w-lg sm:max-w-xl md:max-w-2xl gap-4 sm:gap-6 md:gap-8"
                 )}>
