@@ -459,7 +459,7 @@ export const SignupPage = () => {
     <div className="bg-primary antialiased">
       <section className={cx(
         "flex min-h-screen bg-primary",
-        currentStep === 11 ? "lg:grid lg:grid-cols-1" : "lg:grid lg:grid-cols-[2fr_1fr]"
+        currentStep === 11 ? "lg:grid lg:grid-cols-1" : "lg:grid lg:grid-cols-2"
       )}>
         {/* Left Column - Form (2/3) - Scrollable */}
         <div className="flex w-full flex-col bg-primary lg:h-screen lg:overflow-hidden">
@@ -614,7 +614,7 @@ export const SignupPage = () => {
         {/* Right Side - Sidebar */}
         {currentStep !== 11 && (
           <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden">
-            <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8 w-full lg:w-1/2">
+            <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
               <SidebarContent currentStep={currentStep} formData={formData} />
           </div>
           
