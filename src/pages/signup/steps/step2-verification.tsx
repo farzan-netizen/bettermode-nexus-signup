@@ -125,7 +125,7 @@ export const Step2Verification = ({
         iconTrailing={ArrowRight}
         onClick={onNext}
         size="md"
-        isDisabled={formData.verificationCode.length !== 6}
+        isDisabled={formData.verificationCode.length !== 6 || !!errors.verificationCode}
       >
         Next
       </Button>

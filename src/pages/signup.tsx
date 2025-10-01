@@ -145,9 +145,10 @@ export const SignupPage = () => {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
     
-    // Trigger real-time validation for email field
-    if (field === 'email' && value.trim()) {
-      const newErrors = validateStep(1, { ...formData, [field]: value });
+    // Trigger real-time validation for email and verification code fields
+    if ((field === 'email' || field === 'verificationCode') && value.trim()) {
+      const stepNumber = field === 'email' ? 1 : 2;
+      const newErrors = validateStep(stepNumber, { ...formData, [field]: value });
       setErrors(prev => ({ ...prev, ...newErrors }));
     }
   };

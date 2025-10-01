@@ -26,6 +26,7 @@ export const validateStep = (step: number, formData: SignupFormData): Record<str
     case 2:
       if (!formData.verificationCode.trim()) newErrors.verificationCode = "Verification code is required";
       if (formData.verificationCode.length !== 6) newErrors.verificationCode = "Code must be 6 characters";
+      if (formData.verificationCode === "111111") newErrors.verificationCode = "Incorrect code entered";
       break;
     case 3:
       if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
