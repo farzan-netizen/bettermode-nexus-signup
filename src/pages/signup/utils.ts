@@ -9,6 +9,20 @@ export const validateStep = (step: number, formData: SignupFormData): Record<str
     case 1:
       if (!formData.email.trim()) newErrors.email = "Email is required";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Invalid email format";
+      
+      // Check for personal email domains
+      if (formData.email.trim()) {
+        const personalEmailDomains = [
+          'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'aol.com',
+          'icloud.com', 'protonmail.com', 'yandex.com', 'mail.ru', 'zoho.com',
+          'fastmail.com', 'tutanota.com', 'hey.com', 'live.com', 'msn.com'
+        ];
+        
+        const emailDomain = formData.email.split('@')[1]?.toLowerCase();
+        if (emailDomain && personalEmailDomains.includes(emailDomain)) {
+          newErrors.email = "Only work emails are acceptable. Please use your company email address.";
+        }
+      }
       break;
     case 2:
       if (!formData.verificationCode.trim()) newErrors.verificationCode = "Verification code is required";

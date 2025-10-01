@@ -41,6 +41,7 @@ export const Step1Email = ({
         iconTrailing={ArrowRight}
         onClick={onNext}
         size="md"
+        isDisabled={!formData.email.trim() || !!errors.email}
       >
         Continue
       </Button>
