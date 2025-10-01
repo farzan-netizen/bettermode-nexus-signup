@@ -135,7 +135,7 @@ const DropdownMenuSimple = () => {
 };
 
 const HeaderDropdownSimple = ({ onMobileMenuToggle }: { onMobileMenuToggle?: () => void }) => (
-    <div className="flex max-w-container mx-auto items-center justify-between w-full pl-[80px] pr-4 sm:pr-6 lg:pr-8 py-4 max-sm:py-3 max-sm:pl-[80px] max-sm:pr-3">
+    <div className="flex max-w-container mx-auto items-center justify-between w-full pl-[80px] pr-4 sm:pl-[80px] sm:pr-6 lg:pl-[80px] lg:pr-8 py-4 max-sm:py-3 max-sm:pl-[80px] max-sm:pr-3">
         {/* Logo & Mobile Menu */}
         <div className="flex items-center gap-3">
             {/* Mobile Menu Button */}
