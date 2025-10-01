@@ -8,7 +8,6 @@ export const validateStep = (step: number, formData: SignupFormData): Record<str
   switch (step) {
     case 1:
       if (!formData.email.trim()) newErrors.email = "Email is required";
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Invalid email format";
       
       // Check for personal email domains
       if (formData.email.trim()) {
