@@ -503,8 +503,8 @@ export const SignupPage = () => {
 
           <div className="flex-1 lg:overflow-y-auto lg:scrollbar-thin">
                 <div className={cx(
-              "flex justify-center items-start min-h-full py-6 sm:py-8 xl:py-8",
-              currentStep === 11 ? "px-24" : "px-4 md:px-6 lg:px-8"
+              "flex justify-start items-start min-h-full py-6 sm:py-8 xl:py-8",
+              currentStep === 11 ? "pl-[100px] pr-24" : "pl-[100px] pr-4 md:pr-6 lg:pr-8"
             )}>
                 <div className={cx(
                   "flex w-full flex-col pb-6 sm:pb-8",
