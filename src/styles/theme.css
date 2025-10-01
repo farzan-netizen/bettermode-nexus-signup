@@ -128,7 +128,8 @@
     --color-brand-300: #A6F5D3;
     --color-brand-400: #74E5B8;
     --color-brand-500: #666666;
-    --color-brand-600: #0AC06C;
+    --color-brand-600: #000000;
+    --color-brand-600-selected: #0AC06C;
     --color-brand-700: #333333;
     --color-brand-800: #0AC06C;
     --color-brand-900: #054A2E;
@@ -867,7 +868,7 @@
     --border-color-tertiary: var(--color-border-tertiary);
     --border-color-disabled: var(--color-border-disabled);
     --border-color-brand: var(--color-border-brand);
-    --border-color-brand-solid: var(--color-bg-brand-solid);
+    --border-color-brand-solid: var(--color-brand-600-selected);
     --border-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
     --border-color-error: var(--color-border-error);
     --border-color-disabled_subtle: var(--color-border-disabled_subtle);
@@ -1293,7 +1294,7 @@
         --border-color-tertiary: var(--color-border-tertiary);
         --border-color-disabled: var(--color-border-disabled);
         --border-color-brand: var(--color-border-brand);
-        --border-color-brand-solid: var(--color-bg-brand-solid);
+        --border-color-brand-solid: var(--color-brand-600-selected);
         --border-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
         --border-color-error: var(--color-border-error);
         --border-color-disabled_subtle: var(--color-border-disabled_subtle);
