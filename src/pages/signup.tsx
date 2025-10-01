@@ -614,7 +614,7 @@ export const SignupPage = () => {
         {/* Right Side - Sidebar */}
         {currentStep !== 11 && (
           <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden">
-            <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
+            <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8 w-full lg:w-1/2">
               <SidebarContent currentStep={currentStep} formData={formData} />
           </div>
           
