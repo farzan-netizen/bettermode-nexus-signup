@@ -568,7 +568,7 @@ export const SignupPage = () => {
 
                   {/* Sign in link */}
                   {currentStep === 1 && (
-                    <div className="flex justify-center gap-1 text-center">
+                    <div className="flex justify-start gap-1 text-left">
                       <span className="text-sm text-tertiary">Already have an account?</span>
                       <button 
                         onClick={() => navigate('/login')}
@@ -581,7 +581,7 @@ export const SignupPage = () => {
 
                   {/* Terms and Privacy */}
                   {currentStep === 1 && (
-                    <p className="text-xs text-tertiary text-center">
+                    <p className="text-xs text-tertiary text-left">
                       By creating an account, you agree to our{" "}
                       <a href="/terms" className="text-brand-secondary hover:text-brand-secondary_hover">Terms</a>
                       {" "}and{" "}
