@@ -65,7 +65,7 @@ export const WizardLayout = ({
 
         <div className="flex-1 overflow-y-auto scrollbar-thin">
           <div className="flex justify-start items-start pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8">
-            <div className="flex w-full flex-col pb-6 sm:pb-8 max-w-md sm:max-w-lg gap-4 sm:gap-5 md:gap-6 pl-[100px] pr-3 md:pr-5 lg:pr-6 xl:pr-8">
+            <div className="flex w-full flex-col pb-6 sm:pb-8 max-w-lg sm:max-w-xl md:max-w-2xl gap-4 sm:gap-5 md:gap-6 pl-[100px] pr-3 md:pr-5 lg:pr-6 xl:pr-8">
               
               {/* Form Content */}
               <div className="flex flex-col gap-6">
