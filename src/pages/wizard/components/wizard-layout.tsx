@@ -27,15 +27,24 @@ export const WizardLayout = ({
       <div className="flex w-full flex-col lg:w-1/2 h-full overflow-hidden">
         
         {/* Header with Progress */}
-        <header className="flex flex-col gap-4 px-4 py-6 sm:px-6 lg:px-8 flex-shrink-0">
+        <header className="flex flex-col gap-1 px-4 py-1 sm:gap-1.5 sm:py-1.5 sm:px-6 md:px-8 lg:px-8 xl:px-8 flex-shrink-0">
           {/* Logo and Step Label */}
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex h-8 w-max items-center justify-start overflow-visible">
+            <div className="flex h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[32px]">
               <img 
                 src="/logo-bettermode.svg" 
                 alt="bettermode" 
                 className="h-6 w-auto logo-filter"
+              />
+            </div>
+            
+            {/* Mobile Logo */}
+            <div className="flex items-center justify-center md:hidden">
+              <img 
+                src="/logo-bettermode.svg" 
+                alt="bettermode" 
+                className="h-8 w-auto logo-filter"
               />
             </div>
             
@@ -55,8 +64,8 @@ export const WizardLayout = ({
         </header>
 
         <div className="flex-1 overflow-y-auto scrollbar-thin">
-          <div className="flex justify-center items-start py-6 sm:py-8 xl:py-8 px-6 md:px-10 lg:px-12 xl:px-16">
-            <div className="flex w-full flex-col pb-6 sm:pb-8 max-w-md sm:max-w-lg gap-4 sm:gap-5 md:gap-6">
+          <div className="flex justify-start items-start pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8">
+            <div className="flex w-full flex-col pb-6 sm:pb-8 max-w-md sm:max-w-lg gap-4 sm:gap-5 md:gap-6 pl-[100px] pr-6 md:pr-10 lg:pr-12 xl:pr-16">
               
               {/* Form Content */}
               <div className="flex flex-col gap-6">
