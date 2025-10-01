@@ -12,19 +12,19 @@ export const styles = sortCx({
 
     sizes: {
         sm: {
-            root: "gap-2 rounded-lg px-3 py-2 text-sm before:rounded-[7px] data-icon-only:p-2",
+            root: "gap-2 rounded-[80px] px-3 py-2 text-sm before:rounded-[79px] data-icon-only:p-2",
         },
         md: {
-            root: "gap-2.5 rounded-lg px-3.5 py-2.5 text-sm before:rounded-[7px] data-icon-only:p-2.5",
+            root: "gap-2.5 rounded-[80px] px-3.5 py-2.5 text-sm before:rounded-[79px] data-icon-only:p-2.5",
         },
         lg: {
-            root: "gap-3 rounded-lg px-4 py-2.5 text-md before:rounded-[7px] data-icon-only:p-2.5",
+            root: "gap-3 rounded-[80px] px-4 py-2.5 text-md before:rounded-[79px] data-icon-only:p-2.5",
         },
         xl: {
-            root: "gap-3.5 rounded-lg px-4.5 py-3 text-md before:rounded-[7px] data-icon-only:p-3.5",
+            root: "gap-3.5 rounded-[80px] px-4.5 py-3 text-md before:rounded-[79px] data-icon-only:p-3.5",
         },
         "2xl": {
-            root: "gap-4 rounded-[10px] px-5.5 py-4 text-lg before:rounded-[9px] data-icon-only:p-4",
+            root: "gap-4 rounded-[80px] px-5.5 py-4 text-lg before:rounded-[79px] data-icon-only:p-4",
         },
     },
 

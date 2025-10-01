@@ -66,7 +66,7 @@ export const ButtonUtility = ({
             // Component into Link and Button.
             {...(otherProps as any)}
             className={cx(
-                "group relative inline-flex h-max cursor-pointer items-center justify-center rounded-md p-1.5 outline-focus-ring transition duration-100 ease-linear focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:text-fg-disabled_subtle",
+                "group relative inline-flex h-max cursor-pointer items-center justify-center rounded-[80px] p-1.5 outline-focus-ring transition duration-100 ease-linear focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:text-fg-disabled_subtle",
                 styles[color],
 
                 // Icon styles

@@ -27,7 +27,7 @@ export const CloseButton = ({ label, className, size = "sm", theme = "light", ..
             aria-label={label || "Close"}
             className={(state) =>
                 cx(
-                    "flex cursor-pointer items-center justify-center rounded-lg p-2 transition duration-100 ease-linear focus:outline-hidden",
+                    "flex cursor-pointer items-center justify-center rounded-[80px] p-2 transition duration-100 ease-linear focus:outline-hidden",
                     sizes[size].root,
                     themes[theme],
                     typeof className === "function" ? className(state) : className,
