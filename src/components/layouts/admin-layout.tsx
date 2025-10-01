@@ -294,7 +294,7 @@ export const AdminLayout = ({
                 <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden scrollbar-thin">
                 {/* Header */}
                 {!hideHeader && (
-                    <header className="flex items-center justify-between border-b border-secondary bg-primary px-6 py-4">
+                    <header className="flex items-center justify-between border-b border-secondary bg-primary pl-[80px] pr-6 py-4">
                         <div>
                             <h1 className="text-xl font-semibold text-primary">{title}</h1>
                             <p className="text-sm text-tertiary">{description}</p>
