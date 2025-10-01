@@ -139,8 +139,16 @@ export const SignupPage = () => {
 
   const handleInputChange = (field: keyof SignupFormData) => (value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Clear existing error for this field
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
+    }
+    
+    // Trigger real-time validation for email field
+    if (field === 'email' && value.trim()) {
+      const newErrors = validateStep(1, { ...formData, [field]: value });
+      setErrors(prev => ({ ...prev, ...newErrors }));
     }
   };
 
