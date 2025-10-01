@@ -464,7 +464,7 @@ export const SignupPage = () => {
         {/* Left Column - Form (2/3) - Scrollable */}
         <div className="flex w-full flex-col bg-primary lg:h-screen lg:overflow-hidden">
           {/* Header */}
-          <header className="flex flex-col gap-4 px-4 py-4 sm:gap-6 sm:py-6 sm:px-6 md:px-8 lg:px-8 xl:px-8">
+          <header className="flex flex-col gap-2 px-4 py-2 sm:gap-3 sm:py-3 sm:px-6 md:px-8 lg:px-8 xl:px-8">
             {/* Logo */}
                   <div className="flex h-8 w-max items-center justify-start overflow-visible max-md:hidden p-[68px]">
                     <img 
