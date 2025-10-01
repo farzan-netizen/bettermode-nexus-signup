@@ -24,7 +24,7 @@ export const WizardLayout = ({
   return (
     <section className="flex h-screen bg-primary overflow-hidden">
       {/* Left Side - Form */}
-      <div className="flex w-1/2 flex-col h-full overflow-hidden">
+      <div className="flex w-1/2 flex-col h-full overflow-hidden flex-shrink-0">
         
         {/* Header with Progress */}
         <header className="flex flex-col gap-1 px-4 py-1 sm:gap-1.5 sm:py-1.5 sm:px-6 md:px-8 lg:px-8 xl:px-8 flex-shrink-0">
@@ -122,7 +122,7 @@ export const WizardLayout = ({
       </div>
 
       {/* Right Side - Preview */}
-      <div className="relative flex w-1/2 flex-col bg-tertiary h-full overflow-hidden">
+      <div className="relative flex w-1/2 flex-col bg-tertiary h-full overflow-hidden flex-shrink-0">
         <div className="flex flex-col justify-start items-center h-full p-6 lg:p-8">
           <CommunityPreview 
             formData={formData}
