@@ -25,7 +25,7 @@ export const Step1NameCommunity = ({
     <div className="flex flex-col gap-6">
       {/* Initial Question */}
       {showInitialQuestion && (
-        <div className="flex justify-end items-center gap-6">
+        <div className="flex justify-start items-center gap-6">
           <button
             onClick={() => onInputChange('hasMigrationPreference')(true)}
             className="text-sm text-tertiary hover:text-tertiary_hover underline decoration-transparent hover:decoration-tertiary underline-offset-2 transition-all"
