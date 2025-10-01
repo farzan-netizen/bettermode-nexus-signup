@@ -117,7 +117,18 @@ export const Step2Verification = ({
       </div>
       
       {errors.verificationCode && (
-        <p className="text-sm text-error-primary text-center">{errors.verificationCode}</p>
+        <p className="text-sm text-error-primary text-center">
+          {errors.verificationCode === "Code has been expired, tap to resend" ? (
+            <button 
+              onClick={onResendCode}
+              className="underline hover:no-underline cursor-pointer"
+            >
+              {errors.verificationCode}
+            </button>
+          ) : (
+            errors.verificationCode
+          )}
+        </p>
       )}
 
       <Button
