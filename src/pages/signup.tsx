@@ -466,7 +466,7 @@ export const SignupPage = () => {
           {/* Header */}
           <header className="flex flex-col gap-1 px-4 py-1 sm:gap-1.5 sm:py-1.5 sm:px-6 md:px-8 lg:px-8 xl:px-8">
             {/* Logo */}
-                  <div className="flex h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[34px]">
+                  <div className="flex h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[12px]">
                     <img 
                       src="/logo-bettermode.svg" 
                       alt="bettermode" 
