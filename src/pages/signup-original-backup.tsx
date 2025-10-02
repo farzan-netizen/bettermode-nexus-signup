@@ -1557,7 +1557,7 @@ export const SignupPage = () => {
               </Button>
             </div>
 
-            <div className="space-y-1 mb-4 mt-4">
+            <div className="space-y-1 mb-4 mt-4 h-[216px] overflow-hidden">
               {plan.features.map((feature, index) => (
                 <div key={index} className="flex items-center text-xs text-tertiary">
                   <feature.icon className="w-3 h-3 mr-2 text-quaternary" />
