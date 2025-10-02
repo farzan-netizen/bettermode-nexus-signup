@@ -450,8 +450,8 @@ export const Step11PlanSelection = ({
                 {/* Action Button - Moved to be right after price */}
                 <div className="pt-4 border-t border-tertiary">
                   <Button
-                    className="w-full"
-                    color={plan.buttonStyle === "primary" ? "primary" : plan.buttonStyle === "secondary" ? "secondary" : "tertiary"}
+                    className={plan.recommended ? "w-full" : "w-full bg-white border border-gray-300 text-gray-900 hover:bg-gray-50"}
+                    color={plan.recommended ? (plan.buttonStyle === "primary" ? "primary" : plan.buttonStyle === "secondary" ? "secondary" : "tertiary") : "tertiary"}
                     size="sm"
                     onClick={() => {
                       onSetSelectedPlan(plan.id);
