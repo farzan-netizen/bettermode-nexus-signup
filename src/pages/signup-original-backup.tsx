@@ -1509,7 +1509,7 @@ export const SignupPage = () => {
               <div className="mb-2">
                 <h3 className="text-base font-semibold text-primary">{plan.name}</h3>
               </div>
-              <div className=" min-h-[60px] flex flex-col justify-center">
+              <div className=" min-h-[66px] flex flex-col justify-center">
                 {billingPeriod === 'annual' && plan.annualPrice && plan.price !== plan.annualPrice ? (
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2 mb-2">
@@ -1525,7 +1525,7 @@ export const SignupPage = () => {
                       </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col justify-center h-full">
+                  <div className="flex flex-col justify-center h-full pb-1.5">
                     <div className="flex items-baseline">
                 <span className="text-3xl font-bold text-primary">{plan.price}</span>
                  {plan.price !== "Contact Us" && <span className="ml-1 text-tertiary">/m</span>}
