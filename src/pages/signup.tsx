@@ -208,6 +208,12 @@ export const SignupPage = () => {
   const handleResendCode = () => {
     // Simulate sending code
     setResendCooldown(30);
+    
+    // If current error is about expired code, change it to "Code has been sent"
+    if (errors.verificationCode === "Code has been expired, tap to resend") {
+      setErrors(prev => ({ ...prev, verificationCode: "Code has been sent" }));
+    }
+    
     const timer = setInterval(() => {
       setResendCooldown(prev => {
         if (prev <= 1) {
