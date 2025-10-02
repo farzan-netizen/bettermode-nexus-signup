@@ -405,7 +405,7 @@ export const Step11PlanSelection = ({
               >
                 {plan.recommended && (
                   <div className="absolute -top-4 left-3 ">
-                    <span className="text-white text-[0.8rem] font-medium px-3 py-1 rounded-md" style={{ backgroundColor: '#12BD6A' }}>
+                    <span className="text-[0.8rem] font-medium px-3 py-1 rounded-md" style={{ backgroundColor: '#097444', color: '#BFEACF' }}>
                       Recommended based on your needs
                     </span>
                   </div>
