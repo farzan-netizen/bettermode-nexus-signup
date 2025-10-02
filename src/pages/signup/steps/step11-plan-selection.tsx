@@ -372,11 +372,9 @@ export const Step11PlanSelection = ({
               )}>
                 Yearly
               </span>
-              {billingPeriod === 'annual' && (
-                <span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded-md">
-                  Save 20%
-                </span>
-              )}
+              <span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded-md">
+                Save 20%
+              </span>
             </div>
           </div>
         </div>
