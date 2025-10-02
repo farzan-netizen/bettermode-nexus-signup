@@ -68,15 +68,13 @@ export const Step9Integrations = ({
           ))}
         </div>
         
-        {/* Helper note - Only show if Growth/Enterprise tools are selected */}
-        {formData.currentTools.some(tool => GROWTH_ENTERPRISE_TOOLS.includes(tool)) && (
-          <div className="mt-3 bg-secondary/30 rounded-lg p-3">
-            <p className="text-xs text-tertiary text-left">
-              <Asterisk02 className="w-3 h-3 inline mr-1 text-purple-500" />
-              These integrations are only available in the Enterprise plan.
-            </p>
-          </div>
-        )}
+        {/* Helper note - Always visible */}
+        <div className="mt-3 bg-secondary/30 rounded-lg p-3">
+          <p className="text-xs text-tertiary text-left">
+            <Asterisk02 className="w-3 h-3 inline mr-1 text-purple-500" />
+            These integrations are only available in the Enterprise plan.
+          </p>
+        </div>
       </div>
 
       <div className="flex justify-end items-center gap-6">
