@@ -390,7 +390,7 @@ export const Step11PlanSelection = ({
               <div 
                 key={plan.id}
                 className={cx(
-                  "relative p-3 sm:p-4 rounded-lg border cursor-pointer transition-all hover:shadow-md flex flex-col",
+                  "relative p-3 sm:p-4 rounded-xl border cursor-pointer transition-all hover:shadow-md flex flex-col",
                   formData.selectedPlan === plan.id
                     ? "border-brand-solid bg-brand-primary/50 shadow-sm"
                     : plan.recommended
