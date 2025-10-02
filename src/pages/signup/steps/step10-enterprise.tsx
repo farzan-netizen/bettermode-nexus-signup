@@ -121,7 +121,7 @@ export const Step10Enterprise = ({
                   onNext(true);
                 }, 300);
               }}
-              className="text-sm text-tertiary hover:text-tertiary_hover underline decoration-transparent hover:decoration-tertiary underline-offset-2 transition-all"
+              className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
             >
               Continue without enterprise features
             </button>
