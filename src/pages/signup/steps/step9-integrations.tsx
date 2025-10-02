@@ -32,7 +32,7 @@ export const Step9Integrations = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {SAAS_TOOLS.map(tool => (
             <div key={tool.id} className={cx(
-              "flex p-2 sm:p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm",
+              "flex items-center p-2 sm:p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm",
               formData.currentTools.includes(tool.id)
                 ? "border-brand-solid bg-brand-primary/50 shadow-sm"
                 : "border-secondary hover:border-primary"
@@ -41,7 +41,7 @@ export const Step9Integrations = ({
             >
               {/* Logo - Left side */}
               {tool.logo && (
-                <div className="w-6 h-6 flex items-start justify-center flex-shrink-0 mr-3 mt-0.5">
+                <div className="w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3">
                   <img 
                     src={tool.logo} 
                     alt={tool.name}
@@ -56,18 +56,48 @@ export const Step9Integrations = ({
               {/* Text content */}
               <div className="flex-1 min-w-0">
                 <div className="font-medium text-primary text-xs sm:text-sm truncate">{tool.name}</div>
-                <div className="text-xs text-tertiary mt-1 line-clamp-2">{tool.description}</div>
               </div>
               
               {/* Asterisk icon - Right side - Only for Growth/Enterprise tools */}
               {GROWTH_ENTERPRISE_TOOLS.includes(tool.id) && (
-                <div className="flex-shrink-0 ml-2 mt-0.5">
+                <div className="flex-shrink-0 ml-2">
                   <Asterisk02 className="w-3 h-3 text-purple-500" />
                 </div>
               )}
             </div>
           ))}
         </div>
+        
+        {/* Selected integrations descriptions */}
+        {formData.currentTools.length > 0 && (
+          <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
+            <h4 className="text-sm font-medium text-primary mb-3">Selected Integrations:</h4>
+            <div className="space-y-2">
+              {formData.currentTools.map(toolId => {
+                const tool = SAAS_TOOLS.find(t => t.id === toolId);
+                if (!tool) return null;
+                return (
+                  <div key={toolId} className="flex items-start gap-3">
+                    <div className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <img 
+                        src={tool.logo} 
+                        alt={tool.name}
+                        className={cx(
+                          "max-w-full max-h-full object-contain",
+                          (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
+                        )}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-medium text-primary text-sm">{tool.name}</div>
+                      <div className="text-xs text-tertiary mt-0.5">{tool.description}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
         
         {/* Helper note - Always visible */}
         <div className="mt-3 bg-secondary/30 rounded-lg p-3">
