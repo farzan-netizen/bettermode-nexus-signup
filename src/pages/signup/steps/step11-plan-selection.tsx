@@ -449,64 +449,35 @@ export const Step11PlanSelection = ({
 
                 {/* Action Button - Moved to be right after price */}
                 <div className="pt-4 border-t border-tertiary">
-                  <div className="flex flex-col h-28">
-                    <Button
-                      className="w-full flex-shrink-0"
-                      color={plan.buttonStyle === "primary" ? "primary" : plan.buttonStyle === "secondary" ? "secondary" : "tertiary"}
-                      size="sm"
-                      onClick={() => {
-                        onSetSelectedPlan(plan.id);
-                        // For trial buttons, log the community name for payment
-                        if (plan.buttonText.includes("trial")) {
-                          const communityName = getCommunityName();
-                          console.log(`Starting ${plan.buttonText} for: ${communityName}`);
-                          // You can add payment logic here that uses communityName instead of formData.firstName
-                        }
-                        onSubmit();
-                      }}
-                      isLoading={isLoading && formData.selectedPlan === plan.id}
+                  <Button
+                    className="w-full"
+                    color={plan.buttonStyle === "primary" ? "primary" : plan.buttonStyle === "secondary" ? "secondary" : "tertiary"}
+                    size="sm"
+                    onClick={() => {
+                      onSetSelectedPlan(plan.id);
+                      // For trial buttons, log the community name for payment
+                      if (plan.buttonText.includes("trial")) {
+                        const communityName = getCommunityName();
+                        console.log(`Starting ${plan.buttonText} for: ${communityName}`);
+                        // You can add payment logic here that uses communityName instead of formData.firstName
+                      }
+                      onSubmit();
+                    }}
+                    isLoading={isLoading && formData.selectedPlan === plan.id}
+                  >
+                    {plan.buttonText}
+                  </Button>
+                  
+                  {plan.id === "growth" && (
+                    <a 
+                      href="https://bettermode.com/contact-sales" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block text-center text-sm font-medium transition-colors mt-3 text-brand-secondary hover:text-brand-secondary_hover"
                     >
-                      {plan.buttonText}
-                    </Button>
-                    
-                    {plan.id === "growth" ? (
-                      <div className="flex flex-col flex-1 min-h-0">
-                        <a 
-                          href="https://bettermode.com/contact-sales" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="block text-center text-sm font-medium transition-colors mt-3 text-brand-secondary hover:text-brand-secondary_hover flex-shrink-0"
-                        >
-                          Request a demo
-                        </a>
-                        <div className="mt-auto flex-shrink-0 space-y-3">
-                          <div className="border-t border-tertiary/30"></div>
-                          <a 
-                            href="https://bettermode.com/pricing" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="block text-center text-xs transition-colors text-quaternary hover:text-tertiary"
-                          >
-                            See details →
-                          </a>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col flex-1 min-h-0">
-                        <div className="mt-auto flex-shrink-0 space-y-3">
-                          <div className="border-t border-tertiary/30 mt-3"></div>
-                          <a 
-                            href="https://bettermode.com/pricing" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="block text-center text-xs transition-colors text-quaternary hover:text-tertiary"
-                          >
-                            See details →
-                          </a>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                      Request a demo
+                    </a>
+                  )}
                 </div>
 
                 <div className="space-y-1 mb-4 mt-4">
@@ -521,6 +492,18 @@ export const Step11PlanSelection = ({
                 <div className="mb-4 mt-4">
                   <p className="text-xs mb-1 text-quaternary">Integrations</p>
                   {renderIntegrationLogos(plan.id)}
+                </div>
+
+                {/* See details link at bottom */}
+                <div className="mt-auto pt-4 border-t border-tertiary/30">
+                  <a 
+                    href="https://bettermode.com/pricing" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block text-center text-xs transition-colors text-quaternary hover:text-tertiary"
+                  >
+                    See details →
+                  </a>
                 </div>
               </div>
             ));

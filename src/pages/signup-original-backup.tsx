@@ -1555,15 +1555,6 @@ export const SignupPage = () => {
               >
                 {plan.buttonText}
               </Button>
-              
-              <a 
-                href="https://bettermode.com/pricing" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block text-center text-xs transition-colors mt-1.5 text-quaternary hover:text-tertiary"
-              >
-                See details →
-              </a>
             </div>
 
             <div className="space-y-1 mb-4 mt-4">
@@ -1636,6 +1627,18 @@ export const SignupPage = () => {
                   </>
                 )}
               </div>
+            </div>
+
+            {/* See details link at bottom */}
+            <div className="mt-auto pt-4 border-t border-tertiary/30">
+              <a 
+                href="https://bettermode.com/pricing" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block text-center text-xs transition-colors text-quaternary hover:text-tertiary"
+              >
+                See details →
+              </a>
             </div>
             </div>
                  ))
