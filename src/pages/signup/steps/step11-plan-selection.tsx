@@ -343,29 +343,33 @@ export const Step11PlanSelection = ({
       <div className="flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <h2 className="text-2xl font-semibold text-primary">Choose your plan</h2>
-          <div className="flex bg-secondary rounded-lg p-1 mx-auto sm:mx-0">
-            <button
-              onClick={() => onSetBillingPeriod('annual')}
-              className={cx(
-                "px-3 py-1.5 rounded-md text-sm font-medium transition-all",
-                billingPeriod === 'annual'
-                  ? "bg-primary text-primary shadow-sm"
-                  : "text-tertiary hover:text-primary"
-              )}
-            >
-              Annually
-            </button>
-            <button
-              onClick={() => onSetBillingPeriod('monthly')}
-              className={cx(
-                "px-3 py-1.5 rounded-md text-sm font-medium transition-all",
-                billingPeriod === 'monthly'
-                  ? "bg-primary text-primary shadow-sm"
-                  : "text-tertiary hover:text-primary"
-              )}
-            >
+          <div className="flex items-center gap-3 mx-auto sm:mx-0">
+            <span className={cx(
+              "text-sm font-medium transition-colors",
+              billingPeriod === 'monthly' ? "text-primary" : "text-tertiary"
+            )}>
               Monthly
+            </span>
+            <button
+              onClick={() => onSetBillingPeriod(billingPeriod === 'annual' ? 'monthly' : 'annual')}
+              className={cx(
+                "relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2",
+                billingPeriod === 'annual' ? "bg-gray-900" : "bg-gray-300"
+              )}
+            >
+              <span
+                className={cx(
+                  "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
+                  billingPeriod === 'annual' ? "translate-x-6" : "translate-x-1"
+                )}
+              />
             </button>
+            <span className={cx(
+              "text-sm font-medium transition-colors",
+              billingPeriod === 'annual' ? "text-primary" : "text-tertiary"
+            )}>
+              Yearly
+            </span>
           </div>
         </div>
         
