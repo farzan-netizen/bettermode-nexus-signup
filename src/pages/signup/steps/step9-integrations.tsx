@@ -68,36 +68,33 @@ export const Step9Integrations = ({
           ))}
         </div>
         
-        {/* Selected integrations descriptions */}
-        {formData.currentTools.length > 0 && (
-          <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
-            <h4 className="text-sm font-medium text-primary mb-3">Selected Integrations:</h4>
-            <div className="space-y-2">
-              {formData.currentTools.map(toolId => {
-                const tool = SAAS_TOOLS.find(t => t.id === toolId);
-                if (!tool) return null;
-                return (
-                  <div key={toolId} className="flex items-start gap-3">
-                    <div className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <img 
-                        src={tool.logo} 
-                        alt={tool.name}
-                        className={cx(
-                          "max-w-full max-h-full object-contain",
-                          (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
-                        )}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-medium text-primary text-sm">{tool.name}</div>
-                      <div className="text-xs text-tertiary mt-0.5">{tool.description}</div>
-                    </div>
-                  </div>
-                );
-              })}
+        {/* Last selected integration description */}
+        {formData.currentTools.length > 0 && (() => {
+          const lastSelectedToolId = formData.currentTools[formData.currentTools.length - 1];
+          const tool = SAAS_TOOLS.find(t => t.id === lastSelectedToolId);
+          if (!tool) return null;
+          
+          return (
+            <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <img 
+                    src={tool.logo} 
+                    alt={tool.name}
+                    className={cx(
+                      "max-w-full max-h-full object-contain",
+                      (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
+                    )}
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="font-medium text-primary text-sm">{tool.name}</div>
+                  <div className="text-xs text-tertiary mt-0.5">{tool.description}</div>
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
         
         {/* Helper note - Always visible */}
         <div className="mt-3 bg-secondary/30 rounded-lg p-3">
