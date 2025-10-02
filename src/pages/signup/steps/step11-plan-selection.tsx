@@ -353,9 +353,10 @@ export const Step11PlanSelection = ({
             <button
               onClick={() => onSetBillingPeriod(billingPeriod === 'annual' ? 'monthly' : 'annual')}
               className={cx(
-                "relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2",
+                "relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none",
                 billingPeriod === 'annual' ? "bg-gray-900" : "bg-gray-300"
               )}
+              style={{ outline: 'none', boxShadow: 'none' }}
             >
               <span
                 className={cx(
@@ -364,12 +365,19 @@ export const Step11PlanSelection = ({
                 )}
               />
             </button>
-            <span className={cx(
-              "text-sm font-medium transition-colors",
-              billingPeriod === 'annual' ? "text-primary" : "text-tertiary"
-            )}>
-              Yearly
-            </span>
+            <div className="flex items-center gap-2">
+              <span className={cx(
+                "text-sm font-medium transition-colors",
+                billingPeriod === 'annual' ? "text-primary" : "text-tertiary"
+              )}>
+                Yearly
+              </span>
+              {billingPeriod === 'annual' && (
+                <span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded-md">
+                  Save 20%
+                </span>
+              )}
+            </div>
           </div>
         </div>
         
