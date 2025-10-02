@@ -447,22 +447,8 @@ export const Step11PlanSelection = ({
                   </div>
                 </div>
 
-                <div className="space-y-1 mb-4 mt-4">
-                  {plan.features.map((feature, index) => (
-                    <div key={index} className="flex items-center text-xs text-tertiary">
-                      <feature.icon className="w-3 h-3 mr-2 text-quaternary" />
-                      {feature.text}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mb-4 mt-4">
-                  <p className="text-xs mb-1 text-quaternary">Integrations</p>
-                  {renderIntegrationLogos(plan.id)}
-                </div>
-
-                {/* Card Footer - Action Button */}
-                <div className="mt-auto pt-4 border-t border-tertiary">
+                {/* Action Button - Moved to be right after price */}
+                <div className="pt-4 border-t border-tertiary">
                   <div className="flex flex-col h-28">
                     <Button
                       className="w-full flex-shrink-0"
@@ -521,6 +507,20 @@ export const Step11PlanSelection = ({
                       </div>
                     )}
                   </div>
+                </div>
+
+                <div className="space-y-1 mb-4 mt-4">
+                  {plan.features.map((feature, index) => (
+                    <div key={index} className="flex items-center text-xs text-tertiary">
+                      <feature.icon className="w-3 h-3 mr-2 text-quaternary" />
+                      {feature.text}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mb-4 mt-4">
+                  <p className="text-xs mb-1 text-quaternary">Integrations</p>
+                  {renderIntegrationLogos(plan.id)}
                 </div>
               </div>
             ));

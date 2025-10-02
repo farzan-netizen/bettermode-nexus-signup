@@ -1541,6 +1541,31 @@ export const SignupPage = () => {
               </div>
             </div>
 
+            {/* Action Button - Moved to be right after price */}
+            <div className="pt-4 border-t border-tertiary">
+              <Button
+                className="w-full"
+                color={plan.buttonStyle === "primary" ? "primary" : plan.buttonStyle === "secondary" ? "secondary" : "tertiary"}
+                size="sm"
+                onClick={() => {
+                  setFormData(prev => ({ ...prev, selectedPlan: plan.id }));
+                  handleSubmit();
+                }}
+                isLoading={isLoading && formData.selectedPlan === plan.id}
+              >
+                {plan.buttonText}
+              </Button>
+              
+              <a 
+                href="https://bettermode.com/pricing" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block text-center text-xs transition-colors mt-1.5 text-quaternary hover:text-tertiary"
+              >
+                See details →
+              </a>
+            </div>
+
             <div className="space-y-1 mb-4 mt-4">
               {plan.features.map((feature, index) => (
                 <div key={index} className="flex items-center text-xs text-tertiary">
@@ -1611,31 +1636,6 @@ export const SignupPage = () => {
                   </>
                 )}
               </div>
-            </div>
-
-            {/* Card Footer - Action Button */}
-            <div className="mt-auto pt-4 border-t border-tertiary">
-              <Button
-                className="w-full"
-                color={plan.buttonStyle === "primary" ? "primary" : plan.buttonStyle === "secondary" ? "secondary" : "tertiary"}
-                size="sm"
-                onClick={() => {
-                  setFormData(prev => ({ ...prev, selectedPlan: plan.id }));
-                  handleSubmit();
-                }}
-                isLoading={isLoading && formData.selectedPlan === plan.id}
-              >
-                {plan.buttonText}
-              </Button>
-              
-              <a 
-                href="https://bettermode.com/pricing" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block text-center text-xs transition-colors mt-1.5 text-quaternary hover:text-tertiary"
-              >
-                See details →
-              </a>
             </div>
             </div>
                  ))
