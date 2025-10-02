@@ -468,16 +468,6 @@ export const Step11PlanSelection = ({
                     {plan.buttonText}
                   </Button>
                   
-                  {plan.id === "growth" && (
-                    <a 
-                      href="https://bettermode.com/contact-sales" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="block text-center text-sm font-medium transition-colors mt-3 text-brand-secondary hover:text-brand-secondary_hover"
-                    >
-                      Request a demo
-                    </a>
-                  )}
                 </div>
 
                 <div className="space-y-1 mb-4 mt-4">
