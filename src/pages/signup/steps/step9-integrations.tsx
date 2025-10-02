@@ -82,7 +82,7 @@ export const Step9Integrations = ({
       <div className="flex justify-end items-center gap-6">
         <button
           onClick={onNext}
-          className="text-sm text-tertiary hover:text-tertiary_hover underline decoration-transparent hover:decoration-tertiary underline-offset-2 transition-all"
+          className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-transparent hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer font-medium"
         >
           No integrations needed for now
         </button>
