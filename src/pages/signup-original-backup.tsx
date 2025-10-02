@@ -1499,7 +1499,7 @@ export const SignupPage = () => {
           >
             {plan.recommended && (
               <div className="absolute -top-4 left-3 ">
-                <span className="text-[0.8rem] font-medium px-3 py-1 rounded-md" style={{ backgroundColor: '#097444', color: '#BFEACF' }}>
+                <span className="text-[0.8rem] font-medium px-3 py-1 rounded-md" style={{ backgroundColor: '#BFEACF', color: '#097444' }}>
                   Recommended based on your needs
                 </span>
               </div>
