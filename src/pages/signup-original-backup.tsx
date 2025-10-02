@@ -1436,7 +1436,7 @@ export const SignupPage = () => {
         </div>
 
         {/* Right Side - Pricing Cards */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2 className="text-2xl font-semibold text-primary">Choose your plan</h2>
             <div className="flex items-center gap-3 mx-auto sm:mx-0">
