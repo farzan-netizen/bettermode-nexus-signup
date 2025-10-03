@@ -474,7 +474,7 @@ export const SignupPage = () => {
     <div className="bg-primary antialiased">
       <section className={cx(
         "flex min-h-screen bg-primary",
-        currentStep === 11 ? "lg:grid lg:grid-cols-1" : "lg:grid lg:grid-cols-2"
+        currentStep === 11 ? "lg:grid lg:grid-cols-1" : "lg:grid lg:grid-cols-[7fr_3fr]"
       )}>
         {/* Left Column - Form (2/3) - Scrollable */}
         <div className="flex w-full flex-col bg-primary lg:h-screen lg:overflow-hidden">
