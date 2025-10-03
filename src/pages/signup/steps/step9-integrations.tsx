@@ -55,7 +55,7 @@ export const Step9Integrations = ({
               
               {/* Text content */}
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-primary text-xs sm:text-sm truncate">{tool.name}</div>
+                <div className="font-medium text-primary text-xs sm:text-sm">{tool.name}</div>
               </div>
               
               {/* Asterisk icon - Right side - Only for Growth/Enterprise tools */}
