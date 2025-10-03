@@ -480,6 +480,11 @@ export const Step11PlanSelection = ({
                     </a>
                   )}
                   
+                  {/* Add spacing for Starter and Enterprise plans to match Growth plan height */}
+                  {plan.id !== "growth" && (
+                    <div className="mt-3 h-6"></div>
+                  )}
+                  
                 </div>
 
                 <div className="space-y-1 mb-4 mt-4 h-[216px] overflow-hidden">
