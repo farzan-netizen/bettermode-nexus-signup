@@ -89,22 +89,25 @@ export const Step9Integrations = ({
               <div className="flex flex-col items-start gap-3">
                 {/* Avatar Group */}
                 <div className="flex -space-x-2">
-                  {visibleTools.map((tool, index) => (
-                    <div 
-                      key={tool.id}
-                      className="relative w-8 h-8 rounded-full border-2 border-white bg-white flex items-center justify-center"
-                      style={{ zIndex: visibleTools.length - index }}
-                    >
-                      <img 
-                        src={tool.logo} 
-                        alt={tool.name}
-                        className={cx(
-                          "w-6 h-6 object-contain",
-                          (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
-                        )}
-                      />
-                    </div>
-                  ))}
+                  {visibleTools.map((tool, index) => {
+                    if (!tool) return null;
+                    return (
+                      <div 
+                        key={tool.id}
+                        className="relative w-8 h-8 rounded-full border-2 border-white bg-white flex items-center justify-center"
+                        style={{ zIndex: visibleTools.length - index }}
+                      >
+                        <img 
+                          src={tool.logo} 
+                          alt={tool.name}
+                          className={cx(
+                            "w-6 h-6 object-contain",
+                            (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
+                          )}
+                        />
+                      </div>
+                    );
+                  })}
                   {remainingCount > 0 && (
                     <div 
                       className="relative w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center"
