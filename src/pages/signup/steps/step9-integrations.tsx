@@ -86,7 +86,7 @@ export const Step9Integrations = ({
           
           return (
             <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-start gap-3">
                 {/* Avatar Group */}
                 <div className="flex -space-x-2">
                   {visibleTools.map((tool, index) => (
@@ -118,7 +118,7 @@ export const Step9Integrations = ({
                 </div>
                 
                 {/* Description for last selected integration */}
-                <div className="text-center">
+                <div className="text-left">
                   <div className="text-xs text-tertiary">
                     <span className="font-medium text-primary">({lastSelectedTool.name})</span> + bettermode : {lastSelectedTool.description}
                   </div>
