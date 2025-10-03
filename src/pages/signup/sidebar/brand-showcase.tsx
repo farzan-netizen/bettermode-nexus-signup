@@ -1,5 +1,3 @@
-import { cx } from "@/utils/cx";
-
 export const BrandShowcase = () => {
   return (
     <div className="flex flex-col h-full max-w-md mx-auto px-8">
@@ -61,18 +59,8 @@ export const BrandShowcase = () => {
                 { src: "/logos/l_backup/logitech.svg", alt: "Logitech" },
                 { src: "/logos/l_backup/viewsonic.svg", alt: "ViewSonic" }
               ]).map((logo, index) => (
-                <div key={index} className={cx(
-                  "h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all",
-                  logo.alt === "ViewSonic" ? "w-48" : "w-24"
-                )}>
-                  <img 
-                    src={logo.src} 
-                    alt={logo.alt} 
-                    className={cx(
-                      "object-contain logo-filter-dark-only",
-                      logo.alt === "ViewSonic" ? "h-8 w-16" : "h-8 w-auto"
-                    )} 
-                  />
+                <div key={index} className="w-24 h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all">
+                  <img src={logo.src} alt={logo.alt} className="h-8 w-auto object-contain logo-filter-dark-only" />
                 </div>
               ))}
             </div>
