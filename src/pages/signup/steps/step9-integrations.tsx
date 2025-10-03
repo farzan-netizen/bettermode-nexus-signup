@@ -88,8 +88,9 @@ export const Step9Integrations = ({
                   />
                 </div>
                 <div className="flex-1">
-                  <div className="font-medium text-primary text-sm">{tool.name}</div>
-                  <div className="text-xs text-tertiary mt-0.5">{tool.description}</div>
+                  <div className="text-xs text-tertiary">
+                    <span className="font-medium text-primary">({tool.name})</span> + bettermode : {tool.description}
+                  </div>
                 </div>
               </div>
             </div>
