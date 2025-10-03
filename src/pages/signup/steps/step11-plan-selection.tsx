@@ -497,7 +497,7 @@ export const Step11PlanSelection = ({
                 </div>
 
                 <div className="mb-4 mt-4">
-                  <p className="text-xs mb-1 text-quaternary">Integrations</p>
+                  <p className="text-xs mb-3 text-quaternary">Integrations</p>
                   {renderIntegrationLogos(plan.id)}
                 </div>
 
