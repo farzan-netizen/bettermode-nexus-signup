@@ -468,6 +468,18 @@ export const Step11PlanSelection = ({
                     {plan.buttonText}
                   </Button>
                   
+                  {/* Request a demo button for Growth plan */}
+                  {plan.id === "growth" && (
+                    <a 
+                      href="https://calendly.com/bettermode/demo" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block w-full mt-3 text-center text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      Request a demo
+                    </a>
+                  )}
+                  
                 </div>
 
                 <div className="space-y-1 mb-4 mt-4 h-[216px] overflow-hidden">
