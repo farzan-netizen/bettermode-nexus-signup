@@ -1,7 +1,7 @@
 export const BrandShowcase = () => {
   return (
-    <div className="flex flex-col gap-4 text-center max-w-md mx-auto px-8">
-      <div>
+    <div className="flex flex-col h-full max-w-md mx-auto px-8">
+      <div className="flex-1">
         {/* Title */}
         <div className="text-left flex flex-col gap-3 mb-4">
           <h2 className="text-2xl font-base text-primary">
@@ -14,9 +14,10 @@ export const BrandShowcase = () => {
             Built for scaling software & tech companies driving measurable community ROI through smart implementation.
           </p>
         </div>
-        
-        {/* Brand Logos Slider - 3 Horizontal Rows */}
-        <div className="space-y-4">
+      </div>
+      
+      {/* Brand Logos Slider - 3 Horizontal Rows - Moved to bottom */}
+      <div className="space-y-4 mt-auto">
           {/* First Row - Moving Left */}
           <div className="relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-[#FBFBFB] via-transparent to-[#FBFBFB] z-10 pointer-events-none"></div>
@@ -89,7 +90,6 @@ export const BrandShowcase = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };
