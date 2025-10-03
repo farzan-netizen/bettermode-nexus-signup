@@ -29,7 +29,7 @@ export const Step9Integrations = ({
           </button>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {SAAS_TOOLS.map(tool => (
             <div key={tool.id} className={cx(
               "flex items-center p-2 sm:p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm",
@@ -55,7 +55,7 @@ export const Step9Integrations = ({
               
               {/* Text content */}
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-primary text-xs sm:text-sm">{tool.name}</div>
+                <div className="font-medium text-primary text-xs sm:text-sm truncate">{tool.name}</div>
               </div>
               
               {/* Asterisk icon - Right side - Only for Growth/Enterprise tools */}
