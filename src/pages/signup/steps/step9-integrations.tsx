@@ -77,7 +77,7 @@ export const Step9Integrations = ({
           // Get all selected tools for avatar group
           const selectedTools = formData.currentTools
             .map(toolId => SAAS_TOOLS.find(t => t.id === toolId))
-            .filter(Boolean);
+            .filter((tool): tool is NonNullable<typeof tool> => tool !== undefined);
           
           // Show max 4 avatars, with overflow count
           const maxVisible = 4;
