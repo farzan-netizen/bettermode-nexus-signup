@@ -23,9 +23,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         // Get the theme from localStorage if available
         if (typeof window !== "undefined") {
             const savedTheme = localStorage.getItem("theme") as Theme | null;
-            return savedTheme || "system";
+            return savedTheme || "light";
         }
-        return "system";
+        return "light";
     });
 
     useEffect(() => {
