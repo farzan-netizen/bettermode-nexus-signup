@@ -68,66 +68,28 @@ export const Step9Integrations = ({
           ))}
         </div>
         
-        {/* Selected integrations avatar group with description */}
+        {/* Last selected integration description */}
         {formData.currentTools.length > 0 && (() => {
           const lastSelectedToolId = formData.currentTools[formData.currentTools.length - 1];
-          const lastSelectedTool = SAAS_TOOLS.find(t => t.id === lastSelectedToolId);
-          if (!lastSelectedTool) return null;
-          
-          // Get all selected tools for avatar group
-          const selectedTools: NonNullable<typeof SAAS_TOOLS[0]>[] = [];
-          formData.currentTools.forEach(toolId => {
-            const tool = SAAS_TOOLS.find(t => t.id === toolId);
-            if (tool) {
-              selectedTools.push(tool);
-            }
-          });
-          
-          // Show max 4 avatars, with overflow count
-          const maxVisible = 4;
-          const visibleTools = selectedTools.slice(0, maxVisible);
-          const remainingCount = selectedTools.length - maxVisible;
+          const tool = SAAS_TOOLS.find(t => t.id === lastSelectedToolId);
+          if (!tool) return null;
           
           return (
             <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
               <div className="flex flex-col items-start gap-3">
-                {/* Avatar Group */}
-                <div className="flex -space-x-2">
-                  {visibleTools.map((tool, index) => {
-                    if (!tool) return null;
-                    return (
-                      <div 
-                        key={tool.id}
-                        className="relative w-8 h-8 rounded-full border-2 border-white bg-white flex items-center justify-center"
-                        style={{ zIndex: visibleTools.length - index }}
-                      >
-                        <img 
-                          src={tool.logo} 
-                          alt={tool.name}
-                          className={cx(
-                            "w-6 h-6 object-contain",
-                            (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
-                          )}
-                        />
-                      </div>
-                    );
-                  })}
-                  {remainingCount > 0 && (
-                    <div 
-                      className="relative w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center"
-                      style={{ zIndex: 0 }}
-                    >
-                      <span className="text-xs font-medium text-gray-600">
-                        {remainingCount}+
-                      </span>
-                    </div>
-                  )}
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <img 
+                    src={tool.logo} 
+                    alt={tool.name}
+                    className={cx(
+                      "max-w-full max-h-full object-contain",
+                      (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
+                    )}
+                  />
                 </div>
-                
-                {/* Description for last selected integration */}
                 <div className="text-left">
                   <div className="text-xs text-tertiary">
-                    <span className="font-medium text-primary">({lastSelectedTool.name})</span> + bettermode : {lastSelectedTool.description}
+                    <span className="font-medium text-primary">({tool.name})</span> + bettermode : {tool.description}
                   </div>
                 </div>
               </div>
