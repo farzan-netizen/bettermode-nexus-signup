@@ -76,8 +76,8 @@ export const Step9Integrations = ({
           
           return (
             <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <div className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-8 h-8 flex items-center justify-center">
                   <img 
                     src={tool.logo} 
                     alt={tool.name}
@@ -87,7 +87,7 @@ export const Step9Integrations = ({
                     )}
                   />
                 </div>
-                <div className="flex-1">
+                <div className="text-center">
                   <div className="text-xs text-tertiary">
                     <span className="font-medium text-primary">({tool.name})</span> + bettermode : {tool.description}
                   </div>
