@@ -33,7 +33,7 @@ export const BrandShowcase = () => {
                 { src: "/logos/l_backup/CoachHub.svg", alt: "CoachHub" },
                 { src: "/logos/l_backup/lenovo.svg", alt: "Lenovo" }
               ]).map((logo, index) => (
-                <div key={index} className="w-24 h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all opacity-0">
+                <div key={index} className="w-24 h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all">
                   <img src={logo.src} alt={logo.alt} className="h-8 w-auto object-contain logo-filter-dark-only" />
                 </div>
               ))}
@@ -56,7 +56,7 @@ export const BrandShowcase = () => {
                 { src: "/logos/l_backup/logitech.svg", alt: "Logitech" },
                 { src: "/logos/l_backup/viewsonic.svg", alt: "ViewSonic" }
               ]).map((logo, index) => (
-                <div key={index} className="w-24 h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all opacity-0">
+                <div key={index} className="w-24 h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all">
                   <img src={logo.src} alt={logo.alt} className="h-8 w-auto object-contain logo-filter-dark-only" />
                 </div>
               ))}
@@ -79,7 +79,7 @@ export const BrandShowcase = () => {
                 { src: "/logos/l_backup/preply.svg", alt: "Preply" },
                 { src: "/logos/s/salesforce.svg", alt: "Salesforce" }
               ]).map((logo, index) => (
-                <div key={index} className="w-24 h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all opacity-0">
+                <div key={index} className="w-24 h-16 flex items-center justify-center px-3 flex-shrink-0 transition-all">
                   <img src={logo.src} alt={logo.alt} className="h-8 w-auto object-contain logo-filter-dark-only" />
                 </div>
               ))}
