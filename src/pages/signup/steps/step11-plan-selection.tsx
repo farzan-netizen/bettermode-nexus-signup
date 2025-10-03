@@ -465,10 +465,10 @@ export const Step11PlanSelection = ({
                     }}
                     isLoading={isLoading && formData.selectedPlan === plan.id}
                   >
-                    {plan.buttonText}
+                    {plan.id === "growth" ? "Request a demo" : plan.buttonText}
                   </Button>
                   
-                  {/* Request a demo button for Growth plan */}
+                  {/* 14-day trial link for Growth plan */}
                   {plan.id === "growth" && (
                     <a 
                       href="https://calendly.com/bettermode/demo" 
@@ -476,7 +476,7 @@ export const Step11PlanSelection = ({
                       rel="noopener noreferrer"
                       className="block w-full mt-3 text-center text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
                     >
-                      Request a demo
+                      14-day trial
                     </a>
                   )}
                   
