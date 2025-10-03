@@ -19,6 +19,7 @@ export const BrandShowcase = () => {
         <div className="space-y-4">
           {/* First Row - Moving Left */}
           <div className="relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FBFBFB] via-transparent to-[#FBFBFB] z-10 pointer-events-none"></div>
             <div className="flex animate-infinite-scroll space-x-3">
               {[
                 { src: "/logos/hubspot.svg", alt: "HubSpot" },
@@ -42,6 +43,7 @@ export const BrandShowcase = () => {
 
           {/* Second Row - Moving Right */}
           <div className="relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FBFBFB] via-transparent to-[#FBFBFB] z-10 pointer-events-none"></div>
             <div className="flex animate-infinite-scroll-reverse space-x-3">
               {[
                 { src: "/logos/intercom-1.svg", alt: "Intercom" },
@@ -65,6 +67,7 @@ export const BrandShowcase = () => {
 
           {/* Third Row - Moving Left */}
           <div className="relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FBFBFB] via-transparent to-[#FBFBFB] z-10 pointer-events-none"></div>
             <div className="flex animate-infinite-scroll space-x-3">
               {[
                 { src: "/logos/l_backup/yoto.svg", alt: "Yoto" },
