@@ -32,10 +32,10 @@ export const Step9Integrations = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {SAAS_TOOLS.map(tool => (
             <div key={tool.id} className={cx(
-              "flex items-center p-2 sm:p-3 rounded-lg cursor-pointer transition-all",
+              "flex items-center p-2 sm:p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm",
               formData.currentTools.includes(tool.id)
-                ? "bg-brand-primary/50 shadow-sm"
-                : "hover:bg-gray-50"
+                ? "border-brand-solid bg-brand-primary/50 shadow-sm"
+                : "border-secondary hover:border-primary"
             )}
             onClick={() => onArrayToggle('currentTools')(tool.id)}
             >
