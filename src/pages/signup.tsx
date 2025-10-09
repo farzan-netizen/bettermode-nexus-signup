@@ -26,6 +26,7 @@ import { Step11PlanSelection } from "./signup/steps/step11-plan-selection";
 // Import sidebar components
 import { SidebarContent } from "./signup/sidebar/sidebar-content";
 import { BrandDataModal } from "@/components/shared-assets/brand-data-modal";
+import { ToggleTheme } from "@/components/ui/toogle-theme";
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -481,21 +482,23 @@ export const SignupPage = () => {
           {/* Header */}
           <header className="flex flex-col gap-1 px-4 py-1 sm:gap-1.5 sm:py-1.5 sm:px-6 md:px-8 lg:px-8 xl:px-8">
             {/* Logo */}
-            <div className="flex h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[32px]">
+            <div className="flex gap-x-4 h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[32px]">
               <img
                 src="/logo-bettermode.svg"
                 alt="bettermode"
                 className="h-6 w-auto logo-filter"
               />
+              <ToggleTheme />
             </div>
 
             {/* Mobile Logo */}
-            <div className="flex items-center justify-center md:hidden">
+            <div className="flex gap-x-4 items-center justify-center md:hidden">
               <img
                 src="/logo-bettermode.svg"
                 alt="bettermode"
                 className="h-8 w-auto logo-filter"
               />
+              <ToggleTheme />
             </div>
 
             {/* Progress Bar */}
