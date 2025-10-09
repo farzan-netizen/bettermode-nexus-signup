@@ -39,18 +39,18 @@ export const SignupPage = () => {
   const [customRole, setCustomRole] = useState("");
   const [billingPeriod, setBillingPeriod] = useState<'annual' | 'monthly'>('annual');
   const [selectedSecurityLevel, setSelectedSecurityLevel] = useState<'basic' | 'enterprise' | null>(null);
-  
+
   // Brand data states
   const [brandData, setBrandData] = useState<BrandData | null>(null);
   const [showBrandModal, setShowBrandModal] = useState(false);
   const [isFetchingBrand, setIsFetchingBrand] = useState(false);
-  
+
   // Trial success state
   const [showTrialSuccess, setShowTrialSuccess] = useState(false);
-  
+
   // Enterprise success state
   const [showEnterpriseSuccess, setShowEnterpriseSuccess] = useState(false);
-  
+
   const [formData, setFormData] = useState<SignupFormData>({
     email: "",
     authMethod: 'email',
@@ -75,13 +75,13 @@ export const SignupPage = () => {
   useEffect(() => {
     if (location.state?.step === 11) {
       setCurrentStep(11);
-      
+
       // Restore saved signup data from sessionStorage
       const savedFormData = sessionStorage.getItem('signup-form-data');
       const savedBrandData = sessionStorage.getItem('signup-brand-data');
       const savedBillingPeriod = sessionStorage.getItem('signup-billing-period');
       const savedSecurityLevel = sessionStorage.getItem('signup-security-level');
-      
+
       if (savedFormData) {
         try {
           const parsedFormData = JSON.parse(savedFormData);
@@ -90,7 +90,7 @@ export const SignupPage = () => {
           console.error('Error parsing saved form data:', error);
         }
       }
-      
+
       if (savedBrandData) {
         try {
           const parsedBrandData = JSON.parse(savedBrandData);
@@ -99,11 +99,11 @@ export const SignupPage = () => {
           console.error('Error parsing saved brand data:', error);
         }
       }
-      
+
       if (savedBillingPeriod) {
         setBillingPeriod(savedBillingPeriod as 'annual' | 'monthly');
       }
-      
+
       if (savedSecurityLevel) {
         setSelectedSecurityLevel(savedSecurityLevel as 'basic' | 'enterprise' | null);
       }
@@ -139,12 +139,12 @@ export const SignupPage = () => {
 
   const handleInputChange = (field: keyof SignupFormData) => (value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     // Clear existing error for this field
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
-    
+
     // Trigger real-time validation for email and verification code fields
     if ((field === 'email' || field === 'verificationCode') && value.trim()) {
       const stepNumber = field === 'email' ? 1 : 2;
@@ -156,7 +156,7 @@ export const SignupPage = () => {
   const handleGoogleAuth = async () => {
     // Set loading state
     setIsLoading(true);
-    
+
     // Set Google auth data
     setFormData(prev => ({
       ...prev,
@@ -166,10 +166,10 @@ export const SignupPage = () => {
       lastName: "Khalilii",
       verificationCode: "GOOGLE" // Set a dummy verification code
     }));
-    
+
     // Clear any existing errors
     setErrors({});
-    
+
     try {
       // Wait for brandfetch to complete
       const domain = extractDomainFromEmail("amir@slack.com");
@@ -179,10 +179,10 @@ export const SignupPage = () => {
         setBrandData(data);
         setIsFetchingBrand(false);
       }
-      
+
       // Add a small delay for better UX
       await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       // Jump directly to step 3
       setCurrentStep(3);
     } catch (error) {
@@ -199,7 +199,7 @@ export const SignupPage = () => {
   const handleArrayToggle = (field: 'currentTools' | 'enterpriseFeatures') => (value: string) => {
     setFormData(prev => ({
       ...prev,
-      [field]: prev[field].includes(value) 
+      [field]: prev[field].includes(value)
         ? prev[field].filter(item => item !== value)
         : [...prev[field], value]
     }));
@@ -208,12 +208,12 @@ export const SignupPage = () => {
   const handleResendCode = () => {
     // Simulate sending code
     setResendCooldown(30);
-    
+
     // If current error is about expired code, change it to "Code has been sent"
     if (errors.verificationCode === "Code has been expired, tap to resend") {
       setErrors(prev => ({ ...prev, verificationCode: "Code has been sent" }));
     }
-    
+
     const timer = setInterval(() => {
       setResendCooldown(prev => {
         if (prev <= 1) {
@@ -234,12 +234,12 @@ export const SignupPage = () => {
   const handleNext = (skipValidation = false) => {
     if (skipValidation || handleValidateStep(currentStep)) {
       let nextStep = currentStep + 1;
-      
+
       // Skip steps 6, 7, 8 - go from 5 to 9
       if (currentStep === 5) {
         nextStep = 9;
       }
-      
+
       // Redirect to wizard after step 10 (enterprise)
       if (currentStep === 10) {
         // Store signup data before going to wizard
@@ -247,20 +247,20 @@ export const SignupPage = () => {
         sessionStorage.setItem('signup-brand-data', JSON.stringify(brandData));
         sessionStorage.setItem('signup-billing-period', billingPeriod);
         sessionStorage.setItem('signup-security-level', selectedSecurityLevel || '');
-        
+
         // Show enterprise success message
         setShowEnterpriseSuccess(true);
-        
+
         // Redirect to wizard after 4 seconds
         setTimeout(() => {
           navigate('/wizard');
         }, 4000);
         return;
       }
-      
+
       nextStep = Math.min(nextStep, 11);
       setCurrentStep(nextStep);
-      
+
       // Auto-select recommended plan when reaching step 11
       if (nextStep === 11) {
         const recommendedPlan = getRecommendedPlan(formData, brandData);
@@ -272,19 +272,19 @@ export const SignupPage = () => {
   const handleBack = () => {
     setCurrentStep(prev => {
       let prevStep = prev - 1;
-      
+
       // Skip steps 6, 7, 8 when going back - go directly from 9 to 5
       if (prev === 9) {
         prevStep = 5;
       }
-      
+
       return Math.max(prevStep, 1);
     });
   };
 
   const handleSubmit = async () => {
     if (!handleValidateStep(currentStep)) return;
-    
+
     setIsLoading(true);
     try {
       // Simulate API call with the email (amir@slack.com for Google auth)
@@ -292,13 +292,13 @@ export const SignupPage = () => {
         ...formData,
         email: formData.authMethod === 'google' ? 'amir@slack.com' : formData.email
       };
-      
+
       await new Promise(resolve => setTimeout(resolve, 2000));
       console.log('Signup data sent to API:', apiData);
-      
+
       // Show trial success message
       setShowTrialSuccess(true);
-      
+
       // Redirect to onboarding after 3 seconds
       setTimeout(() => {
         // Clean up stored data after successful signup
@@ -316,27 +316,27 @@ export const SignupPage = () => {
   };
 
   const handleSelectAllTools = () => {
-              const allToolIds = SAAS_TOOLS.map(tool => tool.id);
-              const allSelected = allToolIds.every(id => formData.currentTools.includes(id));
-              
-              if (allSelected) {
-                // Unselect all tools
-                setFormData(prev => ({ ...prev, currentTools: [] }));
-              } else {
-                // Select all tools
-                setFormData(prev => ({ ...prev, currentTools: allToolIds }));
-              }
+    const allToolIds = SAAS_TOOLS.map(tool => tool.id);
+    const allSelected = allToolIds.every(id => formData.currentTools.includes(id));
+
+    if (allSelected) {
+      // Unselect all tools
+      setFormData(prev => ({ ...prev, currentTools: [] }));
+    } else {
+      // Select all tools
+      setFormData(prev => ({ ...prev, currentTools: allToolIds }));
+    }
   };
 
-    const handleSecuritySelection = (level: 'basic' | 'enterprise') => {
-      setSelectedSecurityLevel(level);
-      
-      if (level === 'basic') {
-        // Clear enterprise features when choosing basic
-        setFormData(prev => ({ ...prev, enterpriseFeatures: [] }));
-      }
-      // Don't auto-select all enterprise features when choosing enterprise
-      // Let user select individually
+  const handleSecuritySelection = (level: 'basic' | 'enterprise') => {
+    setSelectedSecurityLevel(level);
+
+    if (level === 'basic') {
+      // Clear enterprise features when choosing basic
+      setFormData(prev => ({ ...prev, enterpriseFeatures: [] }));
+    }
+    // Don't auto-select all enterprise features when choosing enterprise
+    // Let user select individually
   };
 
   const renderCurrentStep = () => {
@@ -454,7 +454,7 @@ export const SignupPage = () => {
             billingPeriod={billingPeriod}
             isLoading={isLoading}
             brandData={brandData}
-            
+
             onSetBillingPeriod={setBillingPeriod}
             onSetSelectedPlan={(plan) => setFormData(prev => ({ ...prev, selectedPlan: plan }))}
             onSubmit={handleSubmit}
@@ -481,61 +481,61 @@ export const SignupPage = () => {
           {/* Header */}
           <header className="flex flex-col gap-1 px-4 py-1 sm:gap-1.5 sm:py-1.5 sm:px-6 md:px-8 lg:px-8 xl:px-8">
             {/* Logo */}
-                  <div className="flex h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[32px]">
-                    <img 
-                      src="/logo-bettermode.svg" 
-                      alt="bettermode" 
-                      className="h-6 w-auto logo-filter"
-                    />
-                  </div>
-                  
-                  {/* Mobile Logo */}
-                  <div className="flex items-center justify-center md:hidden">
-                    <img 
-                      src="/logo-bettermode.svg" 
-                      alt="bettermode" 
-                      className="h-8 w-auto logo-filter"
-                    />
-                  </div>
+            <div className="flex h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[32px]">
+              <img
+                src="/logo-bettermode.svg"
+                alt="bettermode"
+                className="h-6 w-auto logo-filter"
+              />
+            </div>
+
+            {/* Mobile Logo */}
+            <div className="flex items-center justify-center md:hidden">
+              <img
+                src="/logo-bettermode.svg"
+                alt="bettermode"
+                className="h-8 w-auto logo-filter"
+              />
+            </div>
 
             {/* Progress Bar */}
-                  <div className="w-full bg-secondary rounded-full h-1">
-                    <div 
-                      className="h-full bg-brand-secondary rounded-full transition-all duration-500"
-                      style={{ 
-                        width: `${(() => {
-                          // Adjust progress calculation for skipped steps
-                          let adjustedStep = currentStep;
-                          if (currentStep >= 9) {
-                            adjustedStep = currentStep - 3; // Account for skipped steps 6,7,8
-                          }
-                          return ((adjustedStep - 1) / 7) * 100; // Now 8 total steps instead of 11
-                        })()}%` 
-                      }}
-                    />
-                  </div>
+            <div className="w-full bg-secondary rounded-full h-1">
+              <div
+                className="h-full bg-brand-secondary rounded-full transition-all duration-500"
+                style={{
+                  width: `${(() => {
+                    // Adjust progress calculation for skipped steps
+                    let adjustedStep = currentStep;
+                    if (currentStep >= 9) {
+                      adjustedStep = currentStep - 3; // Account for skipped steps 6,7,8
+                    }
+                    return ((adjustedStep - 1) / 7) * 100; // Now 8 total steps instead of 11
+                  })()}%`
+                }}
+              />
+            </div>
           </header>
 
           <div className="flex-1 lg:overflow-y-auto lg:scrollbar-thin">
-                <div className={cx(
+            <div className={cx(
               "flex justify-start items-start min-h-full pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8",
               currentStep === 11 ? "pl-[100px] pr-24" : "pl-[100px] pr-4 md:pr-6 lg:pr-8"
             )}>
-                <div className={cx(
-                  "flex w-full flex-col pb-6 sm:pb-8",
-                  currentStep === 11 
-                    ? "w-full" 
-                    : currentStep >= 1 && currentStep <= 3
-                  ? "max-w-sm sm:max-w-md gap-4 sm:gap-6 md:gap-8"
+              <div className={cx(
+                "flex w-full flex-col pb-6 sm:pb-8",
+                currentStep === 11
+                  ? "w-full"
+                  : currentStep >= 1 && currentStep <= 3
+                    ? "max-w-sm sm:max-w-md gap-4 sm:gap-6 md:gap-8"
                     : "max-w-lg sm:max-w-xl md:max-w-2xl gap-4 sm:gap-6 md:gap-8"
-                )}>
+              )}>
                 {/* Form Content */}
                 <div className="flex flex-col gap-6">
                   {/* Step Content */}
                   <div className="flex flex-col gap-2">
                     {shouldShowBackButton(currentStep) && (
                       <div className="mb-1">
-                        <button 
+                        <button
                           onClick={handleBack}
                           className="inline-flex items-center gap-2 text-sm text-brand-secondary hover:text-brand-secondary_hover transition-colors mb-3"
                         >
@@ -544,31 +544,31 @@ export const SignupPage = () => {
                         </button>
                       </div>
                     )}
-                    
+
                     {currentStep === 4 && (
                       <div className="">
                         <p className="text-lg text-tertiary">Nice to meet you <span className="font-bold">{formData.firstName}</span>!</p>
                       </div>
                     )}
-                    
+
                     {currentStep === 5 && (
                       <div className="">
                         <p className="text-lg text-tertiary">Dear <span className="font-bold">{formData.firstName}</span>,</p>
                       </div>
                     )}
-                    
+
                     {currentStep !== 11 && (
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                      <div>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
                           <h1 className="text-display-xs font-semibold text-primary md:text-display-sm">
                             {getStepTitle(currentStep, formData)}
                           </h1>
                           <p className="text-md text-tertiary mt-2">
                             {getStepDescription(currentStep, formData)}
                           </p>
-                      </div>
                         </div>
-                      )}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -576,44 +576,44 @@ export const SignupPage = () => {
                 {currentStep === 11 ? (
                   renderCurrentStep()
                 ) : (
-                <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-6">
                     {renderCurrentStep()}
                   </div>
                 )}
 
-                  {/* Sign in link */}
-                  {currentStep === 1 && (
-                    <div className="flex justify-start gap-1 text-left">
-                      <span className="text-sm text-tertiary">Already have an account?</span>
-                      <button 
-                        onClick={() => navigate('/login')}
-                        className="text-sm font-semibold text-brand-secondary hover:text-brand-secondary_hover"
-                      >
-                        Sign in
-                      </button>
-                    </div>
-                  )}
+                {/* Sign in link */}
+                {currentStep === 1 && (
+                  <div className="flex justify-start gap-1 text-left">
+                    <span className="text-sm text-tertiary">Already have an account?</span>
+                    <button
+                      onClick={() => navigate('/login')}
+                      className="text-sm font-semibold text-brand-secondary hover:text-brand-secondary_hover"
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                )}
 
-                  {/* Terms and Privacy */}
-                  {currentStep === 1 && (
-                    <p className="text-xs text-tertiary text-left">
-                      By creating an account, you agree to our{" "}
-                      <a href="/terms" className="text-brand-secondary hover:text-brand-secondary_hover">Terms</a>
-                      {" "}and{" "}
-                      <a href="/privacy" className="text-brand-secondary hover:text-brand-secondary_hover">Privacy Policy</a>
-                    </p>
-                  )}
+                {/* Terms and Privacy */}
+                {currentStep === 1 && (
+                  <p className="text-xs text-tertiary text-left">
+                    By creating an account, you agree to our{" "}
+                    <a href="/terms" className="text-brand-secondary hover:text-brand-secondary_hover">Terms</a>
+                    {" "}and{" "}
+                    <a href="/privacy" className="text-brand-secondary hover:text-brand-secondary_hover">Privacy Policy</a>
+                  </p>
+                )}
               </div>
             </div>
           </div>
-          
+
           {/* Mobile Navigation */}
           <div className="lg:hidden p-4 border-t border-secondary">
             <div className="flex gap-3">
               {currentStep > 1 && !shouldShowBackButton(currentStep) && currentStep !== 11 && (
-                <Button 
+                <Button
                   className="flex-1"
-                  color="secondary" 
+                  color="secondary"
                   iconLeading={ArrowLeft}
                   onClick={handleBack}
                   size="md"
@@ -631,12 +631,12 @@ export const SignupPage = () => {
           <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden">
             <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
               <SidebarContent currentStep={currentStep} formData={formData} />
-          </div>
-          
-          {/* Fixed Company Logos at Bottom - Only show for testimonial steps */}
-          {(currentStep >= 2 && currentStep <= 9) && (
-            <div className="absolute bottom-8 left-6 right-6">
-              <div className="grid grid-cols-4 gap-1 px-2">
+            </div>
+
+            {/* Fixed Company Logos at Bottom - Only show for testimonial steps */}
+            {(currentStep >= 2 && currentStep <= 9) && (
+              <div className="absolute bottom-8 left-6 right-6">
+                <div className="grid grid-cols-4 gap-1 px-2">
                   {[
                     { src: "/logos/l_backup/CoachHub.svg", alt: "CoachHub" },
                     { src: "/logos/l_backup/Ceros.svg", alt: "Ceros" },
@@ -651,20 +651,20 @@ export const SignupPage = () => {
                     { src: "/logos/l_backup/xano.svg", alt: "Xano" },
                     { src: "/logos/l_backup/yoto.svg", alt: "Yoto" }
                   ].map((logo, index) => (
-                    <img 
+                    <img
                       key={index}
-                      src={logo.src} 
-                      alt={logo.alt} 
-                      className="h-12 w-16 object-contain opacity-60 mx-auto logo-filter" 
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="h-12 w-16 object-contain opacity-60 mx-auto logo-filter"
                     />
                   ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
         )}
       </section>
-      
+
       {/* Brand Data Modal */}
       <BrandDataModal
         isOpen={showBrandModal}
@@ -672,10 +672,10 @@ export const SignupPage = () => {
         brandData={brandData}
         isLoading={isFetchingBrand}
       />
-      
+
       {/* Trial Success Screen - Full Screen like Wizard */}
       {showTrialSuccess && (
-        <div 
+        <div
           className="fixed inset-0 flex items-center justify-center p-8 z-50 animate-in fade-in slide-in-from-bottom-8 duration-1000"
           style={{
             background: (() => {
@@ -699,7 +699,7 @@ export const SignupPage = () => {
         >
           {/* Success Content */}
           <div className="text-center max-w-2xl">
-            
+
             {/* Success Message */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
               {(() => {
@@ -719,7 +719,7 @@ export const SignupPage = () => {
                 return `${formData.companyName || formData.firstName || 'Your community'} is ready!`;
               })()}
             </h1>
-            
+
             <p className="text-xl sm:text-2xl text-gray-600 mb-8 leading-relaxed">
               We're setting up your community and preparing everything for launch.
             </p>
@@ -728,14 +728,14 @@ export const SignupPage = () => {
             <div className="text-lg text-gray-500">
               <span>Redirecting to onboarding...</span>
             </div>
-            
+
           </div>
         </div>
       )}
-      
+
       {/* Enterprise Success Screen - Full Screen like Wizard */}
       {showEnterpriseSuccess && (
-        <div 
+        <div
           className="fixed inset-0 flex items-center justify-center p-8 z-50 animate-in fade-in slide-in-from-bottom-8 duration-1000"
           style={{
             background: `linear-gradient(120deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%)`
@@ -743,12 +743,12 @@ export const SignupPage = () => {
         >
           {/* Success Content */}
           <div className="text-center max-w-2xl">
-            
+
             {/* Success Message */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
               Perfect! Let's build your community.
             </h1>
-            
+
             <p className="text-xl sm:text-2xl text-gray-600 mb-8 leading-relaxed">
               We'll guide you through setting up your community with the enterprise features you selected.
             </p>
@@ -757,7 +757,7 @@ export const SignupPage = () => {
             <div className="text-lg text-gray-500">
               <span>Redirecting to community setup...</span>
             </div>
-            
+
           </div>
         </div>
       )}

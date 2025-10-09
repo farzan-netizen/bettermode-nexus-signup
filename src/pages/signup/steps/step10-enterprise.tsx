@@ -1,6 +1,5 @@
 import { ArrowRight, Lock01, Shield01, Globe01, Target01, Database01 } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
-import { Checkbox } from "@/components/base/checkbox/checkbox";
 import { cx } from "@/utils/cx";
 import { SignupFormData } from "../types";
 
