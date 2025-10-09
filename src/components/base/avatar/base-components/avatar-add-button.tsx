@@ -15,7 +15,7 @@ interface AvatarAddButtonProps extends ButtonProps {
     className?: string;
 }
 
-export const AvatarAddButton = ({ size, className, title = "Add user", ...props }: AvatarAddButtonProps) => (
+const AvatarAddButton = ({ size, className, title = "Add user", ...props }: AvatarAddButtonProps) => (
     <AriaTooltip title={title}>
         <AriaTooltipTrigger
             {...props}

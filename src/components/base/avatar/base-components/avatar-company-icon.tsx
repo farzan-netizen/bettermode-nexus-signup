@@ -15,7 +15,7 @@ interface AvatarCompanyIconProps {
     alt?: string;
 }
 
-export const AvatarCompanyIcon = ({ size, src, alt }: AvatarCompanyIconProps) => (
+const AvatarCompanyIcon = ({ size, src, alt }: AvatarCompanyIconProps) => (
     <img
         src={src}
         alt={alt}

@@ -68,7 +68,7 @@ interface WidgetConfigContextType {
 
 const WidgetConfigContext = createContext<WidgetConfigContextType | undefined>(undefined);
 
-export const useWidgetConfig = () => {
+const useWidgetConfig = () => {
   const context = useContext(WidgetConfigContext);
   if (!context) {
     throw new Error('useWidgetConfig must be used within a WidgetConfigProvider');

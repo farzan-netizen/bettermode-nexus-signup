@@ -5,7 +5,7 @@ export interface BrandInfo {
   domain?: string;
 }
 
-export const BRAND_DATABASE: Record<string, BrandInfo> = {
+const BRAND_DATABASE: Record<string, BrandInfo> = {
   'google.com': {
     name: 'Google',
     logo: '/logos/s/google-analytics-3.svg',
@@ -58,7 +58,7 @@ export const BRAND_DATABASE: Record<string, BrandInfo> = {
   }
 };
 
-export const extractDomainFromUrl = (url: string): string => {
+const extractDomainFromUrl = (url: string): string => {
   try {
     // Add protocol if missing
     const urlWithProtocol = url.startsWith('http') ? url : `https://${url}`;

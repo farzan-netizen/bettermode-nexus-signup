@@ -1,6 +1,6 @@
 import industriesData from '../../industries_full.json';
 
-export interface IndustryItem {
+interface IndustryItem {
   emoji: string;
   id: number;
   name: string;
@@ -9,7 +9,7 @@ export interface IndustryItem {
   children?: IndustryItem[];
 }
 
-export interface MappedIndustry {
+interface MappedIndustry {
   main_industry: {
     id: number;
     name: string;
@@ -20,7 +20,7 @@ export interface MappedIndustry {
   } | null;
 }
 
-export interface IndustryMapping {
+interface IndustryMapping {
   term: string;
   mapping_type?: string;
   mapped_industries?: MappedIndustry[];

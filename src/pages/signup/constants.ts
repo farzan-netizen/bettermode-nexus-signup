@@ -14,7 +14,7 @@ import {
 } from "@untitledui/icons";
 import { CompanySize, Industry, UseCase, SaasTool, EnterpriseFeature, Testimonial } from "./types";
 
-export const COMPANY_SIZES: CompanySize[] = [
+const COMPANY_SIZES: CompanySize[] = [
   { value: "1-10", label: "1-10 employees" },
   { value: "11-50", label: "11-50 employees" },
   { value: "51-200", label: "51-200 employees" },
@@ -23,7 +23,7 @@ export const COMPANY_SIZES: CompanySize[] = [
   { value: "1000+", label: "1000+ employees" }
 ];
 
-export const INDUSTRIES: Industry[] = [
+const INDUSTRIES: Industry[] = [
   { value: "technology", label: "Technology & Software", icon: Code01 },
   { value: "financial", label: "Financial Services", icon: CreditCard01 },
   { value: "healthcare", label: "Healthcare & Life Sciences", icon: Heart },
@@ -33,7 +33,7 @@ export const INDUSTRIES: Industry[] = [
   { value: "other", label: "Other", icon: Building01 }
 ];
 
-export const USE_CASES: UseCase[] = [
+const USE_CASES: UseCase[] = [
   { value: "community-building", label: "Community Building", description: "Build customer communities" },
   { value: "customer-support", label: "Customer Support", description: "Better support & docs" },
   { value: "employee-engagement", label: "Employee Engagement", description: "Internal collaboration" },
@@ -92,7 +92,7 @@ export const ENTERPRISE_FEATURES: EnterpriseFeature[] = [
   { id: "audit-log", name: "Audit Log", description: "Monitor a detailed trail of user actions, ensuring transparency and security.", icon: Database01 }
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
+const TESTIMONIALS: Testimonial[] = [
   {
     quote: "Using Bettermode has been a game-changer for us. Its powerful capabilities and features have revolutionized the way we engage with our community.",
     author: "Kyle Foster",

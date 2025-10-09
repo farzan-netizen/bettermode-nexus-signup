@@ -14,7 +14,7 @@ interface InputPrefixProps extends HTMLAttributes<HTMLDivElement> {
     isDisabled?: boolean;
 }
 
-export const InputPrefix = ({ position = "leading", size = "sm", isDisabled, children, ...props }: InputPrefixProps) => (
+const InputPrefix = ({ position = "leading", size = "sm", isDisabled, children, ...props }: InputPrefixProps) => (
     <span
         {...props}
         className={cx(

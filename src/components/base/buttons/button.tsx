@@ -5,7 +5,7 @@ import { Button as AriaButton, Link as AriaLink } from "react-aria-components";
 import { cx, sortCx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
 
-export const styles = sortCx({
+const styles = sortCx({
     common: {
         root: [
             "group relative inline-flex h-max cursor-pointer items-center justify-center whitespace-nowrap outline-brand transition duration-100 ease-linear before:absolute focus-visible:outline-2 focus-visible:outline-offset-2",
@@ -133,7 +133,7 @@ export const styles = sortCx({
 /**
  * Common props shared between button and anchor variants
  */
-export interface CommonProps {
+interface CommonProps {
     /** Disables the button and shows a disabled state */
     isDisabled?: boolean;
     /** Shows a loading spinner and disables the button */
@@ -155,7 +155,7 @@ export interface CommonProps {
 /**
  * Props for the button variant (non-link)
  */
-export interface ButtonProps extends CommonProps, DetailedHTMLProps<Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "slot">, HTMLButtonElement> {
+interface ButtonProps extends CommonProps, DetailedHTMLProps<Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "slot">, HTMLButtonElement> {
     /** Slot name for react-aria component */
     slot?: AriaButtonProps["slot"];
 }
@@ -166,7 +166,7 @@ export interface ButtonProps extends CommonProps, DetailedHTMLProps<Omit<ButtonH
 interface LinkProps extends CommonProps, DetailedHTMLProps<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color">, HTMLAnchorElement> {}
 
 /** Union type of button and link props */
-export type Props = ButtonProps | LinkProps;
+type Props = ButtonProps | LinkProps;
 
 export const Button = ({
     size = "sm",

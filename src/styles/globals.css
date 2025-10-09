@@ -120,7 +120,6 @@
 
 @import "./theme.css";
 @import "./typography.css";
-@import "leaflet/dist/leaflet.css";
 
 @source "../components/application/code-snippet/code-snippet.style.css";
 

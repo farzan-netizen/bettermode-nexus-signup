@@ -5,7 +5,7 @@ import { AvatarOnlineIndicator, VerifiedTick } from "./base-components";
 
 type AvatarSize = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
-export interface AvatarProps {
+interface AvatarProps {
     size?: AvatarSize;
     className?: string;
     src?: string | null;

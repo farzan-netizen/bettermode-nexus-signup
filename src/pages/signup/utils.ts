@@ -138,7 +138,7 @@ export const getStepDescription = (currentStep: number, formData: SignupFormData
   return descriptions[currentStep - 1] || "";
 };
 
-export const formatUserCount = (count: string): string => {
+const formatUserCount = (count: string): string => {
   if (count.startsWith('under-')) {
     return count.replace('under-', 'under ').replace('10000', '10,000');
   } else if (count.startsWith('over-')) {
@@ -148,7 +148,7 @@ export const formatUserCount = (count: string): string => {
   }
 };
 
-export const formatCompanySize = (size: string): string => {
+const formatCompanySize = (size: string): string => {
   const sizeMap: Record<string, string> = {
     "under-50": "under-50 person",
     "50-200": "50–200 person", 
@@ -158,7 +158,7 @@ export const formatCompanySize = (size: string): string => {
   return sizeMap[size] || size;
 };
 
-export const formatIndustry = (industry: string): string => {
+const formatIndustry = (industry: string): string => {
   const industryMap: Record<string, string> = {
     "b2b-saas": "B2B SaaS",
     "software": "software",
@@ -175,7 +175,7 @@ export const formatIndustry = (industry: string): string => {
   return industryMap[industry] || industry.replace('-', ' ');
 };
 
-export const getBenefitsByPlan = (plan: string): string[] => {
+const getBenefitsByPlan = (plan: string): string[] => {
   const benefits = {
     "enterprise": ["SAML SSO", "data residency", "dedicated support"],
     "growth": ["advanced integrations", "analytics at scale", "priority support"], 
