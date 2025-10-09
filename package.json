@@ -22,7 +22,7 @@
         "tailwindcss": "^4.1.11",
         "tailwindcss-animate": "^1.0.7",
         "tailwindcss-react-aria-components": "^2.0.0",
-                "@tailwindcss/typography": "^0.5.16"
+        "@tailwindcss/typography": "^0.5.16"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.11",
