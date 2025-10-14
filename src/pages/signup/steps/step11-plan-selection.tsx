@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import {
   Users01,
   Database01,
@@ -20,12 +19,7 @@ import { Button } from '@/components/base/buttons/button'
 import { cx } from '@/utils/cx'
 import { TypingAnimation } from '@/components/ui/typing-animation'
 import { SignupFormData } from '../types'
-import {
-  getRecommendedPlan,
-  joinWithAnd,
-  generatePlanRecommendationText,
-} from '../utils'
-import { SAAS_TOOLS } from '../constants'
+import { getRecommendedPlan, generatePlanRecommendationText } from '../utils'
 import { BrandData } from '@/utils/brandfetch'
 
 // Helper function to render formatted text (same logic as TypingAnimation)

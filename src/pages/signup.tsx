@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router'
-import { ArrowLeft, ArrowRight } from '@untitledui/icons'
+import { ArrowLeft } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { cx } from '@/utils/cx'
 
@@ -12,7 +12,7 @@ import {
   getStepDescription,
   getRecommendedPlan,
 } from './signup/utils'
-import { SAAS_TOOLS, ENTERPRISE_FEATURES } from './signup/constants'
+import { SAAS_TOOLS } from './signup/constants'
 import {
   BrandData,
   fetchBrandData,

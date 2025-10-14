@@ -1,4 +1,4 @@
-import { ArrowRight, Building02 } from '@untitledui/icons'
+import { ArrowRight } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { cx } from '@/utils/cx'
 import { SignupFormData } from '../types'

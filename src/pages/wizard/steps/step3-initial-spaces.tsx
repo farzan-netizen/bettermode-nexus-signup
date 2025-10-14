@@ -1,9 +1,7 @@
 import {
-  ArrowLeft,
   Check,
   MessageChatCircle,
   File01,
-  Users01,
   HelpCircle,
   Calendar,
   Lightbulb01,

@@ -1,21 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
-import {
-  ArrowLeft,
-  ArrowRight,
-  Upload01,
-  Download01,
-  Loading01,
-} from '@untitledui/icons'
+import { ArrowRight, Upload01, Download01, Loading01 } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { InputBase } from '@/components/base/input/input'
 import { InputGroup } from '@/components/base/input/input-group'
 import { WizardFormData } from '../types'
 import { detectBrandFromUrl, BrandInfo } from '../utils/brand-detection'
-import {
-  fetchBrandData,
-  extractDomainFromEmail,
-  shouldFetchBrandData,
-} from '@/utils/brandfetch'
+import { fetchBrandData } from '@/utils/brandfetch'
 import { cx } from '@/utils/cx'
 
 interface Step2BrandingProps {

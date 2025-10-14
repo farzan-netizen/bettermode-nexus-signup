@@ -2,10 +2,7 @@ import { Select } from '@/components/base/select/select'
 import { Button } from '@/components/base/buttons/button'
 import { cx } from '@/utils/cx'
 import { SignupFormData } from '../types'
-import {
-  getFlattenedIndustries,
-  industryMappings,
-} from '@/utils/industry-mapping'
+import { getFlattenedIndustries } from '@/utils/industry-mapping'
 import { BrandData } from '@/utils/brandfetch'
 import { useEffect, useState } from 'react'
 import { ArrowRight } from '@untitledui/icons'

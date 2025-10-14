@@ -3,7 +3,6 @@ import { SPACE_OPTIONS } from '../constants'
 import {
   MessageChatCircle,
   File01,
-  Users01,
   HelpCircle,
   Calendar,
   Lightbulb01,

@@ -1,11 +1,6 @@
-import { cx } from '@/utils/cx'
 import { TypingAnimation } from '@/components/ui/typing-animation'
 import { SignupFormData } from '../types'
-import {
-  getRecommendedPlan,
-  generatePlanRecommendationText,
-  joinWithAnd,
-} from '../utils'
+import { getRecommendedPlan, joinWithAnd } from '../utils'
 import { SAAS_TOOLS } from '../constants'
 
 interface PlanRecommendationProps {

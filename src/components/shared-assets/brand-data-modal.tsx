@@ -1,7 +1,6 @@
 import { X, Building02 } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { BrandData } from '@/utils/brandfetch'
-import { cx } from '@/utils/cx'
 import { getAllIndustries } from '@/utils/industry-mapping'
 
 interface BrandDataModalProps {

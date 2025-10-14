@@ -1,6 +1,5 @@
 import { SignupFormData } from './types'
 import { BrandData } from '@/utils/brandfetch'
-import { mapIndustryToBrandfetch } from '@/utils/industry-mapping'
 
 export const validateStep = (
   step: number,
