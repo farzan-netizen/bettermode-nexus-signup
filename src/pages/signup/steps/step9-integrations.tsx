@@ -1,21 +1,23 @@
-import { ArrowRight, Asterisk02 } from "@untitledui/icons";
-import { Button } from "@/components/base/buttons/button";
-import { cx } from "@/utils/cx";
-import { SignupFormData } from "../types";
-import { SAAS_TOOLS, GROWTH_ENTERPRISE_TOOLS } from "../constants";
+import { ArrowRight, Asterisk02 } from '@untitledui/icons'
+import { Button } from '@/components/base/buttons/button'
+import { cx } from '@/utils/cx'
+import { SignupFormData } from '../types'
+import { SAAS_TOOLS, GROWTH_ENTERPRISE_TOOLS } from '../constants'
 
 interface Step9IntegrationsProps {
-  formData: SignupFormData;
-  onArrayToggle: (field: 'currentTools' | 'enterpriseFeatures') => (value: string) => void;
-  onNext: () => void;
-  onSelectAllTools: () => void;
+  formData: SignupFormData
+  onArrayToggle: (
+    field: 'currentTools' | 'enterpriseFeatures',
+  ) => (value: string) => void
+  onNext: () => void
+  onSelectAllTools: () => void
 }
 
-export const Step9Integrations = ({ 
-  formData, 
-  onArrayToggle, 
+export const Step9Integrations = ({
+  formData,
+  onArrayToggle,
   onNext,
-  onSelectAllTools
+  onSelectAllTools,
 }: Step9IntegrationsProps) => {
   return (
     <div className="flex flex-col gap-6">
@@ -25,39 +27,47 @@ export const Step9Integrations = ({
             onClick={onSelectAllTools}
             className="text-sm font-medium text-brand-secondary hover:text-brand-secondary_hover underline decoration-transparent hover:decoration-brand-secondary underline-offset-2 transition-all"
           >
-            {SAAS_TOOLS.every(tool => formData.currentTools.includes(tool.id)) ? 'Unselect all' : 'Select all'}
+            {SAAS_TOOLS.every(tool => formData.currentTools.includes(tool.id))
+              ? 'Unselect all'
+              : 'Select all'}
           </button>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {SAAS_TOOLS.map(tool => (
-            <div key={tool.id} className={cx(
-              "flex items-center p-2 sm:p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm",
-              formData.currentTools.includes(tool.id)
-                ? "border-brand-solid bg-brand-primary/50 shadow-sm"
-                : "border-secondary hover:border-primary"
-            )}
-            onClick={() => onArrayToggle('currentTools')(tool.id)}
+            <div
+              key={tool.id}
+              className={cx(
+                'flex items-center p-2 sm:p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm',
+                formData.currentTools.includes(tool.id)
+                  ? 'border-brand-solid bg-brand-primary/50 shadow-sm'
+                  : 'border-secondary hover:border-primary',
+              )}
+              onClick={() => onArrayToggle('currentTools')(tool.id)}
             >
               {/* Logo - Left side */}
               {tool.logo && (
                 <div className="w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3">
-                  <img 
-                    src={tool.logo} 
+                  <img
+                    src={tool.logo}
                     alt={tool.name}
                     className={cx(
-                      "max-w-full max-h-full object-contain",
-                      (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
+                      'max-w-full max-h-full object-contain',
+                      (tool.id === 'cookie-consent' ||
+                        tool.id === 'custom-code') &&
+                        'logo-filter',
                     )}
                   />
                 </div>
               )}
-              
+
               {/* Text content */}
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-primary text-xs sm:text-sm truncate">{tool.name}</div>
+                <div className="font-medium text-primary text-xs sm:text-sm truncate">
+                  {tool.name}
+                </div>
               </div>
-              
+
               {/* Asterisk icon - Right side - Only for Growth/Enterprise tools */}
               {GROWTH_ENTERPRISE_TOOLS.includes(tool.id) && (
                 <div className="flex-shrink-0 ml-2">
@@ -67,38 +77,47 @@ export const Step9Integrations = ({
             </div>
           ))}
         </div>
-        
+
         {/* Last selected integration description */}
-        {formData.currentTools.length > 0 && (() => {
-          const lastSelectedToolId = formData.currentTools[formData.currentTools.length - 1];
-          const tool = SAAS_TOOLS.find(t => t.id === lastSelectedToolId);
-          if (!tool) return null;
-          
-          return (
-            <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
-              <div className="flex flex-col items-start gap-3">
-                <div className="w-8 h-8 flex items-center justify-center">
-                  <img 
-                    src={tool.logo} 
-                    alt={tool.name}
-                    className={cx(
-                      "max-w-full max-h-full object-contain",
-                      (tool.id === "cookie-consent" || tool.id === "custom-code") && "logo-filter"
-                    )}
-                  />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs text-tertiary">
-                    <span className="font-medium text-primary">({tool.name})</span> + bettermode : {tool.description}
+        {formData.currentTools.length > 0 &&
+          (() => {
+            const lastSelectedToolId =
+              formData.currentTools[formData.currentTools.length - 1]
+            const tool = SAAS_TOOLS.find(t => t.id === lastSelectedToolId)
+            if (!tool) return null
+
+            return (
+              <div className="mt-4 bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4">
+                <div className="flex flex-col items-start gap-3">
+                  <div className="w-8 h-8 flex items-center justify-center">
+                    <img
+                      src={tool.logo}
+                      alt={tool.name}
+                      className={cx(
+                        'max-w-full max-h-full object-contain',
+                        (tool.id === 'cookie-consent' ||
+                          tool.id === 'custom-code') &&
+                          'logo-filter',
+                      )}
+                    />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs text-tertiary">
+                      <span className="font-medium text-primary">
+                        ({tool.name})
+                      </span>{' '}
+                      + bettermode : {tool.description}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })()}
-        
+            )
+          })()}
+
         {/* Helper note - Only show if Growth/Enterprise tools are selected */}
-        {formData.currentTools.some(tool => GROWTH_ENTERPRISE_TOOLS.includes(tool)) && (
+        {formData.currentTools.some(tool =>
+          GROWTH_ENTERPRISE_TOOLS.includes(tool),
+        ) && (
           <div className="mt-3 bg-secondary/30 rounded-lg p-3">
             <p className="text-xs text-tertiary text-left">
               <Asterisk02 className="w-3 h-3 inline mr-1 text-purple-500" />
@@ -115,7 +134,7 @@ export const Step9Integrations = ({
         >
           No integrations needed for now
         </button>
-        
+
         <Button
           iconTrailing={ArrowRight}
           onClick={onNext}
@@ -126,5 +145,5 @@ export const Step9Integrations = ({
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}

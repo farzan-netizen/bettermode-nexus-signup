@@ -1,28 +1,28 @@
-import { ArrowRight } from "@untitledui/icons";
-import { Button } from "@/components/base/buttons/button";
-import { Input } from "@/components/base/input/input";
-import { InputGroup } from "@/components/base/input/input-group";
-import { SignupFormData } from "../types";
+import { ArrowRight } from '@untitledui/icons'
+import { Button } from '@/components/base/buttons/button'
+import { Input } from '@/components/base/input/input'
+import { InputGroup } from '@/components/base/input/input-group'
+import { SignupFormData } from '../types'
 
 interface Step8WebsiteProps {
-  formData: SignupFormData;
-  onInputChange: (field: keyof SignupFormData) => (value: string) => void;
-  onNext: () => void;
+  formData: SignupFormData
+  onInputChange: (field: keyof SignupFormData) => (value: string) => void
+  onNext: () => void
 }
 
-export const Step8Website = ({ 
-  formData, 
-  onInputChange, 
-  onNext 
+export const Step8Website = ({
+  formData,
+  onInputChange,
+  onNext,
 }: Step8WebsiteProps) => {
   return (
     <div className="flex flex-col gap-6">
-      <InputGroup 
+      <InputGroup
         label={`${formData.companyName || 'Company'} website URL`}
         leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}
       >
-        <Input 
-          placeholder="www.company-website.com" 
+        <Input
+          placeholder="www.company-website.com"
           value={formData.website}
           onChange={onInputChange('website')}
         />
@@ -35,7 +35,7 @@ export const Step8Website = ({
         >
           Skip
         </button>
-        
+
         <Button
           iconTrailing={ArrowRight}
           onClick={onNext}
@@ -46,5 +46,5 @@ export const Step8Website = ({
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,25 +1,25 @@
-import { ArrowRight } from "@untitledui/icons";
-import { Button } from "@/components/base/buttons/button";
-import { Input } from "@/components/base/input/input";
-import { WizardFormData } from "../types";
+import { ArrowRight } from '@untitledui/icons'
+import { Button } from '@/components/base/buttons/button'
+import { Input } from '@/components/base/input/input'
+import { WizardFormData } from '../types'
 
 interface Step1NameCommunityProps {
-  formData: WizardFormData;
-  errors: Partial<WizardFormData>;
-  onInputChange: (field: keyof WizardFormData) => (value: any) => void;
-  onNext: () => void;
+  formData: WizardFormData
+  errors: Partial<WizardFormData>
+  onInputChange: (field: keyof WizardFormData) => (value: any) => void
+  onNext: () => void
 }
 
 export const Step1NameCommunity = ({
   formData,
   errors,
   onInputChange,
-  onNext
+  onNext,
 }: Step1NameCommunityProps) => {
   // Determine which view to show based on migration preference
-  const showInitialQuestion = formData.hasMigrationPreference === null;
-  const showMigrationNameField = formData.hasMigrationPreference === true;
-  const showNewCommunityNameField = formData.hasMigrationPreference === false;
+  const showInitialQuestion = formData.hasMigrationPreference === null
+  const showMigrationNameField = formData.hasMigrationPreference === true
+  const showNewCommunityNameField = formData.hasMigrationPreference === false
 
   return (
     <div className="flex flex-col gap-6">
@@ -32,7 +32,7 @@ export const Step1NameCommunity = ({
           >
             I want to migrate my existing community
           </button>
-          
+
           <Button
             iconTrailing={ArrowRight}
             onClick={() => onInputChange('hasMigrationPreference')(false)}
@@ -51,10 +51,13 @@ export const Step1NameCommunity = ({
               label="Current community URL"
               type="url"
               placeholder="e.g., https://mycommunity.com"
-              value={formData.existingCommunityName || ""}
+              value={formData.existingCommunityName || ''}
               onChange={onInputChange('existingCommunityName')}
               isInvalid={!!errors.existingCommunityName}
-              hint={errors.existingCommunityName || "Enter the URL of your existing community that you want to migrate."}
+              hint={
+                errors.existingCommunityName ||
+                'Enter the URL of your existing community that you want to migrate.'
+              }
               isRequired
             />
           </div>
@@ -66,7 +69,7 @@ export const Step1NameCommunity = ({
             >
               Create new community instead
             </button>
-            
+
             <Button
               iconTrailing={ArrowRight}
               onClick={onNext}
@@ -90,7 +93,10 @@ export const Step1NameCommunity = ({
               value={formData.communityName}
               onChange={onInputChange('communityName')}
               isInvalid={!!errors.communityName}
-              hint={errors.communityName || "We'll use this name across your workspace and emails."}
+              hint={
+                errors.communityName ||
+                "We'll use this name across your workspace and emails."
+              }
               isRequired
             />
           </div>
@@ -102,7 +108,7 @@ export const Step1NameCommunity = ({
             >
               I have an existing community
             </button>
-            
+
             <Button
               iconTrailing={ArrowRight}
               onClick={onNext}
@@ -115,5 +121,5 @@ export const Step1NameCommunity = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}

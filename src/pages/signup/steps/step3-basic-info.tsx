@@ -1,20 +1,20 @@
-import { ArrowRight } from "@untitledui/icons";
-import { Button } from "@/components/base/buttons/button";
-import { Input } from "@/components/base/input/input";
-import { SignupFormData } from "../types";
+import { ArrowRight } from '@untitledui/icons'
+import { Button } from '@/components/base/buttons/button'
+import { Input } from '@/components/base/input/input'
+import { SignupFormData } from '../types'
 
 interface Step3BasicInfoProps {
-  formData: SignupFormData;
-  errors: Record<string, string>;
-  onInputChange: (field: keyof SignupFormData) => (value: string) => void;
-  onNext: () => void;
+  formData: SignupFormData
+  errors: Record<string, string>
+  onInputChange: (field: keyof SignupFormData) => (value: string) => void
+  onNext: () => void
 }
 
-export const Step3BasicInfo = ({ 
-  formData, 
-  errors, 
-  onInputChange, 
-  onNext 
+export const Step3BasicInfo = ({
+  formData,
+  errors,
+  onInputChange,
+  onNext,
 }: Step3BasicInfoProps) => {
   return (
     <div className="flex flex-col gap-6">
@@ -27,9 +27,9 @@ export const Step3BasicInfo = ({
         hint={errors.firstName}
         isRequired
       />
-    
+
       <Input
-        label="Last name" 
+        label="Last name"
         placeholder=""
         value={formData.lastName}
         onChange={onInputChange('lastName')}
@@ -49,5 +49,5 @@ export const Step3BasicInfo = ({
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}

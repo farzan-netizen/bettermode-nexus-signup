@@ -1,47 +1,49 @@
-import { useEffect } from "react";
-import type { RefObject } from "@react-types/shared";
+import { useEffect } from 'react'
+import type { RefObject } from '@react-types/shared'
 
 function hasResizeObserver() {
-    return typeof window.ResizeObserver !== "undefined";
+  return typeof window.ResizeObserver !== 'undefined'
 }
 
 type useResizeObserverOptionsType<T> = {
-    ref: RefObject<T | undefined | null> | undefined;
-    box?: ResizeObserverBoxOptions;
-    onResize: () => void;
-};
+  ref: RefObject<T | undefined | null> | undefined
+  box?: ResizeObserverBoxOptions
+  onResize: () => void
+}
 
-export function useResizeObserver<T extends Element>(options: useResizeObserverOptionsType<T>) {
-    const { ref, box, onResize } = options;
+export function useResizeObserver<T extends Element>(
+  options: useResizeObserverOptionsType<T>,
+) {
+  const { ref, box, onResize } = options
 
-    useEffect(() => {
-        let element = ref?.current;
-        if (!element) {
-            return;
+  useEffect(() => {
+    const element = ref?.current
+    if (!element) {
+      return
+    }
+
+    if (!hasResizeObserver()) {
+      window.addEventListener('resize', onResize, false)
+
+      return () => {
+        window.removeEventListener('resize', onResize, false)
+      }
+    } else {
+      const resizeObserverInstance = new window.ResizeObserver(entries => {
+        if (!entries.length) {
+          return
         }
 
-        if (!hasResizeObserver()) {
-            window.addEventListener("resize", onResize, false);
+        onResize()
+      })
 
-            return () => {
-                window.removeEventListener("resize", onResize, false);
-            };
-        } else {
-            const resizeObserverInstance = new window.ResizeObserver((entries) => {
-                if (!entries.length) {
-                    return;
-                }
+      resizeObserverInstance.observe(element, { box })
 
-                onResize();
-            });
-
-            resizeObserverInstance.observe(element, { box });
-
-            return () => {
-                if (element) {
-                    resizeObserverInstance.unobserve(element);
-                }
-            };
+      return () => {
+        if (element) {
+          resizeObserverInstance.unobserve(element)
         }
-    }, [onResize, ref, box]);
+      }
+    }
+  }, [onResize, ref, box])
 }
