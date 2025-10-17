@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router'
-
-// Import types and utilities
 import { SignupFormData } from './types'
 import { validateStep, getRecommendedPlan } from './utils'
 import { SAAS_TOOLS } from './constants'
@@ -11,8 +9,6 @@ import {
   extractDomainFromEmail,
   shouldFetchBrandData,
 } from '@/utils/brandfetch'
-
-// Import step components
 import { Step1Email } from './steps/step1-email'
 import { Step2Verification } from './steps/step2-verification'
 import { Step3BasicInfo } from './steps/step3-basic-info'
@@ -24,14 +20,12 @@ import { Step8Website } from './steps/step8-website'
 import { Step9Integrations } from './steps/step9-integrations'
 import { Step10Enterprise } from './steps/step10-enterprise'
 import { Step11PlanSelection } from './steps/step11-plan-selection'
-
-// Import sidebar components
-import { SidebarContent } from './sidebar/sidebar-content'
 import { BrandDataModal } from '@/components/shared-assets/brand-data-modal'
 import { TrialSuccess } from './trial-success'
 import { EnterpriseSuccess } from './enterprise-success'
 import { PageContainer } from '../page-container'
 import { cx } from '../../utils/cx'
+import { SignupSideBar } from './sidebar'
 
 export const SignupPage = () => {
   const navigate = useNavigate()
@@ -512,51 +506,7 @@ export const SignupPage = () => {
       totalSteps={7}
       currentStep={getCurrentStep()}
       rightSideBar={
-        currentStep !== 11 && (
-          <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden max-w-[30%]">
-            <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
-              <SidebarContent currentStep={currentStep} formData={formData} />
-            </div>
-
-            {/* Fixed Company Logos at Bottom - Only show for testimonial steps */}
-            {currentStep >= 2 && currentStep <= 9 && (
-              <div className="absolute bottom-8 left-6 right-6">
-                <div className="grid grid-cols-4 gap-1 px-2">
-                  {[
-                    { src: '/logos/l_backup/CoachHub.svg', alt: 'CoachHub' },
-                    { src: '/logos/l_backup/Ceros.svg', alt: 'Ceros' },
-                    {
-                      src: '/logos/l_backup/Flutterflow.svg',
-                      alt: 'FlutterFlow',
-                    },
-                    { src: '/logos/l_backup/ibm.svg', alt: 'IBM' },
-                    { src: '/logos/intercom-1.svg', alt: 'Intercom' },
-                    { src: '/logos/l_backup/lenovo.svg', alt: 'Lenovo' },
-                    { src: '/logos/l_backup/logitech.svg', alt: 'Logitech' },
-                    { src: '/logos/l_backup/preply.svg', alt: 'Preply' },
-                    {
-                      src: '/logos/l_backup/Property 1=SuperOps, color=color.svg',
-                      alt: 'SuperOps',
-                    },
-                    {
-                      src: '/logos/l_backup/Property 1=Variant10, color=color.svg',
-                      alt: 'Variant10',
-                    },
-                    { src: '/logos/l_backup/xano.svg', alt: 'Xano' },
-                    { src: '/logos/l_backup/yoto.svg', alt: 'Yoto' },
-                  ].map((logo, index) => (
-                    <img
-                      key={index}
-                      src={logo.src}
-                      alt={logo.alt}
-                      className="h-12 w-16 object-contain opacity-60 mx-auto logo-filter"
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )
+        <SignupSideBar currentStep={currentStep} formData={formData} />
       }
     >
       <div
@@ -569,21 +519,18 @@ export const SignupPage = () => {
         )}
       >
         {renderCurrentStep()}
-        {/* Brand Data Modal */}
         <BrandDataModal
           isOpen={showBrandModal}
           onClose={() => setShowBrandModal(false)}
           brandData={brandData}
           isLoading={isFetchingBrand}
         />
-        {/* Trial Success Screen - Full Screen like Wizard */}
         {showTrialSuccess && (
           <TrialSuccess
             firstName={formData.firstName}
             companyName={formData.companyName}
           />
         )}
-        {/* Enterprise Success Screen - Full Screen like Wizard */}
         {showEnterpriseSuccess && <EnterpriseSuccess />}
       </div>
     </PageContainer>
