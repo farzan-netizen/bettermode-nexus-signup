@@ -1,18 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router'
-import { ArrowLeft } from '@untitledui/icons'
-import { Button } from '@/components/base/buttons/button'
-import { cx } from '@/utils/cx'
 
 // Import types and utilities
-import { SignupFormData } from './signup/types'
-import {
-  validateStep,
-  getStepTitle,
-  getStepDescription,
-  getRecommendedPlan,
-} from './signup/utils'
-import { SAAS_TOOLS } from './signup/constants'
+import { SignupFormData } from './types'
+import { validateStep, getRecommendedPlan } from './utils'
+import { SAAS_TOOLS } from './constants'
 import {
   BrandData,
   fetchBrandData,
@@ -21,22 +13,25 @@ import {
 } from '@/utils/brandfetch'
 
 // Import step components
-import { Step1Email } from './signup/steps/step1-email'
-import { Step2Verification } from './signup/steps/step2-verification'
-import { Step3BasicInfo } from './signup/steps/step3-basic-info'
-import { Step4Industry } from './signup/steps/step4-industry'
-import { Step5Role } from './signup/steps/step5-role'
-import { Step6Company } from './signup/steps/step6-company'
-import { Step7CompanySize } from './signup/steps/step7-company-size'
-import { Step8Website } from './signup/steps/step8-website'
-import { Step9Integrations } from './signup/steps/step9-integrations'
-import { Step10Enterprise } from './signup/steps/step10-enterprise'
-import { Step11PlanSelection } from './signup/steps/step11-plan-selection'
+import { Step1Email } from './steps/step1-email'
+import { Step2Verification } from './steps/step2-verification'
+import { Step3BasicInfo } from './steps/step3-basic-info'
+import { Step4Industry } from './steps/step4-industry'
+import { Step5Role } from './steps/step5-role'
+import { Step6Company } from './steps/step6-company'
+import { Step7CompanySize } from './steps/step7-company-size'
+import { Step8Website } from './steps/step8-website'
+import { Step9Integrations } from './steps/step9-integrations'
+import { Step10Enterprise } from './steps/step10-enterprise'
+import { Step11PlanSelection } from './steps/step11-plan-selection'
 
 // Import sidebar components
-import { SidebarContent } from './signup/sidebar/sidebar-content'
+import { SidebarContent } from './sidebar/sidebar-content'
 import { BrandDataModal } from '@/components/shared-assets/brand-data-modal'
-import { ToggleTheme } from '@/components/ui/toogle-theme'
+import { TrialSuccess } from './trial-success'
+import { EnterpriseSuccess } from './enterprise-success'
+import { PageContainer } from '../page-container'
+import { cx } from '../../utils/cx'
 
 export const SignupPage = () => {
   const navigate = useNavigate()
@@ -501,202 +496,24 @@ export const SignupPage = () => {
     return step === 4 || step === 5 || (step >= 9 && step <= 10)
   }
 
+  const getCurrentStep = () => {
+    let adjustedStep = currentStep
+    if (currentStep >= 9) {
+      adjustedStep = currentStep - 3
+    }
+
+    return adjustedStep
+  }
+
   return (
-    <div className="bg-primary antialiased">
-      <section
-        className={cx(
-          'flex min-h-screen bg-primary',
-          currentStep === 11
-            ? 'lg:grid lg:grid-cols-1'
-            : 'lg:grid lg:grid-cols-[7fr_3fr]',
-        )}
-      >
-        {/* Left Column - Form (2/3) - Scrollable */}
-        <div className="flex w-full flex-col bg-primary lg:h-screen lg:overflow-hidden">
-          {/* Header */}
-          <header className="flex flex-col gap-1 px-4 py-1 sm:gap-1.5 sm:py-1.5 sm:px-6 md:px-8 lg:px-8 xl:px-8">
-            {/* Logo */}
-            <div className="flex gap-x-4 h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[32px]">
-              <img
-                src="/logo-bettermode.svg"
-                alt="bettermode"
-                className="h-6 w-auto logo-filter"
-              />
-              <ToggleTheme />
-            </div>
-
-            {/* Mobile Logo */}
-            <div className="flex gap-x-4 items-center justify-center md:hidden">
-              <img
-                src="/logo-bettermode.svg"
-                alt="bettermode"
-                className="h-8 w-auto logo-filter"
-              />
-              <ToggleTheme />
-            </div>
-
-            {/* Progress Bar */}
-            <div className="w-full bg-secondary rounded-full h-1">
-              <div
-                className="h-full bg-brand-secondary rounded-full transition-all duration-500"
-                style={{
-                  width: `${(() => {
-                    // Adjust progress calculation for skipped steps
-                    let adjustedStep = currentStep
-                    if (currentStep >= 9) {
-                      adjustedStep = currentStep - 3 // Account for skipped steps 6,7,8
-                    }
-                    return ((adjustedStep - 1) / 7) * 100 // Now 8 total steps instead of 11
-                  })()}%`,
-                }}
-              />
-            </div>
-          </header>
-
-          <div className="flex-1 lg:overflow-y-auto lg:scrollbar-thin">
-            <div
-              className={cx(
-                'flex justify-start items-start min-h-full pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8',
-                currentStep === 11
-                  ? 'pl-[100px] pr-24'
-                  : 'pl-[100px] pr-4 md:pr-6 lg:pr-8',
-              )}
-            >
-              <div
-                className={cx(
-                  'flex w-full flex-col pb-6 sm:pb-8',
-                  currentStep === 11
-                    ? 'w-full'
-                    : currentStep >= 1 && currentStep <= 3
-                      ? 'max-w-sm sm:max-w-md gap-4 sm:gap-6 md:gap-8'
-                      : 'max-w-lg sm:max-w-xl md:max-w-2xl gap-4 sm:gap-6 md:gap-8',
-                )}
-              >
-                {/* Form Content */}
-                <div className="flex flex-col gap-6">
-                  {/* Step Content */}
-                  <div className="flex flex-col gap-2">
-                    {shouldShowBackButton(currentStep) && (
-                      <div className="mb-1">
-                        <button
-                          onClick={handleBack}
-                          className="inline-flex items-center gap-2 text-sm text-brand-secondary hover:text-brand-secondary_hover transition-colors mb-3"
-                        >
-                          <ArrowLeft className="w-4 h-4" />
-                          Back
-                        </button>
-                      </div>
-                    )}
-
-                    {currentStep === 4 && (
-                      <div className="">
-                        <p className="text-lg text-tertiary">
-                          Nice to meet you{' '}
-                          <span className="font-bold">
-                            {formData.firstName}
-                          </span>
-                          !
-                        </p>
-                      </div>
-                    )}
-
-                    {currentStep === 5 && (
-                      <div className="">
-                        <p className="text-lg text-tertiary">
-                          Dear{' '}
-                          <span className="font-bold">
-                            {formData.firstName}
-                          </span>
-                          ,
-                        </p>
-                      </div>
-                    )}
-
-                    {currentStep !== 11 && (
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div>
-                          <h1 className="text-display-xs font-semibold text-primary md:text-display-sm">
-                            {getStepTitle(currentStep, formData)}
-                          </h1>
-                          <p className="text-md text-tertiary mt-2">
-                            {getStepDescription(currentStep, formData)}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Form Content */}
-                {currentStep === 11 ? (
-                  renderCurrentStep()
-                ) : (
-                  <div className="flex flex-col gap-6">
-                    {renderCurrentStep()}
-                  </div>
-                )}
-
-                {/* Sign in link */}
-                {currentStep === 1 && (
-                  <div className="flex justify-start gap-1 text-left">
-                    <span className="text-sm text-tertiary">
-                      Already have an account?
-                    </span>
-                    <button
-                      onClick={() => navigate('/login')}
-                      className="text-sm font-semibold text-brand-secondary hover:text-brand-secondary_hover"
-                    >
-                      Sign in
-                    </button>
-                  </div>
-                )}
-
-                {/* Terms and Privacy */}
-                {currentStep === 1 && (
-                  <p className="text-xs text-tertiary text-left">
-                    By creating an account, you agree to our{' '}
-                    <a
-                      href="/terms"
-                      className="text-brand-secondary hover:text-brand-secondary_hover"
-                    >
-                      Terms
-                    </a>{' '}
-                    and{' '}
-                    <a
-                      href="/privacy"
-                      className="text-brand-secondary hover:text-brand-secondary_hover"
-                    >
-                      Privacy Policy
-                    </a>
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Navigation */}
-          <div className="lg:hidden p-4 border-t border-secondary">
-            <div className="flex gap-3">
-              {currentStep > 1 &&
-                !shouldShowBackButton(currentStep) &&
-                currentStep !== 11 && (
-                  <Button
-                    className="flex-1"
-                    color="secondary"
-                    iconLeading={ArrowLeft}
-                    onClick={handleBack}
-                    size="md"
-                  >
-                    Back
-                  </Button>
-                )}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side - Sidebar */}
-        {currentStep !== 11 && (
-          <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden">
+    <PageContainer
+      hideSteps
+      onBack={shouldShowBackButton(currentStep) ? handleBack : undefined}
+      totalSteps={7}
+      currentStep={getCurrentStep()}
+      rightSideBar={
+        currentStep !== 11 && (
+          <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden max-w-[30%]">
             <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
               <SidebarContent currentStep={currentStep} formData={formData} />
             </div>
@@ -739,103 +556,36 @@ export const SignupPage = () => {
               </div>
             )}
           </div>
+        )
+      }
+    >
+      <div
+        className={cx(
+          currentStep !== 11 &&
+            currentStep > 3 &&
+            'flex w-full flex-col pb-6 sm:pb-8 max-w-lg sm:max-w-xl md:max-w-2xl gap-4 sm:gap-6 md:gap-8',
+          currentStep <= 3 &&
+            'flex w-full flex-col pb-6 sm:pb-8 max-w-sm sm:max-w-md gap-4 sm:gap-6 md:gap-8',
         )}
-      </section>
-
-      {/* Brand Data Modal */}
-      <BrandDataModal
-        isOpen={showBrandModal}
-        onClose={() => setShowBrandModal(false)}
-        brandData={brandData}
-        isLoading={isFetchingBrand}
-      />
-
-      {/* Trial Success Screen - Full Screen like Wizard */}
-      {showTrialSuccess && (
-        <div
-          className="fixed inset-0 flex items-center justify-center p-8 z-50 animate-in fade-in slide-in-from-bottom-8 duration-1000"
-          style={{
-            background: (() => {
-              // Get primary color from wizard data if available
-              try {
-                const wizardData = sessionStorage.getItem('wizard-form-data')
-                if (wizardData) {
-                  const parsedData = JSON.parse(wizardData)
-                  if (parsedData.primaryColor) {
-                    const color = parsedData.primaryColor
-                    return `linear-gradient(120deg, ${color}15 0%, ${color}25 25%, ${color}35 50%, ${color}25 75%, ${color}15 100%), #ffffff`
-                  }
-                }
-              } catch (error) {
-                console.error('Error parsing wizard primary color:', error)
-              }
-              // Fallback to original gradient
-              return `linear-gradient(120deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%), #ffffff`
-            })(),
-          }}
-        >
-          {/* Success Content */}
-          <div className="text-center max-w-2xl">
-            {/* Success Message */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              {(() => {
-                // Get community name from wizard data if available
-                try {
-                  const wizardData = sessionStorage.getItem('wizard-form-data')
-                  if (wizardData) {
-                    const parsedData = JSON.parse(wizardData)
-                    if (parsedData.communityName) {
-                      return `${parsedData.communityName} is ready!`
-                    }
-                  }
-                } catch (error) {
-                  console.error('Error parsing wizard data:', error)
-                }
-                // Fallback to original logic
-                return `${formData.companyName || formData.firstName || 'Your community'} is ready!`
-              })()}
-            </h1>
-
-            <p className="text-xl sm:text-2xl text-gray-600 mb-8 leading-relaxed">
-              We're setting up your community and preparing everything for
-              launch.
-            </p>
-
-            {/* Loading Text */}
-            <div className="text-lg text-gray-500">
-              <span>Redirecting to onboarding...</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Enterprise Success Screen - Full Screen like Wizard */}
-      {showEnterpriseSuccess && (
-        <div
-          className="fixed inset-0 flex items-center justify-center p-8 z-50 animate-in fade-in slide-in-from-bottom-8 duration-1000"
-          style={{
-            background: `linear-gradient(120deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%)`,
-          }}
-        >
-          {/* Success Content */}
-          <div className="text-center max-w-2xl">
-            {/* Success Message */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Perfect! Let's build your community.
-            </h1>
-
-            <p className="text-xl sm:text-2xl text-gray-600 mb-8 leading-relaxed">
-              We'll guide you through setting up your community with the
-              enterprise features you selected.
-            </p>
-
-            {/* Loading Text */}
-            <div className="text-lg text-gray-500">
-              <span>Redirecting to community setup...</span>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+      >
+        {renderCurrentStep()}
+        {/* Brand Data Modal */}
+        <BrandDataModal
+          isOpen={showBrandModal}
+          onClose={() => setShowBrandModal(false)}
+          brandData={brandData}
+          isLoading={isFetchingBrand}
+        />
+        {/* Trial Success Screen - Full Screen like Wizard */}
+        {showTrialSuccess && (
+          <TrialSuccess
+            firstName={formData.firstName}
+            companyName={formData.companyName}
+          />
+        )}
+        {/* Enterprise Success Screen - Full Screen like Wizard */}
+        {showEnterpriseSuccess && <EnterpriseSuccess />}
+      </div>
+    </PageContainer>
   )
 }

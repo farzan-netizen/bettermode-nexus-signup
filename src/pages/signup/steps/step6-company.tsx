@@ -2,6 +2,7 @@ import { ArrowRight } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { Input } from '@/components/base/input/input'
 import { SignupFormData } from '../types'
+import { StepContainer } from '../../step-container'
 
 interface Step6CompanyProps {
   formData: SignupFormData
@@ -17,27 +18,29 @@ export const Step6Company = ({
   onNext,
 }: Step6CompanyProps) => {
   return (
-    <div className="flex flex-col gap-6">
-      <Input
-        label="Company name"
-        placeholder=""
-        value={formData.companyName}
-        onChange={onInputChange('companyName')}
-        isInvalid={!!errors.companyName}
-        hint={errors.companyName}
-        isRequired
-      />
+    <StepContainer title="What is your company's name?">
+      <div className="flex flex-col gap-6">
+        <Input
+          label="Company name"
+          placeholder=""
+          value={formData.companyName}
+          onChange={onInputChange('companyName')}
+          isInvalid={!!errors.companyName}
+          hint={errors.companyName}
+          isRequired
+        />
 
-      <div className="flex justify-end">
-        <Button
-          iconTrailing={ArrowRight}
-          onClick={onNext}
-          size="sm"
-          isDisabled={!formData.companyName.trim()}
-        >
-          Continue
-        </Button>
+        <div className="flex justify-end">
+          <Button
+            iconTrailing={ArrowRight}
+            onClick={onNext}
+            size="sm"
+            isDisabled={!formData.companyName.trim()}
+          >
+            Continue
+          </Button>
+        </div>
       </div>
-    </div>
+    </StepContainer>
   )
 }

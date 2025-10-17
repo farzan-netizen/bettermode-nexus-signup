@@ -7,6 +7,7 @@ import { WizardFormData } from '../types'
 import { detectBrandFromUrl, BrandInfo } from '../utils/brand-detection'
 import { fetchBrandData } from '@/utils/brandfetch'
 import { cx } from '@/utils/cx'
+import { StepContainer } from '../../step-container.tsx'
 
 interface Step2BrandingProps {
   formData: WizardFormData
@@ -400,311 +401,327 @@ export const Step2Branding = ({
     }
   }
 
+  const getStepDescription = () => {
+    // Check if we have detected brand data
+    const savedBrandData = sessionStorage.getItem('signup-brand-data')
+    const hasBrandData = savedBrandData && savedBrandData !== 'null'
+
+    if (formData.isManualBranding) {
+      return 'Upload your logo and choose your primary color.'
+    } else if (hasBrandData) {
+      return "We've detected your brand. Customize or continue with these settings."
+    } else {
+      return 'Enter your website URL to automatically detect your brand, or set it manually.'
+    }
+  }
+
   return (
-    <div className="space-y-6">
-      {/* Auto-detection Section */}
-      {!formData.isManualBranding && (
-        <div className="bg-secondary border border-tertiary rounded-lg p-4 transition-all duration-200">
-          {isLoading ? (
-            /* Loading State - Organized */
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <Loading01 className="w-5 h-5 text-brand-secondary animate-spin" />
-                <span className="text-sm font-medium text-primary">
-                  Detecting branding...
-                </span>
-              </div>
-              <div className="space-y-2">
-                <div className="h-2 bg-tertiary rounded animate-pulse"></div>
-                <div className="h-2 bg-quaternary rounded animate-pulse w-3/4"></div>
-              </div>
-            </div>
-          ) : hasBrandData && detectedBrand && !isEditingUrl ? (
-            /* Detected Brand - Clean Layout */
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-primary">
-                  Detected branding
-                </span>
-                <button
-                  onClick={() => setIsEditingUrl(true)}
-                  className="text-xs text-brand-secondary hover:text-brand-secondary_hover underline underline-offset-1"
-                >
-                  Change URL
-                </button>
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-primary rounded-lg border border-tertiary">
-                {detectedBrand.logo && (
-                  <img
-                    src={detectedBrand.logo}
-                    alt={detectedBrand.name}
-                    className="w-8 h-8 object-contain"
-                  />
-                )}
-                <div>
-                  <div className="text-sm font-medium text-primary">
-                    {detectedBrand.name}
-                  </div>
-                  <div className="text-xs text-tertiary">
-                    {detectedBrand.domain}
-                  </div>
+    <StepContainer title="Branding" description={getStepDescription()}>
+      <div className="space-y-6">
+        {/* Auto-detection Section */}
+        {!formData.isManualBranding && (
+          <div className="bg-secondary border border-tertiary rounded-lg p-4 transition-all duration-200">
+            {isLoading ? (
+              /* Loading State - Organized */
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <Loading01 className="w-5 h-5 text-brand-secondary animate-spin" />
+                  <span className="text-sm font-medium text-primary">
+                    Detecting branding...
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  <div className="h-2 bg-tertiary rounded animate-pulse"></div>
+                  <div className="h-2 bg-quaternary rounded animate-pulse w-3/4"></div>
                 </div>
               </div>
-            </div>
-          ) : (
-            /* URL Input - Clean Layout */
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-primary">
-                  Auto-detect branding
-                </span>
-                {isEditingUrl && hasBrandData && detectedBrand && (
+            ) : hasBrandData && detectedBrand && !isEditingUrl ? (
+              /* Detected Brand - Clean Layout */
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-primary">
+                    Detected branding
+                  </span>
                   <button
-                    onClick={() => setIsEditingUrl(false)}
-                    className="text-xs text-tertiary hover:text-tertiary_hover underline underline-offset-1"
+                    onClick={() => setIsEditingUrl(true)}
+                    className="text-xs text-brand-secondary hover:text-brand-secondary_hover underline underline-offset-1"
                   >
-                    Cancel
+                    Change URL
                   </button>
-                )}
-              </div>
-              <div className="flex items-center gap-3">
-                <InputGroup className="flex-1">
-                  <InputGroup.Prefix>https://</InputGroup.Prefix>
-                  <InputBase
-                    placeholder="acme.com"
-                    value={String(formData.websiteUrl || '')}
-                    onChange={handleUrlChange}
-                    className="text-sm"
-                  />
-                </InputGroup>
-                <Button
-                  size="sm"
-                  color="secondary"
-                  onClick={() => {
-                    handleFetchBranding()
-                    setIsEditingUrl(false)
-                  }}
-                  disabled={!String(formData.websiteUrl || '').trim()}
-                  iconLeading={Download01}
-                  className="whitespace-nowrap"
-                >
-                  Fetch branding
-                </Button>
-              </div>
-              <p className="text-xs text-tertiary">
-                We'll automatically detect your logo and brand colors
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Unified Branding Cards Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Brand Logo Card */}
-        <div className="bg-primary border border-secondary rounded-lg p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-primary">Brand logo</h3>
-          </div>
-
-          {/* Logo Options */}
-          <div>
-            {/* Suggested Logos */}
-            {suggestedLogos.length > 0 && !formData.isManualBranding && (
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {suggestedLogos.slice(0, 6).map((logoUrl, index) => {
-                  const logoMeta = logoMetadata[index]
-                  const logoType = logoMeta?.type || 'logo'
-
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setSelectedLogoUrl(logoUrl)
-                        onLogoSelect(logoUrl)
-                        onInputChange('logo')(null)
-                      }}
-                      className={cx(
-                        'relative border-2 rounded-lg p-2 transition-all aspect-square flex items-center justify-center',
-                        selectedLogoUrl === logoUrl
-                          ? 'border-brand-solid bg-brand-primary/5'
-                          : 'border-secondary hover:border-tertiary',
-                      )}
-                    >
-                      <img
-                        src={logoUrl}
-                        alt={`${logoType} logo`}
-                        className="max-w-full max-h-full object-contain"
-                      />
-                      {selectedLogoUrl === logoUrl && (
-                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-solid rounded-full"></div>
-                      )}
-                    </button>
-                  )
-                })}
-              </div>
-            )}
-
-            {/* Manual Logo Upload */}
-            {formData.isManualBranding && (
-              <div
-                className={cx(
-                  'border-2 border-dashed rounded-lg p-6 text-center transition-colors',
-                  dragActive
-                    ? 'border-brand-solid bg-brand-primary/5'
-                    : 'border-tertiary hover:border-secondary',
-                )}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
-                onDrop={handleDrop}
-              >
-                {formData.logo ? (
-                  <div className="space-y-2">
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-primary rounded-lg border border-tertiary">
+                  {detectedBrand.logo && (
                     <img
-                      src={URL.createObjectURL(formData.logo)}
-                      alt="Logo preview"
-                      className="w-16 h-16 object-contain rounded-lg mx-auto"
+                      src={detectedBrand.logo}
+                      alt={detectedBrand.name}
+                      className="w-8 h-8 object-contain"
                     />
-                    <button
-                      onClick={() => onInputChange('logo')(null)}
-                      className="text-xs text-brand-secondary hover:text-brand-secondary_hover"
-                    >
-                      Remove
-                    </button>
+                  )}
+                  <div>
+                    <div className="text-sm font-medium text-primary">
+                      {detectedBrand.name}
+                    </div>
+                    <div className="text-xs text-tertiary">
+                      {detectedBrand.domain}
+                    </div>
                   </div>
-                ) : (
-                  <div className="space-y-2">
-                    <Upload01 className="w-8 h-8 text-quaternary mx-auto" />
-                    <p className="text-xs text-tertiary">Drop logo here or</p>
+                </div>
+              </div>
+            ) : (
+              /* URL Input - Clean Layout */
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-primary">
+                    Auto-detect branding
+                  </span>
+                  {isEditingUrl && hasBrandData && detectedBrand && (
                     <button
-                      onClick={() => fileInputRef.current?.click()}
-                      className="text-xs text-brand-secondary hover:text-brand-secondary_hover font-medium"
+                      onClick={() => setIsEditingUrl(false)}
+                      className="text-xs text-tertiary hover:text-tertiary_hover underline underline-offset-1"
                     >
-                      Browse files
+                      Cancel
                     </button>
-                  </div>
-                )}
-
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileInputChange}
-                  className="hidden"
-                />
+                  )}
+                </div>
+                <div className="flex items-center gap-3">
+                  <InputGroup className="flex-1">
+                    <InputGroup.Prefix>https://</InputGroup.Prefix>
+                    <InputBase
+                      placeholder="acme.com"
+                      value={String(formData.websiteUrl || '')}
+                      onChange={handleUrlChange}
+                      className="text-sm"
+                    />
+                  </InputGroup>
+                  <Button
+                    size="sm"
+                    color="secondary"
+                    onClick={() => {
+                      handleFetchBranding()
+                      setIsEditingUrl(false)
+                    }}
+                    disabled={!String(formData.websiteUrl || '').trim()}
+                    iconLeading={Download01}
+                    className="whitespace-nowrap"
+                  >
+                    Fetch branding
+                  </Button>
+                </div>
+                <p className="text-xs text-tertiary">
+                  We'll automatically detect your logo and brand colors
+                </p>
               </div>
             )}
           </div>
+        )}
+
+        {/* Unified Branding Cards Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Brand Logo Card */}
+          <div className="bg-primary border border-secondary rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-medium text-primary">Brand logo</h3>
+            </div>
+
+            {/* Logo Options */}
+            <div>
+              {/* Suggested Logos */}
+              {suggestedLogos.length > 0 && !formData.isManualBranding && (
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  {suggestedLogos.slice(0, 6).map((logoUrl, index) => {
+                    const logoMeta = logoMetadata[index]
+                    const logoType = logoMeta?.type || 'logo'
+
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setSelectedLogoUrl(logoUrl)
+                          onLogoSelect(logoUrl)
+                          onInputChange('logo')(null)
+                        }}
+                        className={cx(
+                          'relative border-2 rounded-lg p-2 transition-all aspect-square flex items-center justify-center',
+                          selectedLogoUrl === logoUrl
+                            ? 'border-brand-solid bg-brand-primary/5'
+                            : 'border-secondary hover:border-tertiary',
+                        )}
+                      >
+                        <img
+                          src={logoUrl}
+                          alt={`${logoType} logo`}
+                          className="max-w-full max-h-full object-contain"
+                        />
+                        {selectedLogoUrl === logoUrl && (
+                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-solid rounded-full"></div>
+                        )}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+
+              {/* Manual Logo Upload */}
+              {formData.isManualBranding && (
+                <div
+                  className={cx(
+                    'border-2 border-dashed rounded-lg p-6 text-center transition-colors',
+                    dragActive
+                      ? 'border-brand-solid bg-brand-primary/5'
+                      : 'border-tertiary hover:border-secondary',
+                  )}
+                  onDragEnter={handleDrag}
+                  onDragLeave={handleDrag}
+                  onDragOver={handleDrag}
+                  onDrop={handleDrop}
+                >
+                  {formData.logo ? (
+                    <div className="space-y-2">
+                      <img
+                        src={URL.createObjectURL(formData.logo)}
+                        alt="Logo preview"
+                        className="w-16 h-16 object-contain rounded-lg mx-auto"
+                      />
+                      <button
+                        onClick={() => onInputChange('logo')(null)}
+                        className="text-xs text-brand-secondary hover:text-brand-secondary_hover"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <Upload01 className="w-8 h-8 text-quaternary mx-auto" />
+                      <p className="text-xs text-tertiary">Drop logo here or</p>
+                      <button
+                        onClick={() => fileInputRef.current?.click()}
+                        className="text-xs text-brand-secondary hover:text-brand-secondary_hover font-medium"
+                      >
+                        Browse files
+                      </button>
+                    </div>
+                  )}
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileInputChange}
+                    className="hidden"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Brand Colors Card */}
+          <div className="bg-primary border border-secondary rounded-lg p-4">
+            <h3 className="text-sm font-medium text-primary mb-3">
+              Brand colors
+            </h3>
+
+            {/* Suggested Colors */}
+            {suggestedColors.length > 0 &&
+              !formData.isManualBranding &&
+              !isLoading && (
+                <div className="mb-4">
+                  <p className="text-xs text-tertiary mb-2">Detected colors</p>
+                  <div className="flex gap-2 flex-wrap">
+                    {suggestedColors.slice(0, 6).map((color, index) => (
+                      <button
+                        key={color}
+                        onClick={() => onInputChange('primaryColor')(color)}
+                        className={cx(
+                          'w-10 h-10 rounded-lg border-2 transition-all',
+                          formData.primaryColor === color
+                            ? 'border-brand-solid scale-105'
+                            : 'border-secondary hover:border-tertiary',
+                        )}
+                        style={{ backgroundColor: color }}
+                        title={color}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            {/* Manual Color Selection */}
+            {(formData.isManualBranding || suggestedColors.length === 0) &&
+              !isLoading && (
+                <div>
+                  <p className="text-xs text-tertiary mb-2">
+                    Choose primary color
+                  </p>
+
+                  {/* Preset Colors */}
+                  <div className="grid grid-cols-5 gap-2 mb-4">
+                    {PRESET_COLORS.map(color => (
+                      <button
+                        key={color}
+                        onClick={() => onInputChange('primaryColor')(color)}
+                        className={cx(
+                          'w-10 h-10 rounded-lg border-2 transition-all',
+                          formData.primaryColor === color
+                            ? 'border-brand-solid scale-105'
+                            : 'border-secondary hover:border-tertiary',
+                        )}
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Custom Color Input */}
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      value={String(formData.primaryColor)}
+                      onChange={e =>
+                        onInputChange('primaryColor')(e.target.value)
+                      }
+                      className="w-10 h-10 rounded-lg border border-secondary cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={String(formData.primaryColor)}
+                      onChange={e =>
+                        onInputChange('primaryColor')(e.target.value)
+                      }
+                      className="flex-1 px-3 py-2 border border-secondary rounded-lg bg-primary text-primary text-sm"
+                      placeholder="#6366f1"
+                    />
+                  </div>
+                </div>
+              )}
+          </div>
         </div>
 
-        {/* Brand Colors Card */}
-        <div className="bg-primary border border-secondary rounded-lg p-4">
-          <h3 className="text-sm font-medium text-primary mb-3">
-            Brand colors
-          </h3>
+        {/* Helper Text */}
+        <div className="text-center">
+          <p className="text-xs text-tertiary">
+            You can fine-tune colors and logo anytime in Settings.
+          </p>
+        </div>
 
-          {/* Suggested Colors */}
-          {suggestedColors.length > 0 &&
-            !formData.isManualBranding &&
-            !isLoading && (
-              <div className="mb-4">
-                <p className="text-xs text-tertiary mb-2">Detected colors</p>
-                <div className="flex gap-2 flex-wrap">
-                  {suggestedColors.slice(0, 6).map((color, index) => (
-                    <button
-                      key={color}
-                      onClick={() => onInputChange('primaryColor')(color)}
-                      className={cx(
-                        'w-10 h-10 rounded-lg border-2 transition-all',
-                        formData.primaryColor === color
-                          ? 'border-brand-solid scale-105'
-                          : 'border-secondary hover:border-tertiary',
-                      )}
-                      style={{ backgroundColor: color }}
-                      title={color}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+        {/* Mode Toggle and Navigation */}
+        <div className="flex justify-end items-center gap-6 pt-4">
+          {/* Mode Toggle */}
+          <button
+            onClick={handleManualToggle}
+            className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
+          >
+            {!formData.isManualBranding
+              ? 'I want to set the brand manually'
+              : hasBrandData
+                ? 'Use auto-detected'
+                : 'Auto-detect from URL'}
+          </button>
 
-          {/* Manual Color Selection */}
-          {(formData.isManualBranding || suggestedColors.length === 0) &&
-            !isLoading && (
-              <div>
-                <p className="text-xs text-tertiary mb-2">
-                  Choose primary color
-                </p>
-
-                {/* Preset Colors */}
-                <div className="grid grid-cols-5 gap-2 mb-4">
-                  {PRESET_COLORS.map(color => (
-                    <button
-                      key={color}
-                      onClick={() => onInputChange('primaryColor')(color)}
-                      className={cx(
-                        'w-10 h-10 rounded-lg border-2 transition-all',
-                        formData.primaryColor === color
-                          ? 'border-brand-solid scale-105'
-                          : 'border-secondary hover:border-tertiary',
-                      )}
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-
-                {/* Custom Color Input */}
-                <div className="flex items-center gap-2">
-                  <input
-                    type="color"
-                    value={String(formData.primaryColor)}
-                    onChange={e =>
-                      onInputChange('primaryColor')(e.target.value)
-                    }
-                    className="w-10 h-10 rounded-lg border border-secondary cursor-pointer"
-                  />
-                  <input
-                    type="text"
-                    value={String(formData.primaryColor)}
-                    onChange={e =>
-                      onInputChange('primaryColor')(e.target.value)
-                    }
-                    className="flex-1 px-3 py-2 border border-secondary rounded-lg bg-primary text-primary text-sm"
-                    placeholder="#6366f1"
-                  />
-                </div>
-              </div>
-            )}
+          {/* Continue Button */}
+          <Button iconTrailing={ArrowRight} onClick={onNext} size="sm">
+            Continue
+          </Button>
         </div>
       </div>
-
-      {/* Helper Text */}
-      <div className="text-center">
-        <p className="text-xs text-tertiary">
-          You can fine-tune colors and logo anytime in Settings.
-        </p>
-      </div>
-
-      {/* Mode Toggle and Navigation */}
-      <div className="flex justify-end items-center gap-6 pt-4">
-        {/* Mode Toggle */}
-        <button
-          onClick={handleManualToggle}
-          className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
-        >
-          {!formData.isManualBranding
-            ? 'I want to set the brand manually'
-            : hasBrandData
-              ? 'Use auto-detected'
-              : 'Auto-detect from URL'}
-        </button>
-
-        {/* Continue Button */}
-        <Button iconTrailing={ArrowRight} onClick={onNext} size="sm">
-          Continue
-        </Button>
-      </div>
-    </div>
+    </StepContainer>
   )
 }

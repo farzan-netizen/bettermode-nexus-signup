@@ -4,6 +4,7 @@ import { cx } from '@/utils/cx'
 import { SignupFormData } from '../types'
 import { BrandData } from '@/utils/brandfetch'
 import { useEffect } from 'react'
+import { StepContainer } from '../../step-container'
 
 interface Step2VerificationProps {
   formData: SignupFormData
@@ -114,78 +115,85 @@ export const Step2Verification = ({
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-center gap-2 sm:gap-3 w-full">
-        <div className="flex gap-2 sm:gap-3">
-          {renderCodeInputs().slice(0, 3)}
+    <StepContainer
+      title="Check your email for a code"
+      description={`We've sent a 6-character code to ${formData.email}. The code expires shortly, so please enter it soon.`}
+    >
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center justify-center gap-2 sm:gap-3 w-full">
+          <div className="flex gap-2 sm:gap-3">
+            {renderCodeInputs().slice(0, 3)}
+          </div>
+          <span className="text-quaternary text-base sm:text-lg mx-1 sm:mx-2">
+            -
+          </span>
+          <div className="flex gap-2 sm:gap-3">
+            {renderCodeInputs().slice(3, 6)}
+          </div>
         </div>
-        <span className="text-quaternary text-base sm:text-lg mx-1 sm:mx-2">
-          -
-        </span>
-        <div className="flex gap-2 sm:gap-3">
-          {renderCodeInputs().slice(3, 6)}
-        </div>
-      </div>
 
-      {errors.verificationCode && (
-        <p className="text-sm text-error-primary text-center">
-          {errors.verificationCode ===
-          'Code has been expired, tap to resend' ? (
-            <>
-              Code has been expired, tap to{' '}
+        {errors.verificationCode && (
+          <p className="text-sm text-error-primary text-center">
+            {errors.verificationCode ===
+            'Code has been expired, tap to resend' ? (
+              <>
+                Code has been expired, tap to{' '}
+                <button
+                  onClick={onResendCode}
+                  className="text-black underline hover:no-underline cursor-pointer font-medium"
+                >
+                  resend
+                </button>
+              </>
+            ) : errors.verificationCode === 'Code has been sent' ? (
+              <span className="text-green-600">Code has been sent</span>
+            ) : (
+              errors.verificationCode
+            )}
+          </p>
+        )}
+
+        <Button
+          className="w-full"
+          iconTrailing={ArrowRight}
+          onClick={onNext}
+          size="md"
+          isDisabled={
+            formData.verificationCode.length !== 6 || !!errors.verificationCode
+          }
+        >
+          Next
+        </Button>
+
+        <div className="text-center space-y-3">
+          <div className="text-sm text-tertiary">
+            Didn't get the email?{' '}
+            {resendCooldown > 0 ? (
+              <span className="text-quaternary">
+                Resend in {resendCooldown}s
+              </span>
+            ) : (
               <button
                 onClick={onResendCode}
-                className="text-black underline hover:no-underline cursor-pointer font-medium"
+                className="text-brand-secondary hover:text-brand-secondary_hover font-medium"
               >
-                resend
+                Resend
               </button>
-            </>
-          ) : errors.verificationCode === 'Code has been sent' ? (
-            <span className="text-green-600">Code has been sent</span>
-          ) : (
-            errors.verificationCode
-          )}
-        </p>
-      )}
-
-      <Button
-        className="w-full"
-        iconTrailing={ArrowRight}
-        onClick={onNext}
-        size="md"
-        isDisabled={
-          formData.verificationCode.length !== 6 || !!errors.verificationCode
-        }
-      >
-        Next
-      </Button>
-
-      <div className="text-center space-y-3">
-        <div className="text-sm text-tertiary">
-          Didn't get the email?{' '}
-          {resendCooldown > 0 ? (
-            <span className="text-quaternary">Resend in {resendCooldown}s</span>
-          ) : (
+            )}{' '}
+            or{' '}
             <button
-              onClick={onResendCode}
+              onClick={onEditEmail}
               className="text-brand-secondary hover:text-brand-secondary_hover font-medium"
             >
-              Resend
+              edit your email address
             </button>
-          )}{' '}
-          or{' '}
-          <button
-            onClick={onEditEmail}
-            className="text-brand-secondary hover:text-brand-secondary_hover font-medium"
-          >
-            edit your email address
-          </button>
-        </div>
+          </div>
 
-        <p className="text-sm text-tertiary">
-          Can't find your code? Check your spam folder!
-        </p>
+          <p className="text-sm text-tertiary">
+            Can't find your code? Check your spam folder!
+          </p>
+        </div>
       </div>
-    </div>
+    </StepContainer>
   )
 }

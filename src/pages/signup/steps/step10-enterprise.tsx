@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/base/buttons/button'
 import { cx } from '@/utils/cx'
 import { SignupFormData } from '../types'
+import { StepContainer } from '../../step-container'
 
 interface Step10EnterpriseProps {
   formData: SignupFormData
@@ -111,75 +112,13 @@ export const Step10Enterprise = ({
   const showEnterpriseFeatures = selectedSecurityLevel === 'enterprise'
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Initial Question */}
-      {showInitialQuestion && (
-        <div className="flex justify-end items-center gap-6">
-          <button
-            onClick={() => {
-              onSecuritySelection('basic')
-              setTimeout(() => {
-                onNext(true)
-              }, 300)
-            }}
-            className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
-          >
-            No, Continue without enterprise features
-          </button>
-
-          <Button
-            iconTrailing={ArrowRight}
-            onClick={() => onSecuritySelection('enterprise')}
-            size="sm"
-          >
-            Yes
-          </Button>
-        </div>
-      )}
-
-      {/* Enterprise Features Selection */}
-      {showEnterpriseFeatures && (
-        <div className="flex flex-col gap-6">
-          <div className="flex justify-end">
-            <button
-              onClick={handleSelectAll}
-              className="text-sm font-medium text-brand-secondary hover:text-brand-secondary_hover underline decoration-transparent hover:decoration-brand-secondary underline-offset-2 transition-all"
-            >
-              {enterpriseFeatures.every(feature =>
-                formData.enterpriseFeatures.includes(feature.id),
-              )
-                ? 'Unselect all'
-                : 'Select all'}
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {enterpriseFeatures.map(feature => (
-              <button
-                key={feature.id}
-                onClick={() => onArrayToggle('enterpriseFeatures')(feature.id)}
-                className={cx(
-                  'p-3 sm:p-4 h-20 sm:h-24 rounded-lg border text-left transition-all hover:shadow-sm flex flex-col justify-center',
-                  formData.enterpriseFeatures.includes(feature.id)
-                    ? 'border-brand-solid bg-brand-primary/50 shadow-sm'
-                    : 'border-secondary hover:border-primary',
-                )}
-              >
-                <div className="flex items-start gap-3">
-                  <feature.icon className="w-4 h-4 text-brand-secondary mt-0.5 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <div className="font-medium text-primary text-xs sm:text-sm mb-1 truncate">
-                      {feature.name}
-                    </div>
-                    <div className="text-xs text-tertiary line-clamp-2">
-                      {feature.description}
-                    </div>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-
+    <StepContainer
+      title="Looking for enterprise‑grade control and support?"
+      description="Get advanced security, enterprise controls, and a dedicated CSM. We'll tailor your plan in a quick call with our sales team."
+    >
+      <div className="flex flex-col gap-6">
+        {/* Initial Question */}
+        {showInitialQuestion && (
           <div className="flex justify-end items-center gap-6">
             <button
               onClick={() => {
@@ -190,20 +129,89 @@ export const Step10Enterprise = ({
               }}
               className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
             >
-              Continue without enterprise features
+              No, Continue without enterprise features
             </button>
 
             <Button
               iconTrailing={ArrowRight}
-              onClick={() => onNext(true)}
+              onClick={() => onSecuritySelection('enterprise')}
               size="sm"
-              isDisabled={formData.enterpriseFeatures.length === 0}
             >
-              Continue
+              Yes
             </Button>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+
+        {/* Enterprise Features Selection */}
+        {showEnterpriseFeatures && (
+          <div className="flex flex-col gap-6">
+            <div className="flex justify-end">
+              <button
+                onClick={handleSelectAll}
+                className="text-sm font-medium text-brand-secondary hover:text-brand-secondary_hover underline decoration-transparent hover:decoration-brand-secondary underline-offset-2 transition-all"
+              >
+                {enterpriseFeatures.every(feature =>
+                  formData.enterpriseFeatures.includes(feature.id),
+                )
+                  ? 'Unselect all'
+                  : 'Select all'}
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {enterpriseFeatures.map(feature => (
+                <button
+                  key={feature.id}
+                  onClick={() =>
+                    onArrayToggle('enterpriseFeatures')(feature.id)
+                  }
+                  className={cx(
+                    'p-3 sm:p-4 h-20 sm:h-24 rounded-lg border text-left transition-all hover:shadow-sm flex flex-col justify-center',
+                    formData.enterpriseFeatures.includes(feature.id)
+                      ? 'border-brand-solid bg-brand-primary/50 shadow-sm'
+                      : 'border-secondary hover:border-primary',
+                  )}
+                >
+                  <div className="flex items-start gap-3">
+                    <feature.icon className="w-4 h-4 text-brand-secondary mt-0.5 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-primary text-xs sm:text-sm mb-1 truncate">
+                        {feature.name}
+                      </div>
+                      <div className="text-xs text-tertiary line-clamp-2">
+                        {feature.description}
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <div className="flex justify-end items-center gap-6">
+              <button
+                onClick={() => {
+                  onSecuritySelection('basic')
+                  setTimeout(() => {
+                    onNext(true)
+                  }, 300)
+                }}
+                className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
+              >
+                Continue without enterprise features
+              </button>
+
+              <Button
+                iconTrailing={ArrowRight}
+                onClick={() => onNext(true)}
+                size="sm"
+                isDisabled={formData.enterpriseFeatures.length === 0}
+              >
+                Continue
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </StepContainer>
   )
 }

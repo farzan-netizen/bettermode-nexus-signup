@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { WizardLayout } from './components/wizard-layout'
 import { Step1NameCommunity } from './steps/step1-name-community'
 import { Step2Branding } from './steps/step2-branding'
 import { Step3InitialSpaces } from './steps/step3-initial-spaces'
 import { SuccessScreen } from './components/success-screen'
 import { WizardFormData } from './types'
+import { PageContainer } from '../page-container'
+import { CommunityPreview } from './components/community-preview'
 
 const TOTAL_STEPS = 3
 
@@ -180,14 +181,25 @@ export const WizardPage = () => {
   }
 
   return (
-    <WizardLayout
+    <PageContainer
+      onBack={handleBack}
       currentStep={currentStep}
       totalSteps={TOTAL_STEPS}
-      formData={formData}
-      selectedLogoUrl={selectedLogoUrl}
-      onBack={handleBack}
+      rightSideBar={
+        <div className="relative hidden lg:flex w-1/2 flex-col bg-tertiary h-full overflow-hidden flex-shrink-0">
+          <div className="flex flex-col justify-start items-center h-full p-6 lg:p-8">
+            <CommunityPreview
+              formData={formData}
+              currentStep={currentStep}
+              selectedLogoUrl={selectedLogoUrl}
+            />
+          </div>
+        </div>
+      }
     >
-      {renderCurrentStep()}
-    </WizardLayout>
+      <div className="flex w-full flex-col pb-6 sm:pb-8 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-[788px] gap-4 sm:gap-5 md:gap-6 pr-[68px]">
+        {renderCurrentStep()}
+      </div>
+    </PageContainer>
   )
 }

@@ -14,6 +14,7 @@ import { Button } from '@/components/base/buttons/button'
 import { WizardFormData } from '../types'
 import { SPACE_OPTIONS } from '../constants'
 import { cx } from '@/utils/cx'
+import { StepContainer } from '../../step-container'
 
 interface Step3InitialSpacesProps {
   formData: WizardFormData
@@ -79,209 +80,214 @@ export const Step3InitialSpaces = ({
   }
 
   return (
-    <div className="space-y-6">
-      {/* Error Message */}
-      {errors.selectedSpaces && (
-        <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
-          {errors.selectedSpaces}
+    <StepContainer
+      title="Activate your starting spaces"
+      description="Pick a few spaces to shape your community. You can add more later."
+    >
+      <div className="space-y-6">
+        {/* Error Message */}
+        {errors.selectedSpaces && (
+          <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
+            {errors.selectedSpaces}
+          </div>
+        )}
+
+        {/* Spaces by Category */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Column 1: Discussion */}
+          {groupedSpaces.discussion && (
+            <div>
+              <h3 className="text-xs font-medium text-tertiary mb-2">
+                {categoryTitles.discussion}
+              </h3>
+              <div className="space-y-2">
+                {groupedSpaces.discussion.map(space => {
+                  const isSelected = formData.selectedSpaces.includes(space.id)
+                  const IconComponent = getSpaceIcon(space.id)
+
+                  return (
+                    <button
+                      key={space.id}
+                      onClick={() => handleSpaceToggle(space.id)}
+                      className={cx(
+                        'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
+                        isSelected
+                          ? 'bg-brand-primary_alt border-brand-solid'
+                          : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
+                      )}
+                    >
+                      <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs font-medium text-primary truncate">
+                            {space.name}
+                          </span>
+                          {isSelected && (
+                            <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
+                          {space.description}
+                        </p>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Column 2: Content */}
+          {groupedSpaces.content && (
+            <div>
+              <h3 className="text-xs font-medium text-tertiary mb-2">
+                {categoryTitles.content}
+              </h3>
+              <div className="space-y-2">
+                {groupedSpaces.content.map(space => {
+                  const isSelected = formData.selectedSpaces.includes(space.id)
+                  const IconComponent = getSpaceIcon(space.id)
+
+                  return (
+                    <button
+                      key={space.id}
+                      onClick={() => handleSpaceToggle(space.id)}
+                      className={cx(
+                        'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
+                        isSelected
+                          ? 'bg-brand-primary_alt border-brand-solid'
+                          : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
+                      )}
+                    >
+                      <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs font-medium text-primary truncate">
+                            {space.name}
+                          </span>
+                          {isSelected && (
+                            <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
+                          {space.description}
+                        </p>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
         </div>
-      )}
 
-      {/* Spaces by Category */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {/* Column 1: Discussion */}
-        {groupedSpaces.discussion && (
-          <div>
-            <h3 className="text-xs font-medium text-tertiary mb-2">
-              {categoryTitles.discussion}
-            </h3>
-            <div className="space-y-2">
-              {groupedSpaces.discussion.map(space => {
-                const isSelected = formData.selectedSpaces.includes(space.id)
-                const IconComponent = getSpaceIcon(space.id)
+        {/* Bottom Categories */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Collaboration */}
+          {groupedSpaces.collaboration && (
+            <div>
+              <h3 className="text-xs font-medium text-tertiary mb-2">
+                {categoryTitles.collaboration}
+              </h3>
+              <div className="space-y-2">
+                {groupedSpaces.collaboration.map(space => {
+                  const isSelected = formData.selectedSpaces.includes(space.id)
+                  const IconComponent = getSpaceIcon(space.id)
 
-                return (
-                  <button
-                    key={space.id}
-                    onClick={() => handleSpaceToggle(space.id)}
-                    className={cx(
-                      'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
-                      isSelected
-                        ? 'bg-brand-primary_alt border-brand-solid'
-                        : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
-                    )}
-                  >
-                    <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs font-medium text-primary truncate">
-                          {space.name}
-                        </span>
-                        {isSelected && (
-                          <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
-                        )}
+                  return (
+                    <button
+                      key={space.id}
+                      onClick={() => handleSpaceToggle(space.id)}
+                      className={cx(
+                        'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
+                        isSelected
+                          ? 'bg-brand-primary_alt border-brand-solid'
+                          : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
+                      )}
+                    >
+                      <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs font-medium text-primary truncate">
+                            {space.name}
+                          </span>
+                          {isSelected && (
+                            <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
+                          {space.description}
+                        </p>
                       </div>
-                      <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
-                        {space.description}
-                      </p>
-                    </div>
-                  </button>
-                )
-              })}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Column 2: Content */}
-        {groupedSpaces.content && (
-          <div>
-            <h3 className="text-xs font-medium text-tertiary mb-2">
-              {categoryTitles.content}
-            </h3>
-            <div className="space-y-2">
-              {groupedSpaces.content.map(space => {
-                const isSelected = formData.selectedSpaces.includes(space.id)
-                const IconComponent = getSpaceIcon(space.id)
+          {/* Support */}
+          {groupedSpaces.support && (
+            <div>
+              <h3 className="text-xs font-medium text-tertiary mb-2">
+                {categoryTitles.support}
+              </h3>
+              <div className="space-y-2">
+                {groupedSpaces.support.map(space => {
+                  const isSelected = formData.selectedSpaces.includes(space.id)
+                  const IconComponent = getSpaceIcon(space.id)
 
-                return (
-                  <button
-                    key={space.id}
-                    onClick={() => handleSpaceToggle(space.id)}
-                    className={cx(
-                      'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
-                      isSelected
-                        ? 'bg-brand-primary_alt border-brand-solid'
-                        : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
-                    )}
-                  >
-                    <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs font-medium text-primary truncate">
-                          {space.name}
-                        </span>
-                        {isSelected && (
-                          <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
-                        )}
+                  return (
+                    <button
+                      key={space.id}
+                      onClick={() => handleSpaceToggle(space.id)}
+                      className={cx(
+                        'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
+                        isSelected
+                          ? 'bg-brand-primary_alt border-brand-solid'
+                          : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
+                      )}
+                    >
+                      <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs font-medium text-primary truncate">
+                            {space.name}
+                          </span>
+                          {isSelected && (
+                            <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
+                          {space.description}
+                        </p>
                       </div>
-                      <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
-                        {space.description}
-                      </p>
-                    </div>
-                  </button>
-                )
-              })}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
+        {/* Selection Hint */}
+        <div className="text-center">
+          <p className="text-xs text-tertiary">
+            2–5 spaces recommended for a clean start.
+          </p>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex justify-end pt-4">
+          <Button
+            onClick={onNext}
+            size="sm"
+            isDisabled={formData.selectedSpaces.length === 0}
+          >
+            Create my community
+          </Button>
+        </div>
       </div>
-
-      {/* Bottom Categories */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {/* Collaboration */}
-        {groupedSpaces.collaboration && (
-          <div>
-            <h3 className="text-xs font-medium text-tertiary mb-2">
-              {categoryTitles.collaboration}
-            </h3>
-            <div className="space-y-2">
-              {groupedSpaces.collaboration.map(space => {
-                const isSelected = formData.selectedSpaces.includes(space.id)
-                const IconComponent = getSpaceIcon(space.id)
-
-                return (
-                  <button
-                    key={space.id}
-                    onClick={() => handleSpaceToggle(space.id)}
-                    className={cx(
-                      'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
-                      isSelected
-                        ? 'bg-brand-primary_alt border-brand-solid'
-                        : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
-                    )}
-                  >
-                    <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs font-medium text-primary truncate">
-                          {space.name}
-                        </span>
-                        {isSelected && (
-                          <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
-                        )}
-                      </div>
-                      <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
-                        {space.description}
-                      </p>
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Support */}
-        {groupedSpaces.support && (
-          <div>
-            <h3 className="text-xs font-medium text-tertiary mb-2">
-              {categoryTitles.support}
-            </h3>
-            <div className="space-y-2">
-              {groupedSpaces.support.map(space => {
-                const isSelected = formData.selectedSpaces.includes(space.id)
-                const IconComponent = getSpaceIcon(space.id)
-
-                return (
-                  <button
-                    key={space.id}
-                    onClick={() => handleSpaceToggle(space.id)}
-                    className={cx(
-                      'flex items-start gap-2 p-2 rounded-md border text-left transition-all w-full h-14',
-                      isSelected
-                        ? 'bg-brand-primary_alt border-brand-solid'
-                        : 'bg-primary border-tertiary hover:border-secondary hover:bg-secondary',
-                    )}
-                  >
-                    <IconComponent className="w-4 h-4 text-brand-secondary flex-shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs font-medium text-primary truncate">
-                          {space.name}
-                        </span>
-                        {isSelected && (
-                          <Check className="w-3 h-3 text-brand-solid flex-shrink-0" />
-                        )}
-                      </div>
-                      <p className="text-[10px] text-tertiary leading-tight line-clamp-2">
-                        {space.description}
-                      </p>
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Selection Hint */}
-      <div className="text-center">
-        <p className="text-xs text-tertiary">
-          2–5 spaces recommended for a clean start.
-        </p>
-      </div>
-
-      {/* Navigation */}
-      <div className="flex justify-end pt-4">
-        <Button
-          onClick={onNext}
-          size="sm"
-          isDisabled={formData.selectedSpaces.length === 0}
-        >
-          Create my community
-        </Button>
-      </div>
-    </div>
+    </StepContainer>
   )
 }
