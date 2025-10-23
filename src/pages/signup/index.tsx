@@ -9,7 +9,7 @@ import {
   extractDomainFromEmail,
   shouldFetchBrandData,
 } from '@/utils/brandfetch'
-import { Step1Email } from './steps/step1-email'
+import { SignupEmailStep } from './steps/email'
 import { Step2Verification } from './steps/step2-verification'
 import { Step3BasicInfo } from './steps/step3-basic-info'
 import { Step4Industry } from './steps/step4-industry'
@@ -26,11 +26,18 @@ import { EnterpriseSuccess } from './enterprise-success'
 import { PageContainer } from '../page-container'
 import { cx } from '../../utils/cx'
 import { SignupSideBar } from './sidebar'
+import { useAppDispatch, useAppSelector } from '@/hooks/store'
+import { selectSignupCurrentStep, signupSetCurrentStep } from '@/store/signup'
 
 export const SignupPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [currentStep, setCurrentStep] = useState(1)
+  const dispatch = useAppDispatch()
+  const currentStep = useAppSelector(selectSignupCurrentStep)
+  const setCurrentStep = (v: number) => {
+    dispatch(signupSetCurrentStep(v))
+  }
+
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [resendCooldown, setResendCooldown] = useState(0)
@@ -163,49 +170,6 @@ export const SignupPage = () => {
       }
     }
 
-  const handleGoogleAuth = async () => {
-    // Set loading state
-    setIsLoading(true)
-
-    // Set Google auth data
-    setFormData(prev => ({
-      ...prev,
-      email: 'amir@slack.com',
-      authMethod: 'google',
-      firstName: 'Amir',
-      lastName: 'Khalilii',
-      verificationCode: 'GOOGLE', // Set a dummy verification code
-    }))
-
-    // Clear any existing errors
-    setErrors({})
-
-    try {
-      // Wait for brandfetch to complete
-      const domain = extractDomainFromEmail('amir@slack.com')
-      if (domain && shouldFetchBrandData('amir@slack.com')) {
-        setIsFetchingBrand(true)
-        const data = await fetchBrandData(domain)
-        setBrandData(data)
-        setIsFetchingBrand(false)
-      }
-
-      // Add a small delay for better UX
-      await new Promise(resolve => setTimeout(resolve, 800))
-
-      // Jump directly to step 3
-      setCurrentStep(3)
-    } catch (error) {
-      console.error('Error during Google auth:', error)
-      setBrandData(null)
-      setIsFetchingBrand(false)
-      // Still proceed to step 3 even if brandfetch fails
-      setCurrentStep(3)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   const handleArrayToggle =
     (field: 'currentTools' | 'enterpriseFeatures') => (value: string) => {
       setFormData(prev => ({
@@ -284,16 +248,11 @@ export const SignupPage = () => {
   }
 
   const handleBack = () => {
-    setCurrentStep(prev => {
-      let prevStep = prev - 1
-
-      // Skip steps 6, 7, 8 when going back - go directly from 9 to 5
-      if (prev === 9) {
-        prevStep = 5
-      }
-
-      return Math.max(prevStep, 1)
-    })
+    let prevStep = currentStep - 1
+    if (currentStep === 9) {
+      prevStep = 5
+    }
+    setCurrentStep(Math.max(prevStep, 1))
   }
 
   const handleSubmit = async () => {
@@ -359,19 +318,7 @@ export const SignupPage = () => {
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 1:
-        return (
-          <Step1Email
-            formData={formData}
-            errors={errors}
-            isLoading={isLoading}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-            onSetAuthMethod={method =>
-              setFormData(prev => ({ ...prev, authMethod: method }))
-            }
-            onGoogleAuth={handleGoogleAuth}
-          />
-        )
+        return <SignupEmailStep />
       case 2:
         return (
           <Step2Verification
