@@ -2,7 +2,7 @@ import { ArrowRight } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { Input } from '@/components/base/input/input'
 import { useNavigate } from 'react-router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   extractDomainFromEmail,
   fetchBrandData,
@@ -23,16 +23,11 @@ import { GoogleIcon } from '@/pages/signup/steps/email/google-icon'
 export const SignupEmailStep = () => {
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('')
+  const storeEmail = useAppSelector(signupSelectEmail)
+  const [email, setEmail] = useState(storeEmail || '')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useAppDispatch()
-
-  const storeEmail = useAppSelector(signupSelectEmail)
-
-  useEffect(() => {
-    setEmail(storeEmail || '')
-  }, [storeEmail])
 
   const onGoogleAuth = async () => {
     setIsLoading(true)
@@ -74,7 +69,7 @@ export const SignupEmailStep = () => {
   }
 
   const onNext = () => {
-    // TODO: validate email via api
+    // TODO: validate email via api and fetch brand
 
     if (!email.trim()) {
       setError('Email is required')

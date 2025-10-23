@@ -70,7 +70,7 @@ export const PageContainer = ({
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto scrollbar-thin">
+        <div className="flex-1 flex flex-col overflow-y-auto scrollbar-thin">
           <div className="flex justify-start items-start pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8">
             <div className="flex w-full flex-col pb-6 sm:pb-8 pl-[100px] pr-[68px]">
               {/* Form Content */}
@@ -109,21 +109,21 @@ export const PageContainer = ({
 
               {/* Form Fields */}
               <div className="flex flex-col gap-5">{children}</div>
-              <div className="lg:hidden p-4 border-t border-secondary">
-                <div className="flex gap-3">
-                  {currentStep > 1 && currentStep !== 11 && (
-                    <Button
-                      className="flex-1"
-                      color="secondary"
-                      iconLeading={ArrowLeft}
-                      onClick={onBack}
-                      size="md"
-                    >
-                      Back
-                    </Button>
-                  )}
-                </div>
-              </div>
+            </div>
+          </div>
+          <div className="lg:hidden p-4 border-t border-secondary mt-auto">
+            <div className="flex gap-3">
+              {currentStep > 1 && currentStep !== 11 && (
+                <Button
+                  className="flex-1"
+                  color="secondary"
+                  iconLeading={ArrowLeft}
+                  onClick={onBack}
+                  size="md"
+                >
+                  Back
+                </Button>
+              )}
             </div>
           </div>
         </div>

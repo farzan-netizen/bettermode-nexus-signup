@@ -3,16 +3,11 @@ import { useNavigate, useLocation } from 'react-router'
 import { SignupFormData } from './types'
 import { validateStep, getRecommendedPlan } from './utils'
 import { SAAS_TOOLS } from './constants'
-import {
-  BrandData,
-  fetchBrandData,
-  extractDomainFromEmail,
-  shouldFetchBrandData,
-} from '@/utils/brandfetch'
+import { BrandData } from '@/utils/brandfetch'
 import { SignupEmailStep } from './steps/email'
 import { SignupEmailVerificationStep } from './steps/email-verification'
 import { SignupBasicInfoStep } from './steps/basic-info'
-import { Step4Industry } from './steps/step4-industry'
+import { SignupIndustryStep } from './steps/industry'
 import { Step5Role } from './steps/step5-role'
 import { Step6Company } from './steps/step6-company'
 import { Step7CompanySize } from './steps/step7-company-size'
@@ -20,7 +15,6 @@ import { Step8Website } from './steps/step8-website'
 import { Step9Integrations } from './steps/step9-integrations'
 import { Step10Enterprise } from './steps/step10-enterprise'
 import { Step11PlanSelection } from './steps/step11-plan-selection'
-import { BrandDataModal } from '@/components/shared-assets/brand-data-modal'
 import { TrialSuccess } from './trial-success'
 import { EnterpriseSuccess } from './enterprise-success'
 import { PageContainer } from '../page-container'
@@ -40,7 +34,6 @@ export const SignupPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [showIndustrySearch, setShowIndustrySearch] = useState(false)
   const [showRoleSearch, setShowRoleSearch] = useState(false)
   const [customRole, setCustomRole] = useState('')
   const [billingPeriod, setBillingPeriod] = useState<'annual' | 'monthly'>(
@@ -52,8 +45,6 @@ export const SignupPage = () => {
 
   // Brand data states
   const [brandData, setBrandData] = useState<BrandData | null>(null)
-  const [showBrandModal, setShowBrandModal] = useState(false)
-  const [isFetchingBrand, setIsFetchingBrand] = useState(false)
 
   // Trial success state
   const [showTrialSuccess, setShowTrialSuccess] = useState(false)
@@ -121,33 +112,6 @@ export const SignupPage = () => {
       }
     }
   }, [location.state])
-
-  // Effect to fetch brand data when email changes
-  useEffect(() => {
-    const fetchBrand = async () => {
-      if (formData.email && shouldFetchBrandData(formData.email)) {
-        const domain = extractDomainFromEmail(formData.email)
-        if (domain) {
-          setIsFetchingBrand(true)
-          try {
-            const data = await fetchBrandData(domain)
-            setBrandData(data)
-          } catch (error) {
-            console.error('Error fetching brand data:', error)
-            setBrandData(null)
-          } finally {
-            setIsFetchingBrand(false)
-          }
-        }
-      } else {
-        setBrandData(null)
-      }
-    }
-
-    // Debounce the API call
-    const timeoutId = setTimeout(fetchBrand, 500)
-    return () => clearTimeout(timeoutId)
-  }, [formData.email])
 
   const handleInputChange =
     (field: keyof SignupFormData) => (value: string) => {
@@ -303,17 +267,7 @@ export const SignupPage = () => {
       case 3:
         return <SignupBasicInfoStep />
       case 4:
-        return (
-          <Step4Industry
-            formData={formData}
-            errors={errors}
-            showIndustrySearch={showIndustrySearch}
-            brandData={brandData}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-            onShowIndustrySearch={setShowIndustrySearch}
-          />
-        )
+        return <SignupIndustryStep />
       case 5:
         return (
           <Step5Role
@@ -425,12 +379,6 @@ export const SignupPage = () => {
         )}
       >
         {renderCurrentStep()}
-        <BrandDataModal
-          isOpen={showBrandModal}
-          onClose={() => setShowBrandModal(false)}
-          brandData={brandData}
-          isLoading={isFetchingBrand}
-        />
         {showTrialSuccess && (
           <TrialSuccess
             firstName={formData.firstName}

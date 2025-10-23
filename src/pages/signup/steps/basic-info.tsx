@@ -2,7 +2,7 @@ import { ArrowRight } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { Input } from '@/components/base/input/input'
 import { StepContainer } from '../../step-container'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import {
   signupAppendForm,
@@ -12,24 +12,16 @@ import {
 } from '@/store/signup'
 
 export const SignupBasicInfoStep = () => {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const storeFirstName = useAppSelector(signupSelectFirstName)
+  const storeLastName = useAppSelector(signupSelectLastName)
+  const [firstName, setFirstName] = useState(storeFirstName || '')
+  const [lastName, setLastName] = useState(storeLastName || '')
   const [errors, setErrors] = useState({
     firstName: '',
     lastName: '',
   })
 
-  const storeFirstName = useAppSelector(signupSelectFirstName)
-  const storeLastName = useAppSelector(signupSelectLastName)
   const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    setFirstName(storeFirstName || '')
-  }, [storeFirstName])
-
-  useEffect(() => {
-    setLastName(storeLastName || '')
-  }, [storeLastName])
 
   const onFirstNameChange = (value: string) => {
     setErrors(prev => ({ ...prev, firstName: '' }))

@@ -94,6 +94,11 @@ export const signupSelectLastName = createSelector(
   form => form.lastName,
 )
 
+export const signupSelectIndustry = createSelector(
+  [signupSelectForm],
+  form => form.industry,
+)
+
 export const signupSelectCurrentStep = createSelector(
   [signupSelectState],
   state => state.currentStep,
