@@ -10,8 +10,8 @@ import {
   shouldFetchBrandData,
 } from '@/utils/brandfetch'
 import { SignupEmailStep } from './steps/email'
-import { SignupEmailVerification } from './steps/email-verification'
-import { Step3BasicInfo } from './steps/step3-basic-info'
+import { SignupEmailVerificationStep } from './steps/email-verification'
+import { SignupBasicInfoStep } from './steps/basic-info'
 import { Step4Industry } from './steps/step4-industry'
 import { Step5Role } from './steps/step5-role'
 import { Step6Company } from './steps/step6-company'
@@ -299,16 +299,9 @@ export const SignupPage = () => {
       case 1:
         return <SignupEmailStep />
       case 2:
-        return <SignupEmailVerification />
+        return <SignupEmailVerificationStep />
       case 3:
-        return (
-          <Step3BasicInfo
-            formData={formData}
-            errors={errors}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-          />
-        )
+        return <SignupBasicInfoStep />
       case 4:
         return (
           <Step4Industry

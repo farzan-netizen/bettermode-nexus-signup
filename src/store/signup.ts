@@ -84,6 +84,16 @@ export const signupSelectEmail = createSelector(
   form => form.email,
 )
 
+export const signupSelectFirstName = createSelector(
+  [signupSelectForm],
+  form => form.firstName,
+)
+
+export const signupSelectLastName = createSelector(
+  [signupSelectForm],
+  form => form.lastName,
+)
+
 export const signupSelectCurrentStep = createSelector(
   [signupSelectState],
   state => state.currentStep,

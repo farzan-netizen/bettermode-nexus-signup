@@ -10,7 +10,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { useState } from 'react'
 
-export const SignupEmailVerification = () => {
+export const SignupEmailVerificationStep = () => {
   const email = useAppSelector(signupSelectEmail)
   const [error, setError] = useState('')
   const [verificationCode, setVerificationCode] = useState('')
