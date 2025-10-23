@@ -10,7 +10,7 @@ import {
   shouldFetchBrandData,
 } from '@/utils/brandfetch'
 import { SignupEmailStep } from './steps/email'
-import { Step2Verification } from './steps/step2-verification'
+import { SignupEmailVerification } from './steps/email-verification'
 import { Step3BasicInfo } from './steps/step3-basic-info'
 import { Step4Industry } from './steps/step4-industry'
 import { Step5Role } from './steps/step5-role'
@@ -27,20 +27,19 @@ import { PageContainer } from '../page-container'
 import { cx } from '../../utils/cx'
 import { SignupSideBar } from './sidebar'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
-import { selectSignupCurrentStep, signupSetCurrentStep } from '@/store/signup'
+import { signupSelectCurrentStep, signupSetCurrentStep } from '@/store/signup'
 
 export const SignupPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useAppDispatch()
-  const currentStep = useAppSelector(selectSignupCurrentStep)
+  const currentStep = useAppSelector(signupSelectCurrentStep)
   const setCurrentStep = (v: number) => {
     dispatch(signupSetCurrentStep(v))
   }
 
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [resendCooldown, setResendCooldown] = useState(0)
   const [showIndustrySearch, setShowIndustrySearch] = useState(false)
   const [showRoleSearch, setShowRoleSearch] = useState(false)
   const [customRole, setCustomRole] = useState('')
@@ -180,26 +179,6 @@ export const SignupPage = () => {
       }))
     }
 
-  const handleResendCode = () => {
-    // Simulate sending code
-    setResendCooldown(30)
-
-    // If current error is about expired code, change it to "Code has been sent"
-    if (errors.verificationCode === 'Code has been expired, tap to resend') {
-      setErrors(prev => ({ ...prev, verificationCode: 'Code has been sent' }))
-    }
-
-    const timer = setInterval(() => {
-      setResendCooldown(prev => {
-        if (prev <= 1) {
-          clearInterval(timer)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-  }
-
   const handleValidateStep = (step: number): boolean => {
     const newErrors = validateStep(step, formData)
     setErrors(newErrors)
@@ -320,20 +299,7 @@ export const SignupPage = () => {
       case 1:
         return <SignupEmailStep />
       case 2:
-        return (
-          <Step2Verification
-            formData={formData}
-            errors={errors}
-            resendCooldown={resendCooldown}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-            onResendCode={handleResendCode}
-            onEditEmail={() => setCurrentStep(1)}
-            brandData={brandData}
-            isFetchingBrand={isFetchingBrand}
-            onShowBrandModal={() => setShowBrandModal(true)}
-          />
-        )
+        return <SignupEmailVerification />
       case 3:
         return (
           <Step3BasicInfo

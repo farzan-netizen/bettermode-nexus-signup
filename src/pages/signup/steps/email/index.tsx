@@ -11,7 +11,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import {
   signupGoToNextStep,
-  selectFormEmail,
+  signupSelectEmail,
   signupSetCurrentStep,
   signupSetGoogleAuthData,
   signupAppendForm,
@@ -28,7 +28,7 @@ export const SignupEmailStep = () => {
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useAppDispatch()
 
-  const storeEmail = useAppSelector(selectFormEmail)
+  const storeEmail = useAppSelector(signupSelectEmail)
 
   useEffect(() => {
     setEmail(storeEmail || '')
@@ -42,7 +42,6 @@ export const SignupEmailStep = () => {
         email: 'amir@slack.com',
         firstName: 'Amir',
         lastName: 'Khalilii',
-        verificationCode: 'GOOGLE', // Set a dummy verification code
       }),
     )
 
@@ -70,11 +69,43 @@ export const SignupEmailStep = () => {
   }
 
   const onChange = (value: string) => {
+    setError('')
     setEmail(value)
   }
 
   const onNext = () => {
-    // TODO: validate email
+    // TODO: validate email via api
+
+    if (!email.trim()) {
+      setError('Email is required')
+      return
+    }
+
+    // Check for personal email domains
+    const personalEmailDomains = [
+      'gmail.com',
+      'yahoo.com',
+      'hotmail.com',
+      'outlook.com',
+      'aol.com',
+      'icloud.com',
+      'protonmail.com',
+      'yandex.com',
+      'mail.ru',
+      'zoho.com',
+      'fastmail.com',
+      'tutanota.com',
+      'hey.com',
+      'live.com',
+      'msn.com',
+    ]
+    const emailDomain = email.split('@')[1]?.toLowerCase()
+    if (emailDomain && personalEmailDomains.includes(emailDomain)) {
+      setError(
+        'Only work emails are acceptable. Please use your company email address.',
+      )
+      return
+    }
     dispatch(signupAppendForm({ email }))
     dispatch(signupGoToNextStep())
   }

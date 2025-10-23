@@ -7,7 +7,6 @@ export interface SignupState {
   authMethod: 'email' | 'google'
   form: {
     email?: string
-    verificationCode?: string
     password?: string
     firstName?: string
     lastName?: string
@@ -53,10 +52,7 @@ export const signupSlice = createSlice({
     signupSetGoogleAuthData: (
       state,
       action: PayloadAction<
-        Pick<
-          SignupState['form'],
-          'email' | 'firstName' | 'lastName' | 'verificationCode'
-        >
+        Pick<SignupState['form'], 'email' | 'firstName' | 'lastName'>
       >,
     ) => {
       state.authMethod = 'google'
@@ -78,17 +74,17 @@ export const {
 
 export const signupReducer = signupSlice.reducer
 
-const selectSignupState = (state: RootState) => state[ReducersName.Signup]
+const signupSelectState = (state: RootState) => state[ReducersName.Signup]
 
-export const selectSignupForm = (state: RootState) =>
-  selectSignupState(state).form
+export const signupSelectForm = (state: RootState) =>
+  signupSelectState(state).form
 
-export const selectFormEmail = createSelector(
-  [selectSignupForm],
+export const signupSelectEmail = createSelector(
+  [signupSelectForm],
   form => form.email,
 )
 
-export const selectSignupCurrentStep = createSelector(
-  [selectSignupState],
+export const signupSelectCurrentStep = createSelector(
+  [signupSelectState],
   state => state.currentStep,
 )
