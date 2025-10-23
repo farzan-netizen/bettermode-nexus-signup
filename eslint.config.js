@@ -9,6 +9,7 @@ import unusedImports from "eslint-plugin-unused-imports";
 
 export default defineConfig([
   globalIgnores(['dist', "node_modules"]),
+    reactHooks.configs.flat.recommended,
   {
     plugins: {
         "unused-imports": unusedImports,
@@ -17,7 +18,6 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
       prettierConfig
     ],
@@ -38,7 +38,7 @@ export default defineConfig([
               "args": "after-used",
               "argsIgnorePattern": "^_",
           },
-      ]
+      ],
     },
   },
 ])
