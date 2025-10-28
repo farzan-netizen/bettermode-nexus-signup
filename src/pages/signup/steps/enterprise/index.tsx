@@ -5,7 +5,6 @@ import { StepContainer } from '@/pages/step-container'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import {
   signupAppendForm,
-  signupGoToNextStep,
   signupSelectEnterpriseFeatures,
 } from '@/store/signup'
 import { useMemo, useState } from 'react'
@@ -13,14 +12,16 @@ import {
   ENTERPRISE_FEATURES_ITEMS,
   type EnterpriseFeatureId,
 } from './constants'
+import { useNavigate } from '@/hooks/use-navigate'
+import { RoutePaths } from '@/constants/routes'
+import { SignupEnterpriseStepSuccess } from './success'
 
 export const SignupEnterpriseStep = () => {
+  const [showEnterpriseSuccess, setShowEnterpriseSuccess] = useState(false)
   const storeEnterpriseFeatures = useAppSelector(signupSelectEnterpriseFeatures)
-
   const [selectedEnterpriseFeatures, setSelectedEnterpriseFeatures] = useState(
     storeEnterpriseFeatures || [],
   )
-
   const hasSelectedAll = useMemo(
     () =>
       ENTERPRISE_FEATURES_ITEMS.every(({ id }) =>
@@ -31,16 +32,24 @@ export const SignupEnterpriseStep = () => {
 
   const dispatch = useAppDispatch()
 
+  const navigate = useNavigate()
+  const redirectToWizard = () => {
+    setShowEnterpriseSuccess(true)
+    setTimeout(() => {
+      navigate(RoutePaths.WIZARD)
+    }, 4000)
+  }
+
   const onNext = () => {
     dispatch(
       signupAppendForm({ enterpriseFeatures: selectedEnterpriseFeatures }),
     )
-    dispatch(signupGoToNextStep())
+    redirectToWizard()
   }
 
   const onSkip = () => {
     dispatch(signupAppendForm({ enterpriseFeatures: [] }))
-    dispatch(signupGoToNextStep())
+    redirectToWizard()
   }
 
   const onSelectAll = () => {
@@ -147,6 +156,7 @@ export const SignupEnterpriseStep = () => {
             </div>
           </div>
         )}
+        {showEnterpriseSuccess && <SignupEnterpriseStepSuccess />}
       </div>
     </StepContainer>
   )

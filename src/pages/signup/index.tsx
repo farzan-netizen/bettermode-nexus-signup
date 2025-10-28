@@ -12,7 +12,6 @@ import { SignupIntegrationsStep } from './steps/integrations'
 import { SignupEnterpriseStep } from './steps/enterprise'
 import { Step11PlanSelection } from './steps/step11-plan-selection'
 import { TrialSuccess } from './trial-success'
-import { EnterpriseSuccess } from './enterprise-success'
 import { PageContainer } from '../page-container'
 import { cx } from '../../utils/cx'
 import { SignupSideBar } from './sidebar'
@@ -43,9 +42,6 @@ export const SignupPage = () => {
 
   // Trial success state
   const [showTrialSuccess, setShowTrialSuccess] = useState(false)
-
-  // Enterprise success state
-  const [showEnterpriseSuccess, setShowEnterpriseSuccess] = useState(false)
 
   const [formData, setFormData] = useState<SignupFormData>({
     email: '',
@@ -145,7 +141,7 @@ export const SignupPage = () => {
         )
 
         // Show enterprise success message
-        setShowEnterpriseSuccess(true)
+        // setShowEnterpriseSuccess(true)
 
         // Redirect to wizard after 4 seconds
         setTimeout(() => {
@@ -207,17 +203,6 @@ export const SignupPage = () => {
     }
   }
 
-  const handleSecuritySelection = (level: 'basic' | 'enterprise') => {
-    setSelectedSecurityLevel(level)
-
-    if (level === 'basic') {
-      // Clear enterprise features when choosing basic
-      setFormData(prev => ({ ...prev, enterpriseFeatures: [] }))
-    }
-    // Don't auto-select all enterprise features when choosing enterprise
-    // Let user select individually
-  }
-
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 1:
@@ -258,7 +243,7 @@ export const SignupPage = () => {
     <PageContainer
       hideSteps
       onBack={handleBack}
-      totalSteps={7}
+      totalSteps={SIGNUP_TOTAL_STEPS}
       currentStep={currentStep}
       rightSideBar={<SignupSideBar />}
     >
@@ -278,7 +263,6 @@ export const SignupPage = () => {
             companyName={formData.companyName}
           />
         )}
-        {showEnterpriseSuccess && <EnterpriseSuccess />}
       </div>
     </PageContainer>
   )

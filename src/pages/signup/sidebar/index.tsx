@@ -1,21 +1,20 @@
 import { useAppSelector } from '@/hooks/store'
 import { SIGNUP_TOTAL_STEPS } from '../constants'
 import { SidebarContent } from './sidebar-content'
-import { signupSelectCurrentStep, signupSelectForm } from '@/store/signup'
+import { signupSelectCurrentStep } from '@/store/signup'
 
 export const SignupSideBar = () => {
   const currentStep = useAppSelector(signupSelectCurrentStep)
-  const formData = useAppSelector(signupSelectForm)
 
   return (
     currentStep !== SIGNUP_TOTAL_STEPS && (
       <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden max-w-[30%]">
         <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
-          <SidebarContent currentStep={currentStep} formData={formData} />
+          <SidebarContent currentStep={currentStep} />
         </div>
 
         {/* Fixed Company Logos at Bottom - Only show for testimonial steps */}
-        {currentStep >= 2 && currentStep <= 9 && (
+        {currentStep >= 2 && currentStep <= 6 && (
           <div className="absolute bottom-8 left-6 right-6">
             <div className="grid grid-cols-4 gap-1 px-2">
               {[
