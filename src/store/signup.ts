@@ -17,7 +17,7 @@ export interface SignupState {
     industry?: string
     website?: string
     primaryUseCase?: string
-    currentTools?: string[]
+    integrations?: string[]
     enterpriseFeatures?: string[]
     expectedUserCount?: string
     selectedPlan?: string
@@ -107,4 +107,9 @@ export const signupSelectCurrentStep = createSelector(
 export const signupSelectRole = createSelector(
   [signupSelectForm],
   form => form.role,
+)
+
+export const signupSelectIntegrations = createSelector(
+  [signupSelectForm],
+  form => form.integrations,
 )

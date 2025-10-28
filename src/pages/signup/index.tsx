@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router'
 import { SignupFormData } from './types'
 import { validateStep, getRecommendedPlan } from './utils'
-import { SAAS_TOOLS } from './constants'
 import { BrandData } from '@/utils/brandfetch'
 import { SignupEmailStep } from './steps/email'
 import { SignupEmailVerificationStep } from './steps/email-verification'
 import { SignupBasicInfoStep } from './steps/basic-info'
 import { SignupIndustryStep } from './steps/industry'
 import { SignupRoleStep } from './steps/role'
-import { Step9Integrations } from './steps/step9-integrations'
+import { SignupIntegrationsStep } from './steps/integrations'
 import { Step10Enterprise } from './steps/step10-enterprise'
 import { Step11PlanSelection } from './steps/step11-plan-selection'
 import { TrialSuccess } from './trial-success'
@@ -207,21 +206,6 @@ export const SignupPage = () => {
     }
   }
 
-  const handleSelectAllTools = () => {
-    const allToolIds = SAAS_TOOLS.map(tool => tool.id)
-    const allSelected = allToolIds.every(id =>
-      formData.currentTools.includes(id),
-    )
-
-    if (allSelected) {
-      // Unselect all tools
-      setFormData(prev => ({ ...prev, currentTools: [] }))
-    } else {
-      // Select all tools
-      setFormData(prev => ({ ...prev, currentTools: allToolIds }))
-    }
-  }
-
   const handleSecuritySelection = (level: 'basic' | 'enterprise') => {
     setSelectedSecurityLevel(level)
 
@@ -247,14 +231,7 @@ export const SignupPage = () => {
         return <SignupRoleStep />
 
       case 6:
-        return (
-          <Step9Integrations
-            formData={formData}
-            onArrayToggle={handleArrayToggle}
-            onNext={handleNext}
-            onSelectAllTools={handleSelectAllTools}
-          />
-        )
+        return <SignupIntegrationsStep />
       case 7:
         return (
           <Step10Enterprise
@@ -284,11 +261,6 @@ export const SignupPage = () => {
     }
   }
 
-  const shouldShowBackButton = (step: number) => {
-    // Show back button for steps 4, 5, 9, 10 (skipping 6,7,8)
-    return step === 4 || step === 5 || (step >= 9 && step <= 10)
-  }
-
   const getCurrentStep = () => {
     let adjustedStep = currentStep
     if (currentStep >= 9) {
@@ -301,7 +273,7 @@ export const SignupPage = () => {
   return (
     <PageContainer
       hideSteps
-      onBack={shouldShowBackButton(currentStep) ? handleBack : undefined}
+      onBack={handleBack}
       totalSteps={7}
       currentStep={getCurrentStep()}
       rightSideBar={

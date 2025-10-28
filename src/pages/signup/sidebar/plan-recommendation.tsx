@@ -1,7 +1,7 @@
 import { TypingAnimation } from '@/components/ui/typing-animation'
 import { SignupFormData } from '../types'
 import { getRecommendedPlan, joinWithAnd } from '../utils'
-import { SAAS_TOOLS } from '../constants'
+import { SAAS_TOOLS_ITEMS } from '../constants'
 
 interface PlanRecommendationProps {
   formData: SignupFormData
@@ -10,17 +10,7 @@ interface PlanRecommendationProps {
 export const PlanRecommendation = ({ formData }: PlanRecommendationProps) => {
   const recommendedPlan = getRecommendedPlan(formData)
 
-  // Get tool names for display
-  const getToolNames = () => {
-    return formData.currentTools.slice(0, 5).map(toolId => {
-      const tool = SAAS_TOOLS.find(t => t.id === toolId)
-      return tool ? tool.name : toolId
-    })
-  }
-
   const renderRecommendationText = () => {
-    const toolNames = getToolNames()
-
     // Format company size
     const formatCompanySize = (size: string): string => {
       const sizeMap: Record<string, string> = {
@@ -88,7 +78,7 @@ export const PlanRecommendation = ({ formData }: PlanRecommendationProps) => {
             const toolAvatars = formData.currentTools
               .slice(0, 5)
               .map(toolId => {
-                const tool = SAAS_TOOLS.find(t => t.id === toolId)
+                const tool = SAAS_TOOLS_ITEMS.find(t => t.id === toolId)
                 return tool ? `[avatar:${tool.logo}:${tool.name}]` : ''
               })
               .filter(Boolean)

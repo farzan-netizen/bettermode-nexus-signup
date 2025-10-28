@@ -18,41 +18,9 @@ export interface SignupFormData {
   selectedPlan: string
 }
 
-export interface Testimonial {
-  quote: string
-  author: string
-  title: string
-  company: string
-  avatar: string
-}
-
-export interface SaasTool {
-  id: string
-  name: string
-  logo: string
-  description: string
-}
-
 export interface EnterpriseFeature {
   id: string
   name: string
   description: string
   icon: React.ComponentType<{ className?: string }>
-}
-
-export interface Industry {
-  value: string
-  label: string
-  icon?: React.ComponentType<{ className?: string }>
-}
-
-export interface CompanySize {
-  value: string
-  label: string
-}
-
-export interface UseCase {
-  value: string
-  label: string
-  description: string
 }
