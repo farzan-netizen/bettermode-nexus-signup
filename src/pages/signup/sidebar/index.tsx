@@ -1,15 +1,14 @@
-import { SignupFormData } from '../types'
+import { useAppSelector } from '@/hooks/store'
+import { SIGNUP_TOTAL_STEPS } from '../constants'
 import { SidebarContent } from './sidebar-content'
+import { signupSelectCurrentStep, signupSelectForm } from '@/store/signup'
 
-export const SignupSideBar = ({
-  currentStep,
-  formData,
-}: {
-  currentStep: number
-  formData: SignupFormData
-}) => {
+export const SignupSideBar = () => {
+  const currentStep = useAppSelector(signupSelectCurrentStep)
+  const formData = useAppSelector(signupSelectForm)
+
   return (
-    currentStep !== 11 && (
+    currentStep !== SIGNUP_TOTAL_STEPS && (
       <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col lg:h-screen lg:overflow-hidden max-w-[30%]">
         <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
           <SidebarContent currentStep={currentStep} formData={formData} />

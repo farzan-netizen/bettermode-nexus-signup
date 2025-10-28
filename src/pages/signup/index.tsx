@@ -9,7 +9,7 @@ import { SignupBasicInfoStep } from './steps/basic-info'
 import { SignupIndustryStep } from './steps/industry'
 import { SignupRoleStep } from './steps/role'
 import { SignupIntegrationsStep } from './steps/integrations'
-import { Step10Enterprise } from './steps/step10-enterprise'
+import { SignupEnterpriseStep } from './steps/enterprise'
 import { Step11PlanSelection } from './steps/step11-plan-selection'
 import { TrialSuccess } from './trial-success'
 import { EnterpriseSuccess } from './enterprise-success'
@@ -18,6 +18,7 @@ import { cx } from '../../utils/cx'
 import { SignupSideBar } from './sidebar'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { signupSelectCurrentStep, signupSetCurrentStep } from '@/store/signup'
+import { SIGNUP_TOTAL_STEPS } from './constants'
 
 export const SignupPage = () => {
   const navigate = useNavigate()
@@ -233,15 +234,7 @@ export const SignupPage = () => {
       case 6:
         return <SignupIntegrationsStep />
       case 7:
-        return (
-          <Step10Enterprise
-            formData={formData}
-            selectedSecurityLevel={selectedSecurityLevel}
-            onSecuritySelection={handleSecuritySelection}
-            onNext={handleNext}
-            onArrayToggle={handleArrayToggle}
-          />
-        )
+        return <SignupEnterpriseStep />
       case 8:
         return (
           <Step11PlanSelection
@@ -261,28 +254,17 @@ export const SignupPage = () => {
     }
   }
 
-  const getCurrentStep = () => {
-    let adjustedStep = currentStep
-    if (currentStep >= 9) {
-      adjustedStep = currentStep - 3
-    }
-
-    return adjustedStep
-  }
-
   return (
     <PageContainer
       hideSteps
       onBack={handleBack}
       totalSteps={7}
-      currentStep={getCurrentStep()}
-      rightSideBar={
-        <SignupSideBar currentStep={currentStep} formData={formData} />
-      }
+      currentStep={currentStep}
+      rightSideBar={<SignupSideBar />}
     >
       <div
         className={cx(
-          currentStep !== 11 &&
+          currentStep !== SIGNUP_TOTAL_STEPS &&
             currentStep > 3 &&
             'flex w-full flex-col pb-6 sm:pb-8 max-w-lg sm:max-w-xl md:max-w-2xl gap-4 sm:gap-6 md:gap-8',
           currentStep <= 3 &&
