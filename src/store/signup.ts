@@ -103,3 +103,8 @@ export const signupSelectCurrentStep = createSelector(
   [signupSelectState],
   state => state.currentStep,
 )
+
+export const signupSelectRole = createSelector(
+  [signupSelectForm],
+  form => form.role,
+)

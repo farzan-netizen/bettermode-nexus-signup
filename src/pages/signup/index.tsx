@@ -8,10 +8,7 @@ import { SignupEmailStep } from './steps/email'
 import { SignupEmailVerificationStep } from './steps/email-verification'
 import { SignupBasicInfoStep } from './steps/basic-info'
 import { SignupIndustryStep } from './steps/industry'
-import { Step5Role } from './steps/step5-role'
-import { Step6Company } from './steps/step6-company'
-import { Step7CompanySize } from './steps/step7-company-size'
-import { Step8Website } from './steps/step8-website'
+import { SignupRoleStep } from './steps/role'
 import { Step9Integrations } from './steps/step9-integrations'
 import { Step10Enterprise } from './steps/step10-enterprise'
 import { Step11PlanSelection } from './steps/step11-plan-selection'
@@ -34,8 +31,6 @@ export const SignupPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [showRoleSearch, setShowRoleSearch] = useState(false)
-  const [customRole, setCustomRole] = useState('')
   const [billingPeriod, setBillingPeriod] = useState<'annual' | 'monthly'>(
     'annual',
   )
@@ -112,26 +107,6 @@ export const SignupPage = () => {
       }
     }
   }, [location.state])
-
-  const handleInputChange =
-    (field: keyof SignupFormData) => (value: string) => {
-      setFormData(prev => ({ ...prev, [field]: value }))
-
-      // Clear existing error for this field
-      if (errors[field]) {
-        setErrors(prev => ({ ...prev, [field]: '' }))
-      }
-
-      // Trigger real-time validation for email and verification code fields
-      if ((field === 'email' || field === 'verificationCode') && value.trim()) {
-        const stepNumber = field === 'email' ? 1 : 2
-        const newErrors = validateStep(stepNumber, {
-          ...formData,
-          [field]: value,
-        })
-        setErrors(prev => ({ ...prev, ...newErrors }))
-      }
-    }
 
   const handleArrayToggle =
     (field: 'currentTools' | 'enterpriseFeatures') => (value: string) => {
@@ -269,45 +244,9 @@ export const SignupPage = () => {
       case 4:
         return <SignupIndustryStep />
       case 5:
-        return (
-          <Step5Role
-            formData={formData}
-            errors={errors}
-            showRoleSearch={showRoleSearch}
-            customRole={customRole}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-            onShowRoleSearch={setShowRoleSearch}
-            onSetCustomRole={setCustomRole}
-          />
-        )
+        return <SignupRoleStep />
+
       case 6:
-        return (
-          <Step6Company
-            formData={formData}
-            errors={errors}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-          />
-        )
-      case 7:
-        return (
-          <Step7CompanySize
-            formData={formData}
-            errors={errors}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-          />
-        )
-      case 8:
-        return (
-          <Step8Website
-            formData={formData}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-          />
-        )
-      case 9:
         return (
           <Step9Integrations
             formData={formData}
@@ -316,7 +255,7 @@ export const SignupPage = () => {
             onSelectAllTools={handleSelectAllTools}
           />
         )
-      case 10:
+      case 7:
         return (
           <Step10Enterprise
             formData={formData}
@@ -326,7 +265,7 @@ export const SignupPage = () => {
             onArrayToggle={handleArrayToggle}
           />
         )
-      case 11:
+      case 8:
         return (
           <Step11PlanSelection
             formData={formData}

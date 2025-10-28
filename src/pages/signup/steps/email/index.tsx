@@ -175,6 +175,7 @@ export const SignupEmailStep = () => {
 
         <p className="text-xs text-tertiary text-left">
           By creating an account, you agree to our{' '}
+          {/* TODO: update the links */}
           <a
             href="/terms"
             className="text-brand-secondary hover:text-brand-secondary_hover"
