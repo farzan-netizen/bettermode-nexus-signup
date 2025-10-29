@@ -1,7 +1,7 @@
 import { ArrowLeft } from '@untitledui/icons/ArrowLeft'
 import { ReactNode } from 'react'
 import { ToggleTheme } from '@/components/ui/toggle-theme'
-import { Button } from '../components/base/buttons/button'
+import { Button } from '@/components/base/buttons/button'
 
 interface Props {
   currentStep: number
@@ -63,8 +63,8 @@ export const PageContainer = ({
           </div>
         </header>
 
-        <div className="flex-1 flex flex-col overflow-y-auto scrollbar-thin">
-          <div className="flex justify-start items-start pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8">
+        <div className="flex-1 flex flex-col overflow-y-hidden">
+          <div className="grow flex justify-start items-start pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8 overflow-y-auto scrollbar-thin">
             <div className="flex w-full flex-col pb-6 sm:pb-8 pl-[100px] pr-[68px]">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
@@ -96,13 +96,12 @@ export const PageContainer = ({
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-col gap-5">{children}</div>
             </div>
           </div>
-          <div className="lg:hidden p-4 border-t border-secondary mt-auto">
-            <div className="flex gap-3">
-              {currentStep > 1 && currentStep !== 11 && (
+          {onBack && currentStep > 1 && (
+            <div className="lg:hidden p-4 border-t border-secondary mt-auto">
+              <div className="flex gap-3">
                 <Button
                   className="flex-1"
                   color="secondary"
@@ -112,9 +111,9 @@ export const PageContainer = ({
                 >
                   Back
                 </Button>
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

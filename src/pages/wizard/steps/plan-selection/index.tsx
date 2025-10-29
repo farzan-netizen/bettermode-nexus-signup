@@ -18,32 +18,32 @@ import {
 import { Button } from '@/components/base/buttons/button'
 import { cx } from '@/utils/cx'
 import { TypingAnimation } from '@/components/ui/typing-animation'
-import { SignupFormData } from '../types'
-import { getRecommendedPlan, generatePlanRecommendationText } from '../utils'
-import { BrandData } from '@/utils/brandfetch'
-import { StepContainer } from '../../step-container'
+import { getRecommendedPlan, generatePlanRecommendationText } from './utils'
+import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/hooks/store'
+import { selectBrandState } from '@/store/brand'
+import { signupAppendForm, signupSelectForm } from '@/store/signup'
+import { StepContainer } from '@/pages/step-container'
 
-interface Step11PlanSelectionProps {
-  formData: SignupFormData
-  billingPeriod: 'annual' | 'monthly'
-  isLoading: boolean
-  brandData?: BrandData | null
-  onSetBillingPeriod: (period: 'annual' | 'monthly') => void
-  onSetSelectedPlan: (plan: string) => void
-  onSubmit: () => void
-}
+export const Step11PlanSelection = () => {
+  const formData = useAppSelector(signupSelectForm)
 
-export const Step11PlanSelection = ({
-  formData,
-  billingPeriod,
-  isLoading,
-  brandData,
-  onSetBillingPeriod,
-  onSetSelectedPlan,
-  onSubmit,
-}: Step11PlanSelectionProps) => {
-  const recommendedPlanType = getRecommendedPlan(formData, brandData)
+  const brandData = useAppSelector(selectBrandState)
+  const [isLoading, setIsLoading] = useState(false)
+  const [billingPeriod, setBillingPeriod] = useState<'annual' | 'monthly'>(
+    'annual',
+  )
 
+  const recommendedPlanType = getRecommendedPlan(formData)
+
+  const dispatch = useAppDispatch()
+  const onSetSelectedPlan = (id: string) => {
+    dispatch(signupAppendForm({ selectedPlan: id }))
+  }
+
+  const onSubmit = () => {
+    setIsLoading(true)
+  }
   // Get community name from wizard data if available
   const getCommunityName = () => {
     try {
@@ -210,11 +210,13 @@ export const Step11PlanSelection = ({
                 duration={45}
                 className="text-xl text-primary leading-relaxed font-normal text-left"
               >
-                {generatePlanRecommendationText(
-                  formData,
-                  recommendedPlanType,
-                  brandData,
-                )}
+                {formData
+                  ? generatePlanRecommendationText(
+                      formData,
+                      recommendedPlanType,
+                      brandData,
+                    )
+                  : null}
               </TypingAnimation>
             </div>
           </div>
@@ -239,7 +241,7 @@ export const Step11PlanSelection = ({
               </span>
               <button
                 onClick={() =>
-                  onSetBillingPeriod(
+                  setBillingPeriod(
                     billingPeriod === 'annual' ? 'monthly' : 'annual',
                   )
                 }

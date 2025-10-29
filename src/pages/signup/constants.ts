@@ -184,4 +184,4 @@ export const SAAS_TOOLS_MAP: Record<SaasToolId, SaasTool> = {
 
 export const SAAS_TOOLS_ITEMS: SaasTool[] = Object.values(SAAS_TOOLS_MAP)
 
-export const SIGNUP_TOTAL_STEPS = 8
+export const SIGNUP_TOTAL_STEPS = 7

@@ -7,8 +7,11 @@ import { SuccessScreen } from './components/success-screen'
 import { WizardFormData } from './types'
 import { PageContainer } from '../page-container'
 import { CommunityPreview } from './components/community-preview'
+import { TrialSuccess } from './components/trial-success'
+import { Step11PlanSelection } from './steps/plan-selection'
+import { cx } from '@/utils/cx'
 
-const TOTAL_STEPS = 3
+const TOTAL_STEPS = 4
 
 const initialFormData: WizardFormData = {
   hasMigrationPreference: null,
@@ -63,6 +66,7 @@ export const WizardPage = () => {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [selectedLogoUrl, setSelectedLogoUrl] = useState<string | null>(null)
   const [isCompleted, setIsCompleted] = useState(false)
+  const [showTrialSuccess, setShowTrialSuccess] = useState(false)
 
   const handleInputChange = (field: keyof WizardFormData) => (value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -170,6 +174,8 @@ export const WizardPage = () => {
             onBack={handleBack}
           />
         )
+      case 4:
+        return <Step11PlanSelection />
       default:
         return null
     }
@@ -186,20 +192,28 @@ export const WizardPage = () => {
       currentStep={currentStep}
       totalSteps={TOTAL_STEPS}
       rightSideBar={
-        <div className="relative hidden lg:flex w-1/2 flex-col bg-tertiary h-full overflow-hidden flex-shrink-0">
-          <div className="flex flex-col justify-start items-center h-full p-6 lg:p-8">
-            <CommunityPreview
-              formData={formData}
-              currentStep={currentStep}
-              selectedLogoUrl={selectedLogoUrl}
-            />
+        currentStep !== TOTAL_STEPS && (
+          <div className="relative hidden lg:flex w-1/2 flex-col bg-tertiary h-full overflow-hidden flex-shrink-0">
+            <div className="flex flex-col justify-start items-center h-full p-6 lg:p-8">
+              <CommunityPreview
+                formData={formData}
+                currentStep={currentStep}
+                selectedLogoUrl={selectedLogoUrl}
+              />
+            </div>
           </div>
-        </div>
+        )
       }
     >
-      <div className="flex w-full flex-col pb-6 sm:pb-8 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-[788px] gap-4 sm:gap-5 md:gap-6 pr-[68px]">
+      <div
+        className={cx(
+          currentStep !== TOTAL_STEPS &&
+            'flex w-full flex-col pb-6 sm:pb-8 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-[788px] gap-4 sm:gap-5 md:gap-6 pr-[68px]',
+        )}
+      >
         {renderCurrentStep()}
       </div>
+      {showTrialSuccess && <TrialSuccess />}
     </PageContainer>
   )
 }

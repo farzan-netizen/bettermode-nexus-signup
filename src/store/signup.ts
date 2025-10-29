@@ -118,3 +118,8 @@ export const signupSelectEnterpriseFeatures = createSelector(
   [signupSelectForm],
   form => form.enterpriseFeatures,
 )
+
+export const signupSelectCompanyName = createSelector(
+  [signupSelectForm],
+  form => form.companyName,
+)

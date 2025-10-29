@@ -1,9 +1,9 @@
-interface Props {
-  firstName: string
-  companyName: string
-}
+import { useAppSelector } from '@/hooks/store'
+import { signupSelectFirstName, signupSelectCompanyName } from '@/store/signup'
 
-export const TrialSuccess = ({ companyName, firstName }: Props) => {
+export const TrialSuccess = () => {
+  const firstName = useAppSelector(signupSelectFirstName)
+  const companyName = useAppSelector(signupSelectCompanyName)
   return (
     <div
       className="fixed inset-0 flex items-center justify-center p-8 z-50 animate-in fade-in slide-in-from-bottom-8 duration-1000"
