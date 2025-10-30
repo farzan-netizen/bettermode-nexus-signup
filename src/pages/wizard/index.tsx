@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { WizardCommunityNameStep } from './steps/community-name'
 import { Step2Branding } from './steps/step2-branding'
-import { Step3InitialSpaces } from './steps/step3-initial-spaces'
+import { WizardSpacesStep } from './steps/spaces'
 import { WizardFormData } from './types'
 import { PageContainer } from '../page-container'
 import { CommunityPreview } from './components/community-preview'
@@ -165,15 +165,7 @@ export const WizardPage = () => {
           />
         )
       case 3:
-        return (
-          <Step3InitialSpaces
-            formData={formData}
-            errors={errors}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-            onBack={handleBack}
-          />
-        )
+        return <WizardSpacesStep />
       case 4:
         return <Step11PlanSelection />
       default:

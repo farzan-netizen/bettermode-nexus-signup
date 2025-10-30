@@ -16,11 +16,3 @@ export interface WizardFormData {
   // Step 4: Initial spaces selection
   selectedSpaces: string[]
 }
-
-export interface SpaceOption {
-  id: string
-  name: string
-  description: string
-  icon: string
-  category: 'discussion' | 'content' | 'collaboration' | 'support'
-}

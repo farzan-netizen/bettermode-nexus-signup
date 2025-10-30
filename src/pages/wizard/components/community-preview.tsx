@@ -1,5 +1,5 @@
 import { WizardFormData } from '../types'
-import { SPACE_OPTIONS } from '../constants'
+import { SPACE_OPTIONS } from '../steps/spaces/constants'
 import {
   MessageChatCircle,
   File01,

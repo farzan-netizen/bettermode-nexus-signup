@@ -13,7 +13,7 @@ export interface WizardState {
     logo?: File | null
     primaryColor?: string
     isManualBranding?: boolean
-    selectedSpaces?: string[]
+    spaces?: string[]
   }
 }
 
@@ -66,3 +66,6 @@ export const wizardSelectCommunityName = (state: RootState) =>
 
 export const wizardSelectExistingCommunityName = (state: RootState) =>
   wizardSelectState(state).form?.existingCommunityName
+
+export const wizardSelectSpaces = (state: RootState) =>
+  wizardSelectState(state).form?.spaces || []
