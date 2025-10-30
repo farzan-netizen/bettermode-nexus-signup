@@ -2,33 +2,32 @@ import { ArrowLeft } from '@untitledui/icons/ArrowLeft'
 import { ReactNode } from 'react'
 import { ToggleTheme } from '@/components/ui/toggle-theme'
 import { Button } from '@/components/base/buttons/button'
+import { cx } from '@/utils/cx'
 
 interface Props {
   currentStep: number
   totalSteps: number
   hideSteps?: boolean
   onBack?: () => void
-  title?: string
   children?: ReactNode
   rightSideBar?: ReactNode
-  description?: string
+  contentClassName?: string
 }
 export const PageContainer = ({
   currentStep,
   totalSteps,
   hideSteps,
   onBack,
-  title,
   children,
   rightSideBar,
-  description,
+  contentClassName,
 }: Props) => {
   return (
     <section className="flex h-screen bg-primary overflow-hidden">
-      <div className="flex w-full lg:w-1/2 grow flex-col h-full overflow-hidden flex-shrink-0">
-        <header className="flex flex-col gap-1 px-4 py-1 sm:gap-1.5 sm:py-1.5 sm:px-6 md:px-8 lg:px-8 xl:px-8 flex-shrink-0">
+      <div className="flex w-full lg:w-1/2 grow flex-col h-full overflow-hidden">
+        <header className="flex flex-col gap-4 px-4 py-4 sm:gap-6 sm:py-6 sm:px-6 md:px-8 lg:px-8 xl:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex gap-2 h-8 w-max items-center justify-start overflow-visible max-md:hidden px-[68px] py-[32px]">
+            <div className="flex gap-2 h-8 w-max items-center justify-start overflow-visible max-md:hidden">
               <img
                 src="/logo-bettermode.svg"
                 alt="bettermode"
@@ -63,58 +62,35 @@ export const PageContainer = ({
           </div>
         </header>
 
-        <div className="flex-1 flex flex-col overflow-y-hidden">
-          <div className="grow flex justify-start items-start pt-[80px] pb-6 sm:pt-[80px] sm:pb-8 xl:pt-[80px] xl:pb-8 overflow-y-auto scrollbar-thin">
-            <div className="flex w-full flex-col pb-6 sm:pb-8 pl-[100px] pr-[68px]">
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-2">
-                  {currentStep > 1 && onBack && (
-                    <div className="mb-1">
-                      <button
-                        onClick={onBack}
-                        className="cursor-pointer inline-flex items-center gap-2 text-sm text-brand-secondary hover:text-brand-secondary_hover transition-colors mb-3"
-                      >
-                        <ArrowLeft className="w-4 h-4" />
-                        Back
-                      </button>
-                    </div>
-                  )}
-
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                      {title && (
-                        <h1 className="text-xl font-semibold text-primary sm:text-2xl">
-                          {title}
-                        </h1>
-                      )}
-                      {description && (
-                        <p className="text-md text-tertiary mt-2">
-                          {description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-5">{children}</div>
-            </div>
-          </div>
-          {onBack && currentStep > 1 && (
-            <div className="lg:hidden p-4 border-t border-secondary mt-auto">
-              <div className="flex gap-3">
-                <Button
-                  className="flex-1"
-                  color="secondary"
-                  iconLeading={ArrowLeft}
+        <div className="overflow-y-auto scrollbar-thin flex flex-col py-6 sm:py-8 xl:py-8 px-4 md:px-6 lg:px-8">
+          <div className={cx('mx-auto w-full', contentClassName)}>
+            {currentStep > 1 && onBack && (
+              <div className="mb-1">
+                <button
                   onClick={onBack}
-                  size="md"
+                  className="cursor-pointer inline-flex items-center gap-2 text-sm text-brand-secondary hover:text-brand-secondary_hover transition-colors mb-5"
                 >
+                  <ArrowLeft className="w-4 h-4" />
                   Back
-                </Button>
+                </button>
               </div>
-            </div>
-          )}
+            )}
+            <div>{children}</div>
+          </div>
         </div>
+        {onBack && currentStep > 1 && (
+          <div className="lg:hidden p-4 border-t border-secondary mt-auto flex">
+            <Button
+              className="flex-1"
+              color="secondary"
+              iconLeading={ArrowLeft}
+              onClick={onBack}
+              size="md"
+            >
+              Back
+            </Button>
+          </div>
+        )}
       </div>
 
       {rightSideBar}

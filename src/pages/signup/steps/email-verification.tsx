@@ -69,11 +69,13 @@ export const SignupEmailVerificationStep = () => {
       description={`We've sent a 6-character code to ${email}. The code expires shortly, so please enter it soon.`}
     >
       <div className="flex flex-col gap-6">
-        <OTPInput
-          value={verificationCode}
-          numInputs={6}
-          onChange={onChangeOTP}
-        />
+        <div className="mx-auto">
+          <OTPInput
+            value={verificationCode}
+            numInputs={6}
+            onChange={onChangeOTP}
+          />
+        </div>
         {error && (
           <p className="text-sm text-error-primary text-center">
             {error === 'Code has been expired, tap to resend' ? (

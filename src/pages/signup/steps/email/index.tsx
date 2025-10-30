@@ -161,7 +161,7 @@ export const SignupEmailStep = () => {
           {isLoading ? 'Authenticating...' : 'Continue with Google'}
         </Button>
 
-        <div className="flex justify-start gap-1 text-left">
+        <div className="flex justify-center gap-1 mt-2">
           <span className="text-sm text-tertiary">
             Already have an account?
           </span>
@@ -173,7 +173,7 @@ export const SignupEmailStep = () => {
           </button>
         </div>
 
-        <p className="text-xs text-tertiary text-left">
+        <p className="text-xs text-tertiary text-center mt-2">
           By creating an account, you agree to our{' '}
           {/* TODO: update the links */}
           <a

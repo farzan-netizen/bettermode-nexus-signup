@@ -9,8 +9,8 @@ import { SignupSideBar } from './sidebar'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { signupGoToPrevStep, signupSelectCurrentStep } from '@/store/signup'
 import { SIGNUP_TOTAL_STEPS } from './constants'
-import { cx } from '@/utils/cx'
 import { PageContainer } from '../page-container'
+import { cx } from '@/utils/cx'
 
 export const SignupPage = () => {
   const dispatch = useAppDispatch()
@@ -48,16 +48,12 @@ export const SignupPage = () => {
       totalSteps={SIGNUP_TOTAL_STEPS}
       currentStep={currentStep}
       rightSideBar={<SignupSideBar />}
+      contentClassName={cx(
+        currentStep < 3 && 'max-w-sm sm:max-w-md',
+        currentStep >= 3 && 'max-w-lg sm:max-w-xl md:max-w-2xl',
+      )}
     >
-      <div
-        className={cx(
-          'flex w-full flex-col pb-6 sm:pb-8 md:gap-8 gap-4 sm:gap-6',
-          currentStep > 3 && 'max-w-lg sm:max-w-xl md:max-w-2xl ',
-          currentStep <= 3 && 'max-w-sm sm:max-w-md',
-        )}
-      >
-        {renderCurrentStep()}
-      </div>
+      <div>{renderCurrentStep()}</div>
     </PageContainer>
   )
 }

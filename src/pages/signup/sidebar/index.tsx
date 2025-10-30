@@ -6,7 +6,7 @@ export const SignupSideBar = () => {
   const currentStep = useAppSelector(signupSelectCurrentStep)
 
   return (
-    <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col  max-w-[30%]">
+    <div className="relative hidden w-full bg-tertiary lg:flex lg:flex-col  max-w-1/3">
       <div className="flex flex-col justify-start mt-24 items-center h-full p-6 lg:p-8">
         <SidebarContent currentStep={currentStep} />
       </div>
