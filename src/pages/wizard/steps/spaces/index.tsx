@@ -7,7 +7,7 @@ import {
 } from '@/store/wizard'
 import { StepContainer } from '@/pages/step-container'
 import { SpaceItem } from './space-item'
-import { GROUPED_SPACES_ITEMS } from './constants'
+import { GROUPED_SPACES_ITEMS } from '../../constants'
 
 export const WizardSpacesStep = () => {
   const selectedSpaces = useAppSelector(wizardSelectSpaces)

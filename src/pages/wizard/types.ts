@@ -1,3 +1,5 @@
+import type { CSSProperties, FC } from 'react'
+
 export interface WizardFormData {
   // Step 1: Migration check
   hasMigrationPreference: boolean | null
@@ -15,4 +17,12 @@ export interface WizardFormData {
 
   // Step 4: Initial spaces selection
   selectedSpaces: string[]
+}
+
+export interface SpaceOption {
+  id: string
+  name: string
+  description: string
+  icon: FC<{ className?: string; style?: CSSProperties }>
+  category: 'discussion' | 'content' | 'collaboration' | 'support'
 }

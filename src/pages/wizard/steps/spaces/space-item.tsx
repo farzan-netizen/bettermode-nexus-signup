@@ -1,6 +1,6 @@
 import { cx } from '@/utils/cx'
-import type { SpaceOption } from './type'
 import { Check } from '@untitledui/icons'
+import type { SpaceOption } from '../../types'
 
 interface Props {
   onClick: (id: SpaceOption['id']) => void

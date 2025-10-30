@@ -187,11 +187,7 @@ export const WizardPage = () => {
         currentStep !== TOTAL_STEPS && (
           <div className="relative hidden lg:flex w-1/2 flex-col bg-tertiary h-full overflow-hidden">
             <div className="flex flex-col justify-start items-center h-full p-6 lg:p-8">
-              <CommunityPreview
-                formData={formData}
-                currentStep={currentStep}
-                selectedLogoUrl={selectedLogoUrl}
-              />
+              <CommunityPreview selectedLogoUrl={selectedLogoUrl} />
             </div>
           </div>
         )

@@ -69,3 +69,9 @@ export const wizardSelectExistingCommunityName = (state: RootState) =>
 
 export const wizardSelectSpaces = (state: RootState) =>
   wizardSelectState(state).form?.spaces || []
+
+export const wizardSelectLogo = (state: RootState) =>
+  wizardSelectState(state).form?.logo
+
+export const wizardSelectPrimaryColor = (state: RootState) =>
+  wizardSelectState(state).form?.primaryColor

@@ -9,7 +9,7 @@ import {
   MessageChatCircle,
   Rocket01,
 } from '@untitledui/icons'
-import type { SpaceOption } from './type'
+import type { SpaceOption } from './types'
 
 export const SPACE_OPTIONS: SpaceOption[] = [
   {
@@ -87,7 +87,7 @@ export const SPACE_OPTIONS: SpaceOption[] = [
   },
 ]
 
-const CATEGORY_TITLES: Record<SpaceOption['category'], string> = {
+export const CATEGORY_TITLES: Record<SpaceOption['category'], string> = {
   discussion: 'Discussion',
   content: 'Content',
   collaboration: 'Collaboration',
