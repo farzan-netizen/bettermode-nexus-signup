@@ -18,6 +18,7 @@ const initialFormData: WizardFormData = {
   logo: null,
   primaryColor: "#6366f1",
   isManualBranding: false,
+  previewTheme: "light",
   selectedSpaces: []
 };
 

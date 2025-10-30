@@ -29,20 +29,47 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
     return iconMap[spaceId] || MessageChatCircle;
   };
 
+  const isDark = formData.previewTheme === 'dark';
+  
+  // Theme colors
+  const theme = {
+    bg: isDark ? '#1a1a1a' : '#ffffff',
+    bgSecondary: isDark ? '#2a2a2a' : '#f9fafb',
+    border: isDark ? '#404040' : '#e5e7eb',
+    text: isDark ? '#e5e5e5' : '#111827',
+    textSecondary: isDark ? '#a3a3a3' : '#6b7280',
+    textTertiary: isDark ? '#737373' : '#9ca3af',
+    inputBg: isDark ? '#333333' : '#f9fafb',
+    cardBg: isDark ? '#262626' : '#ffffff',
+  };
+
   return (
     <div className="w-full h-full flex items-stretch justify-center p-2 sm:p-4 lg:p-6">
       
       {/* Browser Mockup */}
-      <div className="bg-white border border-secondary rounded-xl shadow-lg overflow-hidden w-full h-full min-h-[400px] flex flex-col">
+      <div 
+        className="border border-secondary rounded-xl shadow-lg overflow-hidden w-full h-full min-h-[400px] flex flex-col"
+        style={{ backgroundColor: theme.bg }}
+      >
         
         {/* Browser Header */}
-        <div className="bg-gray-50 border-b border-gray-200 px-2 sm:px-4 py-2 sm:py-3 flex-shrink-0">
+        <div 
+          className="border-b px-2 sm:px-4 py-2 sm:py-3 flex-shrink-0"
+          style={{ backgroundColor: theme.bgSecondary, borderColor: theme.border }}
+        >
           <div className="flex items-center gap-2 mb-2">
             <div className="w-3 h-3 bg-red-400 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
             <div className="w-3 h-3 bg-green-400 rounded-full"></div>
           </div>
-          <div className="bg-white border border-gray-200 rounded-md px-2 sm:px-3 py-1 text-xs text-gray-500 truncate">
+          <div 
+            className="border rounded-md px-2 sm:px-3 py-1 text-xs truncate"
+            style={{ 
+              backgroundColor: theme.bg, 
+              borderColor: theme.border,
+              color: theme.textTertiary
+            }}
+          >
             {formData.communityName ? 
               `${formData.communityName.toLowerCase().replace(/\s+/g, '')}.community` : 
               "yourcommunity.community"
@@ -51,7 +78,10 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
         </div>
 
         {/* Top Navigation */}
-        <div className="bg-white border-b border-gray-200 px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-3 sm:gap-4 flex-shrink-0">
+        <div 
+          className="border-b px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-3 sm:gap-4 flex-shrink-0"
+          style={{ backgroundColor: theme.bg, borderColor: theme.border }}
+        >
           {/* Logo */}
           <div className="flex items-center gap-2 sm:gap-3">
             {currentStep >= 2 && (formData.logo || selectedLogoUrl) ? (
@@ -76,7 +106,10 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
               </div>
             )}
             <div className="hidden sm:block">
-              <div className="text-sm font-semibold text-gray-900 truncate">
+              <div 
+                className="text-sm font-semibold truncate"
+                style={{ color: theme.text }}
+              >
                 {currentStep >= 1 && formData.communityName ? 
                   formData.communityName : 
                   "Community"
@@ -89,13 +122,24 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
           <div className="flex-1 flex justify-center">
             <div className="relative w-full max-w-xs">
               <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
-                <svg className="h-3.5 w-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className="h-3.5 w-3.5" 
+                  style={{ color: theme.textTertiary }}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
               <input
                 type="text"
-                className="block w-full pl-8 pr-3 py-1.5 border border-gray-200 rounded-md bg-gray-50 text-xs placeholder-gray-400 focus:outline-none"
+                className="block w-full pl-8 pr-3 py-1.5 border rounded-md text-xs focus:outline-none"
+                style={{
+                  backgroundColor: theme.inputBg,
+                  borderColor: theme.border,
+                  color: theme.text
+                }}
                 placeholder="Search..."
                 disabled
               />
@@ -105,23 +149,44 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
           {/* User Actions */}
           <div className="flex items-center gap-1.5 sm:gap-2">
             {/* Action 1 */}
-            <div className="w-7 h-7 bg-gray-100 rounded-md"></div>
+            <div 
+              className="w-7 h-7 rounded-md"
+              style={{ backgroundColor: theme.bgSecondary }}
+            ></div>
             {/* Action 2 */}
-            <div className="w-7 h-7 bg-gray-100 rounded-md"></div>
+            <div 
+              className="w-7 h-7 rounded-md"
+              style={{ backgroundColor: theme.bgSecondary }}
+            ></div>
             {/* Action 3 */}
-            <div className="w-7 h-7 bg-gray-100 rounded-md"></div>
+            <div 
+              className="w-7 h-7 rounded-md"
+              style={{ backgroundColor: theme.bgSecondary }}
+            ></div>
             {/* Action 4 */}
-            <div className="w-7 h-7 bg-gray-100 rounded-md"></div>
+            <div 
+              className="w-7 h-7 rounded-md"
+              style={{ backgroundColor: theme.bgSecondary }}
+            ></div>
             {/* Avatar */}
-            <div className="w-7 h-7 bg-gray-300 rounded-full ml-1"></div>
+            <div 
+              className="w-7 h-7 rounded-full ml-1"
+              style={{ backgroundColor: isDark ? '#525252' : '#d1d5db' }}
+            ></div>
           </div>
         </div>
 
         {/* Main Layout */}
-        <div className="flex flex-1 bg-white min-h-0">
+        <div 
+          className="flex flex-1 min-h-0"
+          style={{ backgroundColor: theme.bg }}
+        >
           
           {/* Sidebar */}
-          <div className="w-48 sm:w-56 lg:w-64 bg-gray-50 border-r border-gray-200 p-2 sm:p-3 lg:p-4 flex flex-col flex-shrink-0">
+          <div 
+            className="w-48 sm:w-56 lg:w-64 border-r p-2 sm:p-3 lg:p-4 flex flex-col flex-shrink-0"
+            style={{ backgroundColor: theme.bgSecondary, borderColor: theme.border }}
+          >
             {/* Navigation/Spaces */}
             <div className="space-y-1 flex-1 overflow-y-auto">
               
@@ -150,7 +215,12 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
-                <span className="truncate font-medium text-gray-700">Feed</span>
+                <span 
+                  className="truncate font-medium"
+                  style={{ color: theme.textSecondary }}
+                >
+                  Feed
+                </span>
               </div>
               
               {/* Selected spaces grouped by category */}
@@ -173,7 +243,10 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
 
                 return Object.entries(groupedSelectedSpaces).map(([category, spaces]) => (
                   <div key={category} className="mt-3">
-                    <div className="text-[10px] font-medium text-gray-500 uppercase tracking-wide mb-1 flex-shrink-0">
+                    <div 
+                      className="text-[10px] font-medium uppercase tracking-wide mb-1 flex-shrink-0"
+                      style={{ color: theme.textTertiary }}
+                    >
                       {categoryTitles[category as keyof typeof categoryTitles]}
                     </div>
                     {spaces.map((space) => {
@@ -182,7 +255,10 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                       return (
                         <div 
                           key={space.id}
-                          className="flex items-center gap-2 px-2 py-1.5 text-xs sm:text-sm rounded-md transition-colors flex-shrink-0 cursor-pointer hover:bg-gray-50"
+                          className="flex items-center gap-2 px-2 py-1.5 text-xs sm:text-sm rounded-md transition-colors flex-shrink-0 cursor-pointer"
+                          style={{
+                            backgroundColor: 'transparent'
+                          }}
                         >
                           <IconComponent 
                             className="w-4 h-4 flex-shrink-0" 
@@ -192,7 +268,12 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                                 : '#6b7280'
                             }}
                           />
-                          <span className="truncate font-medium text-gray-700">{space.name}</span>
+                          <span 
+                            className="truncate font-medium"
+                            style={{ color: theme.textSecondary }}
+                          >
+                            {space.name}
+                          </span>
                         </div>
                       );
                     })}
@@ -203,13 +284,25 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
               {/* Placeholder spaces if none selected */}
               {(currentStep < 3 || selectedSpaceOptions.length === 0) && (
                 <>
-                  <div className="flex items-center gap-2 px-2 py-1.5 text-xs sm:text-sm text-gray-400 rounded-md flex-shrink-0">
-                    <div className="w-4 h-4 bg-gray-100 rounded flex-shrink-0"></div>
-                    <div className="w-16 h-3 bg-gray-100 rounded"></div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 text-xs sm:text-sm rounded-md flex-shrink-0">
+                    <div 
+                      className="w-4 h-4 rounded flex-shrink-0"
+                      style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                    ></div>
+                    <div 
+                      className="w-16 h-3 rounded"
+                      style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                    ></div>
                   </div>
-                  <div className="flex items-center gap-2 px-2 py-1.5 text-xs sm:text-sm text-gray-400 rounded-md flex-shrink-0">
-                    <div className="w-4 h-4 bg-gray-100 rounded flex-shrink-0"></div>
-                    <div className="w-20 h-3 bg-gray-100 rounded"></div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 text-xs sm:text-sm rounded-md flex-shrink-0">
+                    <div 
+                      className="w-4 h-4 rounded flex-shrink-0"
+                      style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                    ></div>
+                    <div 
+                      className="w-20 h-3 rounded"
+                      style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                    ></div>
                   </div>
                 </>
               )}
@@ -255,7 +348,10 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                   ></div>
                 </div>
                 
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                <h1 
+                  className="text-lg sm:text-xl font-bold mb-2"
+                  style={{ color: theme.text }}
+                >
                   {currentStep >= 1 && formData.communityName ? (
                     <>
                       Welcome to{" "}
@@ -318,7 +414,13 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
             {/* Feed Posts */}
             <div className="space-y-4">
               {/* Post 1 */}
-              <div className="bg-white rounded-lg p-4 border border-gray-200">
+              <div 
+                className="rounded-lg p-4 border"
+                style={{ 
+                  backgroundColor: theme.cardBg,
+                  borderColor: theme.border
+                }}
+              >
                 {/* Post Header */}
                 <div className="flex items-center gap-3 mb-3">
                   <div 
@@ -338,15 +440,27 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                           : '#d1d5db'
                       }}
                     ></div>
-                    <div className="w-16 h-2 bg-gray-100 rounded"></div>
+                    <div 
+                      className="w-16 h-2 rounded"
+                      style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                    ></div>
                   </div>
-                  <div className="w-5 h-5 bg-gray-100 rounded"></div>
+                  <div 
+                    className="w-5 h-5 rounded"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
                 </div>
                 
                 {/* Post Content */}
                 <div className="mb-3">
-                  <div className="w-full h-3 bg-gray-100 rounded mb-2"></div>
-                  <div className="w-3/4 h-3 bg-gray-100 rounded"></div>
+                  <div 
+                    className="w-full h-3 rounded mb-2"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
+                  <div 
+                    className="w-3/4 h-3 rounded"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
                 </div>
                 
                 {/* Post Image/Media */}
@@ -360,27 +474,57 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                 ></div>
                 
                 {/* Post Actions */}
-                <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                <div 
+                  className="flex items-center justify-between pt-2 border-t"
+                  style={{ borderColor: theme.border }}
+                >
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
-                      <div className="w-4 h-4 bg-gray-100 rounded"></div>
-                      <div className="w-6 h-2 bg-gray-100 rounded"></div>
+                      <div 
+                        className="w-4 h-4 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
+                      <div 
+                        className="w-6 h-2 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
                     </div>
                     <div className="flex items-center gap-1">
-                      <div className="w-4 h-4 bg-gray-100 rounded"></div>
-                      <div className="w-6 h-2 bg-gray-100 rounded"></div>
+                      <div 
+                        className="w-4 h-4 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
+                      <div 
+                        className="w-6 h-2 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
                     </div>
                     <div className="flex items-center gap-1">
-                      <div className="w-4 h-4 bg-gray-100 rounded"></div>
-                      <div className="w-8 h-2 bg-gray-100 rounded"></div>
+                      <div 
+                        className="w-4 h-4 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
+                      <div 
+                        className="w-8 h-2 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
                     </div>
                   </div>
-                  <div className="w-4 h-4 bg-gray-100 rounded"></div>
+                  <div 
+                    className="w-4 h-4 rounded"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
                 </div>
               </div>
               
               {/* Post 2 */}
-              <div className="bg-white rounded-lg p-4 border border-gray-200">
+              <div 
+                className="rounded-lg p-4 border"
+                style={{ 
+                  backgroundColor: theme.cardBg,
+                  borderColor: theme.border
+                }}
+              >
                 {/* Post Header */}
                 <div className="flex items-center gap-3 mb-3">
                   <div 
@@ -400,19 +544,34 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                           : '#d1d5db'
                       }}
                     ></div>
-                    <div className="w-20 h-2 bg-gray-100 rounded"></div>
+                    <div 
+                      className="w-20 h-2 rounded"
+                      style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                    ></div>
                   </div>
-                  <div className="w-5 h-5 bg-gray-100 rounded"></div>
+                  <div 
+                    className="w-5 h-5 rounded"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
                 </div>
                 
                 {/* Post Content */}
                 <div className="mb-3">
-                  <div className="w-full h-3 bg-gray-100 rounded mb-2"></div>
-                  <div className="w-3/4 h-3 bg-gray-100 rounded mb-2"></div>
+                  <div 
+                    className="w-full h-3 rounded mb-2"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
+                  <div 
+                    className="w-3/4 h-3 rounded mb-2"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
                 </div>
                 
                 {/* Post Actions */}
-                <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                <div 
+                  className="flex items-center justify-between pt-2 border-t"
+                  style={{ borderColor: theme.border }}
+                >
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <div 
@@ -420,21 +579,39 @@ export const CommunityPreview = ({ formData, currentStep, selectedLogoUrl }: Com
                         style={{
                           backgroundColor: currentStep >= 2 && formData.primaryColor 
                             ? `${formData.primaryColor}15` 
-                            : '#e5e7eb'
+                            : (isDark ? '#404040' : '#e5e7eb')
                         }}
                       ></div>
-                      <div className="w-8 h-2 bg-gray-100 rounded"></div>
+                      <div 
+                        className="w-8 h-2 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
                     </div>
                     <div className="flex items-center gap-1">
-                      <div className="w-4 h-4 bg-gray-100 rounded"></div>
-                      <div className="w-6 h-2 bg-gray-100 rounded"></div>
+                      <div 
+                        className="w-4 h-4 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
+                      <div 
+                        className="w-6 h-2 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
                     </div>
                     <div className="flex items-center gap-1">
-                      <div className="w-4 h-4 bg-gray-100 rounded"></div>
-                      <div className="w-10 h-2 bg-gray-100 rounded"></div>
+                      <div 
+                        className="w-4 h-4 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
+                      <div 
+                        className="w-10 h-2 rounded"
+                        style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                      ></div>
                     </div>
                   </div>
-                  <div className="w-4 h-4 bg-gray-100 rounded"></div>
+                  <div 
+                    className="w-4 h-4 rounded"
+                    style={{ backgroundColor: isDark ? '#404040' : '#f3f4f6' }}
+                  ></div>
                 </div>
               </div>
             </div>

@@ -442,3 +442,28 @@ input[type="search"]::-webkit-search-cancel-button {
     animation: none;
     mix-blend-mode: normal;
 }
+
+/* Color input styling - remove default padding */
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border: none;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 0.5rem;
+}
