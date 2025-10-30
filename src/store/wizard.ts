@@ -14,6 +14,7 @@ export interface WizardState {
     primaryColor?: string
     isManualBranding?: boolean
     spaces?: string[]
+    billingPeriod?: 'annual' | 'monthly'
   }
 }
 
@@ -75,3 +76,6 @@ export const wizardSelectLogo = (state: RootState) =>
 
 export const wizardSelectPrimaryColor = (state: RootState) =>
   wizardSelectState(state).form?.primaryColor
+
+export const wizardSelectBillingPeriod = (state: RootState) =>
+  wizardSelectState(state).form?.billingPeriod

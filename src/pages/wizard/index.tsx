@@ -7,7 +7,7 @@ import { WizardFormData } from './types'
 import { PageContainer } from '../page-container'
 import { CommunityPreview } from './components/community-preview'
 import { TrialSuccess } from './components/trial-success'
-import { Step11PlanSelection } from './steps/plan-selection'
+import { WizardPlanSelectionStep } from './steps/plan-selection'
 import { cx } from '@/utils/cx'
 import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import {
@@ -167,7 +167,7 @@ export const WizardPage = () => {
       case 3:
         return <WizardSpacesStep />
       case 4:
-        return <Step11PlanSelection />
+        return <WizardPlanSelectionStep />
       default:
         return null
     }
