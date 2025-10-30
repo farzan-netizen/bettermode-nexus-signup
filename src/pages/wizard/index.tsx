@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { Step1NameCommunity } from './steps/step1-name-community'
+import { WizardCommunityNameStep } from './steps/community-name'
 import { Step2Branding } from './steps/step2-branding'
 import { Step3InitialSpaces } from './steps/step3-initial-spaces'
-import { SuccessScreen } from './components/success-screen'
 import { WizardFormData } from './types'
 import { PageContainer } from '../page-container'
 import { CommunityPreview } from './components/community-preview'
 import { TrialSuccess } from './components/trial-success'
 import { Step11PlanSelection } from './steps/plan-selection'
 import { cx } from '@/utils/cx'
+import { useAppDispatch, useAppSelector } from '@/hooks/store'
+import {
+  wizardGoToNextStep,
+  wizardGoToPrevStep,
+  wizardSelectCurrentStep,
+} from '@/store/wizard'
 
 const TOTAL_STEPS = 4
 
@@ -27,7 +32,10 @@ const initialFormData: WizardFormData = {
 
 export const WizardPage = () => {
   const navigate = useNavigate()
-  const [currentStep, setCurrentStep] = useState(1)
+  // const [currentStep, setCurrentStep] = useState(1)
+  const currentStep = useAppSelector(wizardSelectCurrentStep)
+  const dispatch = useAppDispatch()
+
   const [formData, setFormData] = useState<WizardFormData>(() => {
     // Initialize with brand data from signup if available
     const savedBrandData = sessionStorage.getItem('signup-brand-data')
@@ -65,7 +73,6 @@ export const WizardPage = () => {
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [selectedLogoUrl, setSelectedLogoUrl] = useState<string | null>(null)
-  const [isCompleted, setIsCompleted] = useState(false)
   const [showTrialSuccess, setShowTrialSuccess] = useState(false)
 
   const handleInputChange = (field: keyof WizardFormData) => (value: any) => {
@@ -120,7 +127,7 @@ export const WizardPage = () => {
       }
 
       if (currentStep < TOTAL_STEPS) {
-        setCurrentStep(prev => prev + 1)
+        dispatch(wizardGoToNextStep())
       } else {
         // Final submission
         handleSubmit()
@@ -130,7 +137,7 @@ export const WizardPage = () => {
 
   const handleBack = () => {
     if (currentStep > 1) {
-      setCurrentStep(prev => prev - 1)
+      dispatch(wizardGoToPrevStep())
     }
   }
 
@@ -145,14 +152,7 @@ export const WizardPage = () => {
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 1:
-        return (
-          <Step1NameCommunity
-            formData={formData}
-            errors={errors}
-            onInputChange={handleInputChange}
-            onNext={handleNext}
-          />
-        )
+        return <WizardCommunityNameStep />
       case 2:
         return (
           <Step2Branding
@@ -179,11 +179,6 @@ export const WizardPage = () => {
       default:
         return null
     }
-  }
-
-  // Show success screen after completion
-  if (!isCompleted) {
-    return <SuccessScreen formData={formData} />
   }
 
   const isLastStep = currentStep === TOTAL_STEPS

@@ -1,26 +1,58 @@
 import { ArrowRight } from '@untitledui/icons'
 import { Button } from '@/components/base/buttons/button'
 import { Input } from '@/components/base/input/input'
-import { WizardFormData } from '../types'
-import { StepContainer } from '../../step-container'
+import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/hooks/store'
+import {
+  wizardAppendForm,
+  wizardGoToNextStep,
+  wizardSelectCommunityName,
+  wizardSelectExistingCommunityName,
+} from '@/store/wizard'
+import { StepContainer } from '@/pages/step-container'
 
-interface Step1NameCommunityProps {
-  formData: WizardFormData
-  errors: Partial<WizardFormData>
-  onInputChange: (field: keyof WizardFormData) => (value: any) => void
-  onNext: () => void
+enum ViewStep {
+  Initial = 'initial',
+  CreateNew = 'create-new',
+  Migrate = 'migrate',
 }
+export const WizardCommunityNameStep = () => {
+  const existingCommunityName =
+    useAppSelector(wizardSelectExistingCommunityName) || ''
+  const communityName = useAppSelector(wizardSelectCommunityName) || ''
 
-export const Step1NameCommunity = ({
-  formData,
-  errors,
-  onInputChange,
-  onNext,
-}: Step1NameCommunityProps) => {
-  // Determine which view to show based on migration preference
-  const showInitialQuestion = formData.hasMigrationPreference === null
-  const showMigrationNameField = formData.hasMigrationPreference === true
-  const showNewCommunityNameField = formData.hasMigrationPreference === false
+  const [viewStep, setViewStep] = useState<ViewStep>(() => {
+    if (existingCommunityName) return ViewStep.Migrate
+    if (communityName) return ViewStep.CreateNew
+    return ViewStep.Initial
+  })
+
+  const dispatch = useAppDispatch()
+
+  const onNext = () => {
+    // TODO: validate via api
+    dispatch(wizardGoToNextStep())
+  }
+
+  const setViewToMigrateCommunity = () => {
+    setViewStep(ViewStep.Migrate)
+  }
+
+  const setViewToCreateNewCommunity = () => {
+    setViewStep(ViewStep.CreateNew)
+  }
+
+  const onNewCommunityNameChange = (value: string) => {
+    dispatch(
+      wizardAppendForm({ communityName: value, existingCommunityName: '' }),
+    )
+  }
+
+  const onExistingCommunityNameChange = (value: string) => {
+    dispatch(
+      wizardAppendForm({ existingCommunityName: value, communityName: '' }),
+    )
+  }
 
   return (
     <StepContainer
@@ -28,11 +60,10 @@ export const Step1NameCommunity = ({
       description="Create a new community, but if you already have one on another platform, we can help you migrate."
     >
       <div className="flex flex-col gap-6">
-        {/* Initial Question */}
-        {showInitialQuestion && (
+        {viewStep === ViewStep.Initial && (
           <div className="flex justify-start items-center gap-6">
             <button
-              onClick={() => onInputChange('hasMigrationPreference')(true)}
+              onClick={setViewToMigrateCommunity}
               className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
             >
               I want to migrate my existing community
@@ -40,7 +71,7 @@ export const Step1NameCommunity = ({
 
             <Button
               iconTrailing={ArrowRight}
-              onClick={() => onInputChange('hasMigrationPreference')(false)}
+              onClick={setViewToCreateNewCommunity}
               size="sm"
             >
               Create a new community
@@ -48,28 +79,26 @@ export const Step1NameCommunity = ({
           </div>
         )}
 
-        {/* Community URL Field for Migration */}
-        {showMigrationNameField && (
+        {viewStep === ViewStep.Migrate && (
           <div className="flex flex-col gap-6">
             <div>
               <Input
                 label="Current community URL"
                 type="url"
                 placeholder="e.g., https://mycommunity.com"
-                value={formData.existingCommunityName || ''}
-                onChange={onInputChange('existingCommunityName')}
-                isInvalid={!!errors.existingCommunityName}
+                value={existingCommunityName}
+                onChange={onExistingCommunityNameChange}
                 hint={
-                  errors.existingCommunityName ||
                   'Enter the URL of your existing community that you want to migrate.'
                 }
                 isRequired
+                isInvalid={false}
               />
             </div>
 
             <div className="flex justify-end items-center gap-6">
               <button
-                onClick={() => onInputChange('hasMigrationPreference')(false)}
+                onClick={setViewToCreateNewCommunity}
                 className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
               >
                 Create new community instead
@@ -79,7 +108,7 @@ export const Step1NameCommunity = ({
                 iconTrailing={ArrowRight}
                 onClick={onNext}
                 size="sm"
-                disabled={!formData.existingCommunityName?.trim()}
+                isDisabled={!existingCommunityName?.trim()}
               >
                 Continue
               </Button>
@@ -87,28 +116,24 @@ export const Step1NameCommunity = ({
           </div>
         )}
 
-        {/* Community Name Field for New Community */}
-        {showNewCommunityNameField && (
+        {viewStep === ViewStep.CreateNew && (
           <div className="flex flex-col gap-6">
             <div>
               <Input
                 label="Community name"
                 type="text"
                 placeholder="e.g., Acme Community"
-                value={formData.communityName}
-                onChange={onInputChange('communityName')}
-                isInvalid={!!errors.communityName}
-                hint={
-                  errors.communityName ||
-                  "We'll use this name across your workspace and emails."
-                }
+                value={communityName}
+                onChange={onNewCommunityNameChange}
+                hint={"We'll use this name across your workspace and emails."}
                 isRequired
+                isInvalid={false}
               />
             </div>
 
             <div className="flex justify-end items-center gap-6">
               <button
-                onClick={() => onInputChange('hasMigrationPreference')(true)}
+                onClick={setViewToMigrateCommunity}
                 className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
               >
                 I have an existing community
@@ -118,7 +143,7 @@ export const Step1NameCommunity = ({
                 iconTrailing={ArrowRight}
                 onClick={onNext}
                 size="sm"
-                disabled={!formData.communityName.trim()}
+                isDisabled={!communityName.trim()}
               >
                 Continue
               </Button>

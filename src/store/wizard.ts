@@ -1,7 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { ReducersName } from './constants'
+import type { RootState } from '.'
 
 export interface WizardState {
+  currentStep: number
   form: {
     hasMigrationPreference?: boolean | null
     existingCommunityName?: string
@@ -16,15 +18,51 @@ export interface WizardState {
 }
 
 const initialState: WizardState = {
+  currentStep: 1,
   form: {},
 }
 
 export const wizardSlice = createSlice({
   name: ReducersName.Wizard,
   initialState,
-  reducers: {},
+  reducers: {
+    wizardSetCurrentStep: (state, action: PayloadAction<number>) => {
+      state.currentStep = action.payload
+    },
+    wizardGoToNextStep: state => {
+      state.currentStep += 1
+    },
+    wizardGoToPrevStep: state => {
+      if (state.currentStep > 1) state.currentStep -= 1
+    },
+    wizardAppendForm: (
+      state,
+      action: PayloadAction<Partial<WizardState['form']>>,
+    ) => {
+      state.form = { ...state.form, ...action.payload }
+    },
+  },
 })
 
-export const {} = wizardSlice.actions
+export const {
+  wizardAppendForm,
+  wizardGoToNextStep,
+  wizardGoToPrevStep,
+  wizardSetCurrentStep,
+} = wizardSlice.actions
 
 export const wizardReducer = wizardSlice.reducer
+
+const wizardSelectState = (state: RootState) => state[ReducersName.Wizard]
+
+export const wizardSelectForm = (state: RootState) =>
+  wizardSelectState(state).form
+
+export const wizardSelectCurrentStep = (state: RootState) =>
+  wizardSelectState(state).currentStep
+
+export const wizardSelectCommunityName = (state: RootState) =>
+  wizardSelectState(state).form?.communityName
+
+export const wizardSelectExistingCommunityName = (state: RootState) =>
+  wizardSelectState(state).form?.existingCommunityName
