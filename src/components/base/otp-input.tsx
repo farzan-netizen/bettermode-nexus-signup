@@ -311,5 +311,4 @@ const OTPInput = ({
   )
 }
 
-export type { OTPInputProps, InputProps, AllowedInputTypes }
 export { OTPInput }

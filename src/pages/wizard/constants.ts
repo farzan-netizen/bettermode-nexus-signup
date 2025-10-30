@@ -87,14 +87,14 @@ export const SPACE_OPTIONS: SpaceOption[] = [
   },
 ]
 
-export const CATEGORY_TITLES: Record<SpaceOption['category'], string> = {
+const CATEGORY_TITLES: Record<SpaceOption['category'], string> = {
   discussion: 'Discussion',
   content: 'Content',
   collaboration: 'Collaboration',
   support: 'Support',
 }
 
-export const GROUPED_SPACES_MAP = SPACE_OPTIONS.reduce(
+const GROUPED_SPACES_MAP = SPACE_OPTIONS.reduce(
   (groups, space) => {
     const category = space.category
     if (!(category in groups)) {
