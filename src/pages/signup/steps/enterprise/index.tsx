@@ -123,7 +123,9 @@ export const SignupEnterpriseStep = () => {
                   )}
                 >
                   <div className="flex items-start gap-3">
-                    <feature.icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#0AC06C' }} />
+                    <span className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#0AC06C' }}>
+                      <feature.icon className="w-5 h-5" />
+                    </span>
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-primary text-xs sm:text-sm mb-1 truncate">
                         {feature.name}
