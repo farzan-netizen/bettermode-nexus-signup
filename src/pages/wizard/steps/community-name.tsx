@@ -64,7 +64,7 @@ export const WizardCommunityNameStep = () => {
           <div className="flex justify-start items-center gap-6">
             <button
               onClick={setViewToMigrateCommunity}
-              className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
+              className="text-sm text-tertiary hover:text-tertiary_hover underline decoration-transparent hover:decoration-tertiary underline-offset-2 transition-all"
             >
               I want to migrate my existing community
             </button>
@@ -99,7 +99,7 @@ export const WizardCommunityNameStep = () => {
             <div className="flex justify-end items-center gap-6">
               <button
                 onClick={setViewToCreateNewCommunity}
-                className="text-sm text-brand-secondary hover:text-brand-secondary_hover underline decoration-brand-secondary hover:decoration-brand-secondary underline-offset-2 transition-all cursor-pointer hover:cursor-pointer font-medium"
+                className="text-sm text-tertiary hover:text-tertiary_hover underline decoration-transparent hover:decoration-tertiary underline-offset-2 transition-all"
               >
                 Create new community instead
               </button>
