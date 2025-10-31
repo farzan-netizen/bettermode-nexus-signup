@@ -29,24 +29,24 @@ const styles = sortCx({
   sizes: {
     sm: {
       root: [
-        'gap-1 rounded-[80px] px-3 py-2 text-sm font-semibold before:rounded-[79px] data-icon-only:p-2',
+        'gap-1 rounded-lg px-3 py-2 text-sm font-semibold before:rounded-[7px] data-icon-only:p-2',
         'in-data-input-wrapper:px-3.5 in-data-input-wrapper:py-2.5 in-data-input-wrapper:data-icon-only:p-2.5',
       ].join(' '),
       linkRoot: 'gap-1',
     },
     md: {
       root: [
-        'gap-1 rounded-[80px] px-3.5 py-2.5 text-sm font-semibold before:rounded-[79px] data-icon-only:p-2.5',
+        'gap-1 rounded-lg px-3.5 py-2.5 text-sm font-semibold before:rounded-[7px] data-icon-only:p-2.5',
         'in-data-input-wrapper:gap-1.5 in-data-input-wrapper:px-4 in-data-input-wrapper:text-md in-data-input-wrapper:data-icon-only:p-3',
       ].join(' '),
       linkRoot: 'gap-1',
     },
     lg: {
-      root: 'gap-1.5 rounded-[80px] px-4 py-2.5 text-md font-semibold before:rounded-[79px] data-icon-only:p-3',
+      root: 'gap-1.5 rounded-lg px-4 py-2.5 text-md font-semibold before:rounded-[7px] data-icon-only:p-3',
       linkRoot: 'gap-1.5',
     },
     xl: {
-      root: 'gap-1.5 rounded-[80px] px-4.5 py-3 text-md font-semibold before:rounded-[79px] data-icon-only:p-3.5',
+      root: 'gap-1.5 rounded-lg px-4.5 py-3 text-md font-semibold before:rounded-[7px] data-icon-only:p-3.5',
       linkRoot: 'gap-1.5',
     },
   },
@@ -139,7 +139,7 @@ const styles = sortCx({
 /**
  * Common props shared between button and anchor variants
  */
-interface CommonProps {
+export interface CommonProps {
   /** Disables the button and shows a disabled state */
   isDisabled?: boolean
   /** Shows a loading spinner and disables the button */
@@ -161,7 +161,7 @@ interface CommonProps {
 /**
  * Props for the button variant (non-link)
  */
-interface ButtonProps
+export interface ButtonProps
   extends CommonProps,
     DetailedHTMLProps<
       Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'slot'>,
@@ -182,7 +182,7 @@ interface LinkProps
     > {}
 
 /** Union type of button and link props */
-type Props = ButtonProps | LinkProps
+export type Props = ButtonProps | LinkProps
 
 export const Button = ({
   size = 'sm',

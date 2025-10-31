@@ -1,7 +1,7 @@
 @theme {
     /* FONT FAMILY */
-    --font-body: var(--font-manrope, "Manrope"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    --font-display: var(--font-manrope, "Manrope"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-body: var(--font-inter, "Inter"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-display: var(--font-inter, "Inter"), -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     --font-mono: ui-monospace, "Roboto Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
     /* FONT SIZE */
@@ -121,19 +121,18 @@
     --color-alpha-white: rgb(255 255 255);
     --color-alpha-black: rgb(0 0 0);
 
-    --color-brand-25: #F7FEF9;
-    --color-brand-50: #F0FDF4;
-    --color-brand-100: #67D9A4;
-    --color-brand-200: #D1F7E5;
-    --color-brand-300: #A6F5D3;
-    --color-brand-400: #74E5B8;
-    --color-brand-500: #666666;
-    --color-brand-600: #000000;
-    --color-brand-600-selected: #0AC06C;
-    --color-brand-700: #333333;
-    --color-brand-800: #0AC06C;
-    --color-brand-900: #054A2E;
-    --color-brand-950: #033A24;
+    --color-brand-25: rgb(252 250 255);
+    --color-brand-50: rgb(249 245 255);
+    --color-brand-100: rgb(244 235 255);
+    --color-brand-200: rgb(233 215 254);
+    --color-brand-300: rgb(214 187 251);
+    --color-brand-400: rgb(182 146 246);
+    --color-brand-500: rgb(158 119 237);
+    --color-brand-600: rgb(127 86 217);
+    --color-brand-700: rgb(105 65 198);
+    --color-brand-800: rgb(83 56 158);
+    --color-brand-900: rgb(66 48 125);
+    --color-brand-950: rgb(44 28 95);
 
     --color-error-25: rgb(255 251 250);
     --color-error-50: rgb(254 243 242);
@@ -736,7 +735,7 @@
 
     /* BACKGROUND COLORS */
     --color-bg-primary: var(--color-white);
-    --color-bg-tertiary: #FBFBFB;
+    --color-bg-tertiary: var(--color-gray-100);
     --color-bg-brand-primary: var(--color-brand-50);
     --color-bg-error-secondary: var(--color-error-100);
     --color-bg-warning-primary: var(--color-warning-50);
@@ -775,8 +774,8 @@
     --color-avatar-styles-bg-neutral: rgb(224 224 224);
     --color-button-destructive-primary-icon: var(--color-error-300);
     --color-button-destructive-primary-icon_hover: var(--color-error-200);
-    --color-button-primary-icon: #FFFFFF;
-    --color-button-primary-icon_hover: #FFFFFF;
+    --color-button-primary-icon: var(--color-brand-300);
+    --color-button-primary-icon_hover: var(--color-brand-200);
     --color-featured-icon-light-fg-brand: var(--color-brand-600);
     --color-featured-icon-light-fg-error: var(--color-error-600);
     --color-featured-icon-light-fg-gray: var(--color-gray-500);
@@ -868,7 +867,7 @@
     --border-color-tertiary: var(--color-border-tertiary);
     --border-color-disabled: var(--color-border-disabled);
     --border-color-brand: var(--color-border-brand);
-    --border-color-brand-solid: var(--color-brand-600-selected);
+    --border-color-brand-solid: var(--color-bg-brand-solid);
     --border-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
     --border-color-error: var(--color-border-error);
     --border-color-disabled_subtle: var(--color-border-disabled_subtle);
@@ -1199,8 +1198,8 @@
         --color-avatar-styles-bg-neutral: rgb(224 224 224 / 1);
         --color-button-destructive-primary-icon: var(--color-error-300);
         --color-button-destructive-primary-icon_hover: var(--color-error-200);
-        --color-button-primary-icon: #FFFFFF;
-        --color-button-primary-icon_hover: #FFFFFF;
+        --color-button-primary-icon: var(--color-brand-300);
+        --color-button-primary-icon_hover: var(--color-brand-200);
         --color-featured-icon-light-fg-brand: var(--color-brand-200);
         --color-featured-icon-light-fg-error: var(--color-error-200);
         --color-featured-icon-light-fg-gray: var(--color-gray-200);
@@ -1294,7 +1293,7 @@
         --border-color-tertiary: var(--color-border-tertiary);
         --border-color-disabled: var(--color-border-disabled);
         --border-color-brand: var(--color-border-brand);
-        --border-color-brand-solid: var(--color-brand-600-selected);
+        --border-color-brand-solid: var(--color-bg-brand-solid);
         --border-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
         --border-color-error: var(--color-border-error);
         --border-color-disabled_subtle: var(--color-border-disabled_subtle);
