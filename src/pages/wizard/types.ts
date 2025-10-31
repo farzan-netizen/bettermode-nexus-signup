@@ -12,6 +12,7 @@ export interface WizardFormData {
   logo: File | null
   primaryColor: string
   isManualBranding: boolean
+  previewTheme: 'light' | 'dark'
 
   // Step 4: Initial spaces selection
   selectedSpaces: string[]

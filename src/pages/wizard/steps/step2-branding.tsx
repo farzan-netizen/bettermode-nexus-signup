@@ -19,16 +19,16 @@ interface Step2BrandingProps {
 }
 
 const PRESET_COLORS = [
-  '#6366f1', // Indigo
-  '#8b5cf6', // Violet
-  '#ec4899', // Pink
-  '#ef4444', // Red
-  '#f97316', // Orange
-  '#eab308', // Yellow
-  '#22c55e', // Green
-  '#06b6d4', // Cyan
-  '#3b82f6', // Blue
-  '#6b7280', // Gray
+  '#000000',
+  '#8077F2',
+  '#1290E0',
+  '#6A85FF',
+  '#EE5F99',
+  '#B661E0',
+  '#F44E3F',
+  '#E16B16',
+  '#119D9F',
+  '#AB8D80',
 ]
 
 export const Step2Branding = ({
@@ -614,11 +614,87 @@ export const Step2Branding = ({
             </div>
           </div>
 
-          {/* Brand Colors Card */}
-          <div className="bg-primary border border-secondary rounded-lg p-4">
-            <h3 className="text-sm font-medium text-primary mb-3">
-              Brand colors
-            </h3>
+          {/* Right Column: Theme + Colors */}
+          <div className="space-y-4">
+            {/* Theme Selection */}
+            <div className="bg-primary border border-secondary rounded-lg p-4">
+              <h3 className="text-sm font-medium text-primary mb-3">
+                Preview theme
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {/* Light Theme Option */}
+                <button
+                  onClick={() => onInputChange('previewTheme')('light')}
+                  className="group relative rounded-lg transition-all hover:scale-[1.02]"
+                >
+                  {/* Light Theme Preview Image */}
+                  <div className="rounded-lg overflow-hidden">
+                    <img
+                      src="/theme-light-preview.png"
+                      alt="Light theme preview"
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  {/* Selected Indicator */}
+                  {formData.previewTheme === 'light' && (
+                    <div className="absolute top-2 right-2 w-5 h-5 bg-black rounded-full flex items-center justify-center shadow-lg">
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        stroke="#FFFFFF"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+
+                {/* Dark Theme Option */}
+                <button
+                  onClick={() => onInputChange('previewTheme')('dark')}
+                  className="group relative rounded-lg transition-all hover:scale-[1.02]"
+                >
+                  {/* Dark Theme Preview Image */}
+                  <div className="rounded-lg overflow-hidden">
+                    <img
+                      src="/theme-dark-preview.png"
+                      alt="Dark theme preview"
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  {/* Selected Indicator */}
+                  {formData.previewTheme === 'dark' && (
+                    <div className="absolute top-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-lg">
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        stroke="#000000"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Brand Colors Card */}
+            <div className="bg-primary border border-secondary rounded-lg p-4">
+              <h3 className="text-sm font-medium text-primary mb-3">
+                Brand colors
+              </h3>
 
             {/* Suggested Colors */}
             {suggestedColors.length > 0 &&
@@ -678,7 +754,7 @@ export const Step2Branding = ({
                       onChange={e =>
                         onInputChange('primaryColor')(e.target.value)
                       }
-                      className="w-10 h-10 rounded-lg border border-secondary cursor-pointer"
+                      className="w-10 h-10 rounded-lg border border-secondary cursor-pointer p-0 overflow-hidden"
                     />
                     <input
                       type="text"
@@ -692,6 +768,7 @@ export const Step2Branding = ({
                   </div>
                 </div>
               )}
+            </div>
           </div>
         </div>
 
