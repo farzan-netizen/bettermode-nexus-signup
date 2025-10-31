@@ -116,20 +116,17 @@ export const SignupEnterpriseStep = () => {
                   key={feature.id}
                   onClick={onItemClick(feature.id)}
                   className={cx(
-                    'p-3 sm:p-4 h-20 sm:h-24 rounded-lg border text-left transition-all hover:shadow-sm flex flex-col justify-center',
+                    'p-3 sm:p-4 rounded-lg border text-left transition-all hover:shadow-sm',
                     selectedEnterpriseFeatures.includes(feature.id)
                       ? 'border-brand-solid bg-brand-primary/50 shadow-sm'
                       : 'border-secondary hover:border-primary',
                   )}
                 >
                   <div className="flex items-start gap-3">
-                    <feature.icon className="w-4 h-4 text-brand-secondary mt-0.5 flex-shrink-0" />
+                    <feature.icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#0AC06C' }} />
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-primary text-xs sm:text-sm mb-1 truncate">
                         {feature.name}
-                      </div>
-                      <div className="text-xs text-tertiary line-clamp-2">
-                        {feature.description}
                       </div>
                     </div>
                   </div>
