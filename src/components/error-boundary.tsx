@@ -1,35 +1,35 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react'
 
 interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
+  children: ReactNode
+  fallback?: ReactNode
 }
 
 interface State {
-  hasError: boolean;
-  error?: Error;
-  errorInfo?: ErrorInfo;
+  hasError: boolean
+  error?: Error
+  errorInfo?: ErrorInfo
 }
 
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false };
+    super(props)
+    this.state = { hasError: false }
   }
 
   static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    this.setState({ error, errorInfo });
+    console.error('ErrorBoundary caught an error:', error, errorInfo)
+    this.setState({ error, errorInfo })
   }
 
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback;
+        return this.props.fallback
       }
 
       return (
@@ -39,13 +39,17 @@ export class ErrorBoundary extends Component<Props, State> {
               Something went wrong
             </h2>
             <div className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-              <p><strong>Error:</strong></p>
+              <p>
+                <strong>Error:</strong>
+              </p>
               <pre className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-xs overflow-auto">
                 {this.state.error?.toString()}
               </pre>
               {this.state.errorInfo && (
                 <>
-                  <p><strong>Component Stack:</strong></p>
+                  <p>
+                    <strong>Component Stack:</strong>
+                  </p>
                   <pre className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-xs overflow-auto max-h-32">
                     {this.state.errorInfo.componentStack}
                   </pre>
@@ -53,16 +57,22 @@ export class ErrorBoundary extends Component<Props, State> {
               )}
             </div>
             <button
-              onClick={() => this.setState({ hasError: false, error: undefined, errorInfo: undefined })}
+              onClick={() =>
+                this.setState({
+                  hasError: false,
+                  error: undefined,
+                  errorInfo: undefined,
+                })
+              }
               className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
             >
               Try Again
             </button>
           </div>
         </div>
-      );
+      )
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }
